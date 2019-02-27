@@ -40,13 +40,12 @@ class ObjectBytClass:
     """ Main class for Saving object 31 arguments"""
     def __init__(self,title,type,description,celkova_cena,poznamka_k_cene,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi,
                  umisteni_objektu,podlazi,uzitna_plocha,terasa,sklep,parkovani,datum_nastegovani,rok_kolaudace,
-                 rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina,doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vebaveni,vytah,kontakt,link):
+                 rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina,doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_add):
         """Constructor"""
         self.title = title
         self.type = type
         self.description = description
         self.celkova_cena = celkova_cena
-        self.poznamka_k_cene = poznamka_k_cene
         self.poznamka_k_cene = poznamka_k_cene
         self.naklady = naklady
         self.id_ext = id_ext
@@ -72,11 +71,11 @@ class ObjectBytClass:
         self.komunikace = komunikace
         self.energ_narocnost_budovy = energ_narocnost_budovy
         self.bezbarierovy = bezbarierovy
-        self.vebaveni = vebaveni
+        self.vybaveni = vybaveni
         self.vytah = vytah
         self.kontakt = kontakt
         self.link = link
-        pass
+        self.date_add = date_add
     def dbinsertbyty(self):
         try:
             connection = mysql.connector.connect(**connection_config_dict)
@@ -87,7 +86,7 @@ class ObjectBytClass:
                 mycursor.execute('SHOW DATABASES')
                 for x in mycursor:
                     print(x)
-                is_exist =
+                #is_exist =
         except Error as e:
             print("Error while connecting to MySQL", e)
         finally:
