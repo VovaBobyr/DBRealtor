@@ -40,7 +40,7 @@ class ObjectBytClass:
     """ Main class for Saving object 31 arguments"""
     def __init__(self,title,type,description,celkova_cena,poznamka_k_cene,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi,
                  umisteni_objektu,podlazi,uzitna_plocha,terasa,sklep,parkovani,datum_nastegovani,rok_kolaudace,
-                 rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina,doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vebaveni,vytah,kontakt):
+                 rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina,doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vebaveni,vytah,kontakt,link):
         """Constructor"""
         self.title = title
         self.type = type
@@ -75,6 +75,7 @@ class ObjectBytClass:
         self.vebaveni = vebaveni
         self.vytah = vytah
         self.kontakt = kontakt
+        self.link = link
         pass
     def dbinsertbyty(self):
         try:
@@ -82,6 +83,11 @@ class ObjectBytClass:
             if connection.is_connected():
                 db_Info = connection.get_server_info()
                 print("Succesfully Connected to MySQL database. MySQL Server version on ", db_Info)
+                mycursor = connection.cursor()
+                mycursor.execute('SHOW DATABASES')
+                for x in mycursor:
+                    print(x)
+                is_exist =
         except Error as e:
             print("Error while connecting to MySQL", e)
         finally:
@@ -155,7 +161,7 @@ def find_details_in_advert(link, page_no):
 
     # Title
     elems = driver.find_element_by_class_name('property-title')
-    objectbyt = ObjectBytClass(elems.text.replace('\n',''),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','')
+    objectbyt = ObjectBytClass(elems.text.replace('\n',''),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','')
 
     # Description
     elems = driver.find_element_by_class_name('description')
@@ -220,12 +226,16 @@ def find_details_in_advert(link, page_no):
     # Energetická náročnost budovy:
     insert_text = find_value('Energetická náročnost budovy: ',all_text)
     objectbyt.energ_narocnost_budovy = insert_text
-
     # Kontakt
     elems = driver.find_element_by_class_name('contacts')
     insert_text = elems.text.split('\n')
     objectbyt.kontakt = insert_text[0] + insert_text[4] + insert_text[5]
+    # Link
+    objectbyt.link = link
+
+    # Insert object to DB
     objectbyt.dbinsertbyty()
+
 
     #property_title = driver.find_element_by_xpath("//div[@class='property-title']")
     #print(property_title)

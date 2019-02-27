@@ -40,7 +40,7 @@
 	<link rel="alternate" type="application/rss+xml" ng-href="{{ rss.url }}" ng-if="rss.url">
 	<link ng-repeat="lang in metaSeo.languages" rel="alternate" hreflang="{{lang.code}}" ng-href="{{lang.url}}">
 
-	<link rel="stylesheet" href="/css/all.css?e1a2fb0">
+	<link rel="stylesheet" href="/css/all.css?fb468c4">
 
 	<!-- Begin Inspectlet Embed Code -->
 	<script type="text/javascript" id="inspectletjs">
@@ -114,6 +114,9 @@
 	<!-- Rozkopírování SID cookie -->
 	<script src="https://h.imedia.cz/js/sid.js"></script>
 
+	<!-- Seznam player-->
+	<script src="//d53-a.sdn.szn.cz/d_53/10/loader.min.js"></script>
+
 	<!-- Login -->
 	<script src="https://login.szn.cz/js/api/login.js"></script>
 	<script>
@@ -123,10 +126,10 @@
 	</script>
 
 	<!-- KONFIGURACE -->
-	<script src="/js/conf/config.js?e1a2fb0"></script>
+	<script src="/js/conf/config.js?fb468c4"></script>
 
 	<script src="/js/advert.js"></script>
-	<script src="/js/all.js?e1a2fb0"></script>
+	<script src="/js/all.js?fb468c4"></script>
 
 	<script type="text/javascript">
 		if (window.DOT) {
