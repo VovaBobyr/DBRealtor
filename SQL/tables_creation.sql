@@ -1,7 +1,7 @@
 CREATE TABLE `byty` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(400) DEFAULT NULL,
-  `type` varchar(45) DEFAULT NULL,
+  `typ_bytu` varchar(45) DEFAULT NULL,
   `celkova_cena` varchar(200) DEFAULT NULL,
   `poznamka_k_cene` varchar(150) DEFAULT NULL,
   `cena` int(11) DEFAULT NULL,
@@ -25,16 +25,17 @@ CREATE TABLE `byty` (
   `elektrina` varchar(20) DEFAULT NULL,
   `doprava` varchar(100) DEFAULT NULL,
   `komunikace` varchar(45) DEFAULT NULL,
-  `energ_narocnost_budovy` varchar(45) DEFAULT NULL,
+  `energ_narocnost_budovy` varchar(150) DEFAULT NULL,
   `bezbarierovy` varchar(10) DEFAULT NULL,
   `vybaveni` varchar(45) DEFAULT NULL,
   `vytah` varchar(10) DEFAULT NULL,
   `kontakt` varchar(200) DEFAULT NULL,
-  `description` varchar(1000) DEFAULT NULL,
+  `description` varchar(2500) DEFAULT NULL,
   `link` varchar(500) DEFAULT NULL,
-  `date_add` date DEFAULT NULL,
+  `date_add` datetime DEFAULT NULL,
   `umisteni_objektu` varchar(45) DEFAULT NULL,
   `parkovani` varchar(5) DEFAULT NULL,
+  `puvodni_cena` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idbyty_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table for appartments';
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table for appartments';

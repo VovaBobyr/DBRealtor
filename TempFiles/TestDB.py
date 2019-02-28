@@ -13,14 +13,14 @@ def take_pass():
 class ObjectBytClass:
     """ Main class for Saving object 31 arguments"""
 
-    def __init__(self, title, type, description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
+    def __init__(self, title, typ_bytu, description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
                  stav_objectu, vlastnictvi, podlazi,
-                 umisteni_objektu, uzitna_plocha, terasa, sklep, parkovani, datum_nastegovani, rok_kolaudace,
+                 uzitna_plocha, terasa, sklep, datum_nastegovani, rok_kolaudace,
                  rok_reconstrukce, voda, topeni, odpad, telekomunikace, elektrina, doprava, komunikace,
-                 energ_narocnost_budovy, bezbarierovy, vybaveni, vytah, kontakt, link, date_add):
+                 energ_narocnost_budovy, bezbarierovy, vybaveni, vytah, kontakt, link, date_add,umisteni_objektu,parkovani):
         """Constructor"""
         self.title = title
-        self.type = type
+        self.typ_bytu = typ_bytu
         self.description = description
         self.celkova_cena = celkova_cena
         self.poznamka_k_cene = poznamka_k_cene
@@ -77,6 +77,12 @@ def check_ad_exist(obj_number, connection):
     else:
         return True
 
+def values(objlist):
+    longstr = ""
+    for str in objlist:
+        longstr = longstr + "'" + str +"'" + ","
+    return longstr[0:len(longstr)-1]
+
 def dbinsertbyty(objlist):
     #try:
     connection = mysql.connector.connect(**connection_config_dict)
@@ -99,12 +105,12 @@ def dbinsertbyty(objlist):
             return func_result
         else:
             # 34
-            query = "INSERT INTO byty(title,type,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi," \
+            query = "INSERT INTO dbrealtor.byty(title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi," \
                     "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
                     "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_add,umisteni_objektu,parkovani)" \
-                    " VALUES(%s)"
+                    " VALUES(" + values(objlist) + ")"
             cursor = connection.cursor()
-            cursor.executemany(query, objlist)
+            cursor.execute(query)
             connection.commit()
             print('Inserted object_number: ', obj_number)
 
@@ -113,12 +119,12 @@ def dbinsertbyty(objlist):
     #finally:
     if (connection.is_connected()):
         connection.close()
-datetime = datetime.datetime.now()
-datetime_str = str(datetime)
-objectbyt = ObjectBytClass('1', '2', '3', '4', '5', 6, '7', '8', '9', '10',
+
+datetime = datetime.datetime.now().strftime("%Y%m%d")
+objectbyt = ObjectBytClass('1', '2', '3', '4', '5', 0, '7', '8', '9', '10',
                            '11', '12', '13', '14', '15', '16','17', '18', '19', '20',
                            '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
-                           '31','32',datetime_str, '34', '35')
+                           '31','32',datetime, '34', '35')
 objlist = list(objectbyt.__dict__.values())
 
 dbinsertbyty(objlist)

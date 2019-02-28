@@ -1,12 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-#from bs4 import BeautifulSoup
-#import time
 import os
 import codecs
 import mysql.connector
 from mysql.connector import Error
-from mysql.connector import errorcode
+import datetime
+import re
+import time
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
@@ -38,27 +38,28 @@ connection_config_dict = {
 
 class ObjectBytClass:
     """ Main class for Saving object 31 arguments"""
-    def __init__(self,title,type,description,celkova_cena,poznamka_k_cene,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi,
-                 umisteni_objektu,podlazi,uzitna_plocha,terasa,sklep,parkovani,datum_nastegovani,rok_kolaudace,
-                 rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina,doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_add):
+    def __init__(self, title, typ_bytu, description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
+                 stav_objectu, vlastnictvi, podlazi,
+                 uzitna_plocha, terasa, sklep, datum_nastegovani, rok_kolaudace,
+                 rok_reconstrukce, voda, topeni, odpad, telekomunikace, elektrina, doprava, komunikace,
+                 energ_narocnost_budovy, bezbarierovy, vybaveni, vytah, kontakt, link, date_add,umisteni_objektu,parkovani,puvodni_cena,connection):
         """Constructor"""
         self.title = title
-        self.type = type
+        self.typ_bytu = typ_bytu
         self.description = description
         self.celkova_cena = celkova_cena
         self.poznamka_k_cene = poznamka_k_cene
+        self.cena = cena
         self.naklady = naklady
         self.id_ext = id_ext
         self.aktualizace = aktualizace
         self.stavba = stavba
         self.stav_objectu = stav_objectu
-        self.vlastnictvi= vlastnictvi
+        self.vlastnictvi = vlastnictvi
         self.podlazi = podlazi
-        self.umisteni_objektu = umisteni_objektu
         self.uzitna_plocha = uzitna_plocha
         self.terasa = terasa
         self.sklep = sklep
-        self.parkovani = parkovani
         self.datum_nastegovani = datum_nastegovani
         self.rok_kolaudace = rok_kolaudace
         self.rok_reconstrukce = rok_reconstrukce
@@ -76,22 +77,81 @@ class ObjectBytClass:
         self.kontakt = kontakt
         self.link = link
         self.date_add = date_add
+        self.umisteni_objektu = umisteni_objektu
+        self.parkovani = parkovani
+        self.puvodni_cena = puvodni_cena
+        self.connection = connection
+
+    def check_ad_exist(self,obj_number):
+        mycursor = self.connection.cursor()
+        # query = """SELECT id_ext FROM byty WHERE link like '%%s%'""" % (obj_number)
+        sql = """SELECT id_ext FROM byty WHERE link like '%%%s%%'""" % (obj_number)
+        mycursor.execute(sql)
+        row_count = len(mycursor.fetchall())
+        if row_count == 0:
+            return False
+        else:
+            return True
+        mycursor.close()
+
+    def values(self,objlist):
+        longstr = ""
+        for str in objlist:
+            longstr = longstr + "'" + str + "'" + ","
+        return longstr[0:len(longstr) - 1]
+
+    def find_cena(self,celcova_cena):
+        price_list = re.findall(r'\d+', celcova_cena)
+        price_str = ''
+        for i in price_list:
+            price_str = price_str + i
+        #price_int = int(price_str)
+        return price_str
+
     def dbinsertbyty(self):
         try:
-            connection = mysql.connector.connect(**connection_config_dict)
-            if connection.is_connected():
-                db_Info = connection.get_server_info()
-                print("Succesfully Connected to MySQL database. MySQL Server version on ", db_Info)
-                mycursor = connection.cursor()
-                mycursor.execute('SHOW DATABASES')
-                for x in mycursor:
-                    print(x)
-                #is_exist =
+            #connection = mysql.connector.connect(**connection_config_dict)
+            if self.connection.is_connected():
+                #db_Info = self.connection.get_server_info()
+                #print("Succesfully Connected to MySQL database. MySQL Server version on ", db_Info)
+
+                # Define object_id (latest numbers in link) - check where exist # after number link is
+                # example: https://www.sreality.cz/detail/prodej/byt/2+kk/praha-cast-obce-kosire-ulice-plzenska/1409134172
+                exist_ending_in_link = link.rfind('#')
+                if exist_ending_in_link != -1:
+                    ending = exist_ending_in_link
+                else:
+                    ending = len(self.link)
+                obj_number = self.link[self.link.rfind('/') + 1:ending]
+                is_exist = self.check_ad_exist(obj_number)
+                if is_exist:
+                    func_result = 'SKIPPED'
+                    print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
+                    return func_result
+                else:
+                    # Manual update of some fields
+                    # Date - today
+                    mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    self.date_add = mydatetime
+                    # Cena - based on Celkova cena
+                    # Check is_cena_digit?
+                    self.cena = self.find_cena(self.celkova_cena)
+                    # 35
+                    objlist = list(self.__dict__.values())
+                    objlist.pop()
+                    query = "INSERT INTO dbrealtor.byty(title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi," \
+                            "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
+                            "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_add,umisteni_objektu,parkovani,puvodni_cena)" \
+                            " VALUES(" + self.values(objlist) + ")"
+                    cursor = self.connection.cursor()
+                    cursor.execute(query)
+                    self.connection.commit()
+                    print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Inserted object_number: ', obj_number)
         except Error as e:
-            print("Error while connecting to MySQL", e)
+            print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + "  Error while connecting to MySQL", e)
         finally:
-            if (connection.is_connected()):
-                connection.close()
+            if (self.connection.is_connected()):
+                self.connection.close()
 
 def save_page(page_name):
     # Part for saving HTML to file
@@ -117,7 +177,8 @@ def define_pages_count(link, type):
             count_str = str[pos1+32:pos2]
             count_str = count_str.replace(" ", "")
             count = int(count_str)
-            print('Found advertise count: ' + count_str)
+
+            print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Found advertise count: ' + count_str)
             break
     return count
     #content = driver.find_elements_by_class_name('.numero.ng-binding')
@@ -160,7 +221,8 @@ def find_details_in_advert(link, page_no):
 
     # Title
     elems = driver.find_element_by_class_name('property-title')
-    objectbyt = ObjectBytClass(elems.text.replace('\n',''),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','')
+    connection = mysql.connector.connect(**connection_config_dict)
+    objectbyt = ObjectBytClass(elems.text.replace('\n',''),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
 
     # Description
     elems = driver.find_element_by_class_name('description')
@@ -171,12 +233,17 @@ def find_details_in_advert(link, page_no):
     # Processing Params with all details
     all_text = elems.text.split('\n')
 
-    # Celcova cena
+    # Celcova cena - if it doesn't exist - find "Zlevněno" and have has to be "Původní cena:"
+    insert_text = ''
     insert_text = find_value('Celková cena: ',all_text)
+    if insert_text == '':
+        insert_text = find_value('cena: ', all_text)
+        insert_text = find_value('Zlevněno: ', all_text)
     objectbyt.celkova_cena = insert_text
     # Poznámka k ceně
     insert_text = find_value('Poznámka k ceně: ',all_text)
     objectbyt.poznamka_k_cene = insert_text
+    # Cena - define from Celcova cana into Object
     # ID zakázky:
     insert_text = find_value('ID zakázky: ',all_text)
     objectbyt.id_ext = insert_text
@@ -228,7 +295,15 @@ def find_details_in_advert(link, page_no):
     # Kontakt
     elems = driver.find_element_by_class_name('contacts')
     insert_text = elems.text.split('\n')
-    objectbyt.kontakt = insert_text[0] + insert_text[4] + insert_text[5]
+    try:
+        objectbyt.kontakt = insert_text[0]
+        objectbyt.kontakt = insert_text[4]
+        objectbyt.kontakt = insert_text[5]
+    except Error as e:
+        pass
+    # Zlevneno - if it exist
+    insert_text = find_value('Původní cena: ',all_text)
+    objectbyt.puvodni_cena = insert_text
     # Link
     objectbyt.link = link
 
@@ -246,10 +321,9 @@ def find_details_in_advert(link, page_no):
     #            prev_link = elem.get_attribute("href")
 
 # Define count of all pages based on adds_on_page
-#adcount = define_pages_count('https://www.sreality.cz/hledani/prodej/byty', 'byty')
-#pagescount = int(adcount/adds_on_page) + 1
-#print('Pages count: ' + str(pagescount))
-pagescount = 100
+adcount = define_pages_count('https://www.sreality.cz/hledani/prodej/byty', 'byty')
+pagescount = int(adcount/adds_on_page) + 1
+print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Pages count: ' + str(pagescount))
 # Main part - go inside to Advertise of each object
 counter = 1
 while counter <= pagescount:
@@ -260,7 +334,8 @@ while counter <= pagescount:
     for advert in advlist:
         i = i + 1
         find_details_in_advert(advert, i)
-
+        time.sleep(3)
+        pass
 
 driver.close()
 
