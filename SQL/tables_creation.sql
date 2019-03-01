@@ -30,12 +30,14 @@ CREATE TABLE `byty` (
   `vybaveni` varchar(45) DEFAULT NULL,
   `vytah` varchar(10) DEFAULT NULL,
   `kontakt` varchar(200) DEFAULT NULL,
-  `description` varchar(2500) DEFAULT NULL,
+  `description` varchar(4000) DEFAULT NULL,
   `link` varchar(500) DEFAULT NULL,
   `date_add` datetime DEFAULT NULL,
   `umisteni_objektu` varchar(45) DEFAULT NULL,
   `parkovani` varchar(5) DEFAULT NULL,
   `puvodni_cena` varchar(200) DEFAULT NULL,
+  `region` varchar(200) DEFAULT NULL,
+  `subregion` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idbyty_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table for appartments';
+) ENGINE=InnoDB AUTO_INCREMENT=727 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table for appartments';

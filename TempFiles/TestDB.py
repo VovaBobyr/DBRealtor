@@ -72,6 +72,7 @@ def check_ad_exist(obj_number, connection):
     sql = """SELECT id_ext FROM byty WHERE link like '%%%s%%'""" % (obj_number)
     mycursor.execute(sql)
     row_count = len(mycursor.fetchall())
+    mycursor.close()
     if row_count == 0:
         return False
     else:

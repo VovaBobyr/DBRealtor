@@ -12,7 +12,7 @@ connection_config_dict = {
     'host': '127.0.0.1',
     'database': 'dbrealtor',
     'user': 'root',
-    'password': 'mysql#root_Fragout_12345'
+    'password': ''
 }
 
 def quotes(str):
