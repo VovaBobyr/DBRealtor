@@ -8,6 +8,15 @@ import datetime
 import re
 import time
 
+# Pre-requisites:
+# Python:
+# mysql-connector-python
+# MySQL:
+# SET NAMES UTF8MB4
+# Connector:
+# https://stackoverflow.com/questions/50557234/authentication-plugin-caching-sha2-password-is-not-supported
+# auth_plugin='mysql_native_password'
+
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(
@@ -31,10 +40,11 @@ connection_config_dict = {
     'host': '127.0.0.1',
     'database': 'dbrealtor',
     'raise_on_warnings': True,
-    'use_pure': False,
+    'use_pure': True,
     'autocommit': True,
     'pool_size': 5
 }
+
 
 class ObjectBytClass:
     """ Main class for Saving object 31 arguments"""
@@ -84,17 +94,17 @@ class ObjectBytClass:
         self.subregion = subregion
         self.connection = connection
 
-    def check_ad_exist(self,obj_number):
-        mycursor = self.connection.cursor()
+    def check_ad_exist(self,obj_number,connection):
+        mycursor_check = self.connection.cursor()
         # query = """SELECT id_ext FROM byty WHERE link like '%%s%'""" % (obj_number)
         sql = """SELECT id_ext FROM byty WHERE link like '%%%s%%'""" % (obj_number)
-        mycursor.execute(sql)
-        row_count = len(mycursor.fetchall())
+        mycursor_check.execute(sql)
+        row_count = len(mycursor_check.fetchall())
+        mycursor_check.close()
         if row_count == 0:
             return False
         else:
             return True
-        mycursor.close()
 
     def values(self,objlist):
         longstr = ""
@@ -118,9 +128,6 @@ class ObjectBytClass:
         try:
             #connection = mysql.connector.connect(**connection_config_dict)
             if self.connection.is_connected():
-                #db_Info = self.connection.get_server_info()
-                #print("Succesfully Connected to MySQL database. MySQL Server version on ", db_Info)
-
                 # Define object_id (latest numbers in link) - check where exist # after number link is
                 # example: https://www.sreality.cz/detail/prodej/byt/2+kk/praha-cast-obce-kosire-ulice-plzenska/1409134172
                 exist_ending_in_link = link.rfind('#')
@@ -128,36 +135,37 @@ class ObjectBytClass:
                     ending = exist_ending_in_link
                 else:
                     ending = len(self.link)
-                obj_number = self.link[self.link.rfind('/') + 1:ending]
-                is_exist = self.check_ad_exist(obj_number)
-                if is_exist:
-                    func_result = 'SKIPPED'
-                    print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
-                    return func_result
-                else:
-                    # Manual update of some fields
-                    # Date - today
-                    mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    self.date_add = mydatetime
-                    # Cena - based on Celkova cena
-                    # Check is_cena_digit?
-                    self.cena = self.find_cena(self.celkova_cena)
-                    # 35
-                    objlist = list(self.__dict__.values())
-                    objlist.pop()
-                    query = "INSERT INTO dbrealtor.byty(title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi," \
-                            "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
-                            "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_add,umisteni_objektu,parkovani,puvodni_cena,region,subregion)" \
-                            " VALUES(" + self.values(objlist) + ")"
-                    cursor = self.connection.cursor()
-                    cursor.execute(query)
-                    self.connection.commit()
-                    print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Inserted object_number: ', obj_number)
+                # obj_number = self.link[self.link.rfind('/') + 1:ending]
+                # is_exist = self.check_ad_exist(obj_number)
+                # if is_exist:
+                # func_result = 'SKIPPED'
+                #    print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
+                #    return func_result
+                # else:
+                # Manual update of some fields
+                # Date - today
+                mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                self.date_add = mydatetime
+                # Cena - based on Celkova cena
+                # Check is_cena_digit?
+                self.cena = self.find_cena(self.celkova_cena)
+                # 35
+                objlist = list(self.__dict__.values())
+                objlist.pop()
+                query = "INSERT INTO dbrealtor.byty(title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi," \
+                        "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
+                        "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_add,umisteni_objektu,parkovani,puvodni_cena,region,subregion)" \
+                        " VALUES(" + self.values(objlist) + ")"
+                cursor = self.connection.cursor()
+                cursor.execute(query)
+                self.connection.commit()
+                print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Inserted object_number: ', obj_number)
+                cursor.close()
         except Error as e:
             print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + "  Error while connecting to MySQL", e)
-        finally:
-            if (self.connection.is_connected()):
-                self.connection.close()
+        #finally:
+        #    if (self.connection.is_connected()):
+        #        self.connection.close()
 
 def save_page(page_name):
     # Part for saving HTML to file
@@ -167,6 +175,19 @@ def save_page(page_name):
     html = driver.page_source
     file_object.write(html)
     file_object.close()
+
+def check_ad_exist(obj_number,connection):
+    mycursor = connection.cursor()
+    # query = """SELECT id_ext FROM byty WHERE link like '%%s%'""" % (obj_number)
+    sql = """SELECT id_ext FROM byty WHERE link like '%%%s%%'""" % (obj_number)
+    mycursor.execute(sql)
+    row_count = len(mycursor.fetchall())
+    if row_count == 0:
+        return False
+    else:
+        return True
+    #mycursor.close()
+
 
 # Fuction to find how many pages are in NEXTs
 def define_pages_count(link, type):
@@ -222,10 +243,14 @@ def find_value(search_string, where):
     return  return_text
 
 # Big part to find details in HTML
-def find_details_in_advert(link, page_no):
-    driver.get(link)
-    save_page(str(page_no) + '.html')
-
+def find_details_in_advert(link, page_no, connection):
+    is_exist = check_ad_exist(obj_number, connection)
+    if is_exist:
+        print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
+        return 'SKIPPED'
+    else:
+        driver.get(link)
+        save_page(str(page_no) + '.html')
     # Title
     try:
         elems = driver.find_element_by_class_name('property-title')
@@ -236,10 +261,10 @@ def find_details_in_advert(link, page_no):
             driver.get(link)
             elems = driver.find_element_by_class_name('property-title')
         except:
-            print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + ' 2nd reconnect failed for: ' + link + 'STOPPING')
+            print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + ' 2nd reconnect failed for: ' + link + ' - STOPPING')
             return
-    finally:
-        connection = mysql.connector.connect(**connection_config_dict)
+    #finally:
+    #    connection = mysql.connector.connect(**connection_config_dict)
     #38
     objectbyt = ObjectBytClass(elems.text.replace('\n',''),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
 
@@ -359,6 +384,8 @@ pagescount = int(adcount/adds_on_page) + 1
 print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Pages count: ' + str(pagescount))
 # Main part - go inside to Advertise of each object
 counter = 0
+# Open Connection and cursor
+connection = mysql.connector.connect(**connection_config_dict)
 while counter <= pagescount:
     link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
     advlist = find_all_advert_links(link)
@@ -367,8 +394,9 @@ while counter <= pagescount:
     print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Page number: ' + str(counter))
     for advert in advlist:
         i = i + 1
-        find_details_in_advert(advert, i)
+        # Check whether this object already added
+        obj_number = advert[advert.rfind('/') + 1:len(advert)]
+        find_details_in_advert(advert, i, connection)
         time.sleep(3)
-        pass
-
+connection.close()
 driver.close()
