@@ -1,1 +1,5 @@
 https://dev.mysql.com/downloads/file/?id=480091 - JDBC driver for connecting to mySQL for example from SQL Developer Ora tool
+
+https://stackoverflow.com/questions/14058453/making-python-loggers-output-all-messages-to-stdout-in-addition-to-log-file
+
+https://web.archive.org/web/20100629172923/http://uswaretech.com/blog/2009/02/automatically-backup-mysql-database-to-amazon-s3-using-django-python-script/
