@@ -26,6 +26,7 @@ save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
 #print(driver.find_element_by_id('content').text)
 # Count of Advertises on page
 adds_on_page = 20
+delay = 3
 
 
 def take_pass():
@@ -191,9 +192,12 @@ def check_ad_exist(obj_number,connection):
 
 # Fuction to find how many pages are in NEXTs
 def define_pages_count(link, type):
-    driver.get(link)
+    try:
+        driver.get(link)
+    except:
+        print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Reconnecting to: ' + link)
+        driver.get(link)
     file_name = type + '.html'
-
     save_page(file_name)
     file_name = save_path + file_name
     find_string = 'nalezených'
@@ -201,13 +205,14 @@ def define_pages_count(link, type):
         if find_string in str:
             pos1 = str.rfind('<span class="numero ng-binding">')
             pos2 = str.rfind('</span>')
-            count_str = str[pos1+32:pos2]
+            count_str = str[pos1 + 32:pos2]
             count_str = count_str.replace(" ", "")
             count_str = count_str.replace(" ", "")
             count = int(count_str)
 
             print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Found advertise count: ' + count_str)
             break
+
     return count
     #content = driver.find_elements_by_class_name('.numero.ng-binding')
     #print(content)
@@ -218,16 +223,30 @@ def find_all_advert_links(link):
     prev_link = ''
     links_list = []
     # Searching Links
-    driver.get(link)
-    elems = driver.find_elements_by_xpath("//a[@href]")
-    for elem in elems:
-        if 'detail/prodej' in elem.get_attribute("href"):
-            if elem.get_attribute("href") != prev_link:
-                #print(elem.get_attribute("href"))
-                links_list.append(elem.get_attribute("href"))
-                prev_link = elem.get_attribute("href")
-    return links_list
-    # print(link.text)
+    try:
+        driver.get(link)
+        elems = driver.find_elements_by_xpath("//a[@href]")
+        for elem in elems:
+            if 'detail/prodej' in elem.get_attribute("href"):
+                if elem.get_attribute("href") != prev_link:
+                    # print(elem.get_attribute("href"))
+                    links_list.append(elem.get_attribute("href"))
+                    prev_link = elem.get_attribute("href")
+        return links_list
+    except:
+        try:
+            print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Reconnect to for Find_All_Details: ' + link)
+            driver.get(link)
+            elems = driver.find_elements_by_xpath("//a[@href]")
+            for elem in elems:
+                if 'detail/prodej' in elem.get_attribute("href"):
+                    if elem.get_attribute("href") != prev_link:
+                        # print(elem.get_attribute("href"))
+                        links_list.append(elem.get_attribute("href"))
+                        prev_link = elem.get_attribute("href")
+            return links_list
+        except:
+            print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  BAD connection for Find_All_Details: ' + link)
 
 # Function for analysing string -
 def string_analyzer_byt(str, objectbyt):
@@ -247,6 +266,7 @@ def find_details_in_advert(link, page_no, connection):
     is_exist = check_ad_exist(obj_number, connection)
     if is_exist:
         print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
+        delay=0
         return 'SKIPPED'
     else:
         driver.get(link)
@@ -396,7 +416,11 @@ while counter <= pagescount:
         i = i + 1
         # Check whether this object already added
         obj_number = advert[advert.rfind('/') + 1:len(advert)]
-        find_details_in_advert(advert, i, connection)
-        time.sleep(3)
+        is_skipped = find_details_in_advert(advert, i, connection)
+        if is_skipped == 'SKIPPED':
+            delay = 0
+        else:
+            delay = 3
+        time.sleep(delay)
 connection.close()
 driver.close()
