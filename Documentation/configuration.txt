@@ -3,3 +3,42 @@ https://dev.mysql.com/downloads/file/?id=480091 - JDBC driver for connecting to 
 https://stackoverflow.com/questions/14058453/making-python-loggers-output-all-messages-to-stdout-in-addition-to-log-file
 
 https://web.archive.org/web/20100629172923/http://uswaretech.com/blog/2009/02/automatically-backup-mysql-database-to-amazon-s3-using-django-python-script/
+
+Backup:
+mysqldump -u root -p dbrealtor --default-character-set=utf8mb4 --result-file=C:\Tmp\DBBackup\dbrealtor-20190306.sql
+
+Restore form backup DB:
+mysql -u root -p < C:\Learning\Python\DBRealtor\SQL\dbrealtor-20190305_add_column.sql
+
+Usefull tools:
+HeidiSQL tool for management MySQL
+ConEmu - for cmd and Putty
+
+Logic fo SRealitySceanner:
+TBC
+
+Plan on 2019-03-05
+1. Related to history:
+- Adding columns:
+Date_Open - date when object added to DB
+Date_Update - this column will be updated in next days where script is running in case 'SKIPP'
+Date_Close - will be updated on the end of script for these rows where Date_Update is earler than script start.
+Active - field with values:
+    O - just opened
+    U - updated - means that object already at least 2nd day
+    C - closed
+History statistic than can be calculated by following way:
+- TargetDay between Date_Open and Date_Close
+
+2. Create column 'object_id' -> and realize correct inserting
++ updated old rows
+
+
+2. Update to reflect:
++ Date_Open - date when object added to DB
+Date_Update - this column will be updated in next days where script is running in case 'SKIPP'
+Date_Close - will be updated on the end of script for these rows where Date_Update is earler than script start.
+
+
+
+DONE
