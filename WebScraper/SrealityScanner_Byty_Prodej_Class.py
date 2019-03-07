@@ -8,7 +8,7 @@ import datetime
 import re
 #import time
 
-class ObjectBytClass:
+class ObjectBytyProdejClass:
     """ Main class for Saving object 36 arguments"""
     def __init__(self, title, typ_bytu, description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
                  stav_objectu, vlastnictvi, podlazi,
@@ -60,7 +60,7 @@ class ObjectBytClass:
     def check_ad_exist(self,obj_number,connection):
         mycursor_check = self.connection.cursor()
         # query = """SELECT id_ext FROM byty WHERE link like '%%s%'""" % (obj_number)
-        sql = """SELECT id_ext FROM byty WHERE link like '%%%s%%'""" % (obj_number)
+        sql = """SELECT id_ext FROM dbrealtor.byty_prodej WHERE link like '%%%s%%'""" % (obj_number)
         mycursor_check.execute(sql)
         row_count = len(mycursor_check.fetchall())
         mycursor_check.close()
@@ -99,17 +99,17 @@ class ObjectBytClass:
                 # 35
                 objlist = list(self.__dict__.values())
                 objlist.pop()
-                query = "INSERT INTO dbrealtor.byty(title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi," \
+                query = "INSERT INTO dbrealtor.byty_prodej(title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objectu,vlastnictvi," \
                         "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
                         "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_open,umisteni_objektu,parkovani,puvodni_cena,region,obj_number,subregion)" \
                         " VALUES(" + self.values(objlist) + ")"
                 cursor = self.connection.cursor()
                 cursor.execute(query)
                 self.connection.commit()
-                print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Inserted object_number: ', self.obj_number)
+                print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Inserted object_number: ', self.obj_number)
                 cursor.close()
         except Error as e:
-            print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + "  Error while connecting to MySQL", e)
+            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "  Error while connecting to MySQL", e)
         #finally:
         #    if (self.connection.is_connected()):
         #        self.connection.close()
