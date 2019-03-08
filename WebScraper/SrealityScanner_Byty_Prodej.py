@@ -17,7 +17,7 @@ import SrealityLibrary
 # auth_plugin='mysql_native_password'
 # Types:
 # 1. byty_prodej
-# 2. byty_najm
+# 2. byty_Pronajem
 # 3.
 
 chrome_options = Options()
@@ -48,28 +48,30 @@ script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 type = 'byty_prodej'
 # Define count of all pages based on adds_on_page
 adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/prodej/byty', type, save_path, driver)
-#pagescount = int(adcount/adds_on_page) + 1
-pagescount = 1
+pagescount = int(adcount/adds_on_page) + 1
+#pagescount = 1
 print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Pages count: ' + str(pagescount))
 # Main part - go inside to Advertise of each object
-counter = 0
+counter = 1
 # Open Connection and cursor
 connection = mysql.connector.connect(**connection_config_dict)
 while counter <= pagescount:
     link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
-    advlist = SrealityLibrary.find_all_links(link, driver)
-    counter = counter + 1
+    advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
     i = 0
     print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Page number: ' + str(counter))
     for advert in advlist:
         i = i + 1
         # Check whether this object already added
-        is_skipped = SrealityLibrary.find_details_byt_prodej(advert, i, save_path, driver, connection)
+        #is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
+        is_skipped = SrealityLibrary.find_details_byt_prodej(advert, i, save_path, type, driver, connection)
         if is_skipped == 'SKIPPED':
             delay = 0
         else:
             delay = 3
         time.sleep(delay)
+    counter = counter + 1
+
 SrealityLibrary.final_update_byt_prodej(type, script_date_start, connection)
 connection.close()
 driver.close()

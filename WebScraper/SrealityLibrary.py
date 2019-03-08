@@ -5,10 +5,10 @@ import codecs
 import mysql.connector
 #from mysql.connector import Error
 import datetime
-#import re
+import re
 import time
 from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
-from SrealityScanner_Byty_Najm_Class import ObjectBytNajmClass
+from SrealityScanner_Byty_Pronajem_Class import ObjectBytPronajemClass
 
 def take_pass():
     filename = 'c:/inst/info.txt'
@@ -25,15 +25,16 @@ def save_page(page_name, save_path, driver):
     file_object.write(html)
     file_object.close()
 
-def find_all_links(link, driver):
+def find_all_links(link, type, driver):
     prev_link = ''
     links_list = []
+    search_string = 'detail/' + type
     # Searching Links
     try:
         driver.get(link)
         elems = driver.find_elements_by_xpath("//a[@href]")
         for elem in elems:
-            if 'detail/prodej' in elem.get_attribute("href"):
+            if search_string in elem.get_attribute("href"):
                 if elem.get_attribute("href") != prev_link:
                     # print(elem.get_attribute("href"))
                     links_list.append(elem.get_attribute("href"))
@@ -105,11 +106,24 @@ def check_ad_exist(obj_number, type, connection):
     else:
         # If exist - need to update column Date_Update:
         mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        query = 'update dbrealtor.byty_prodej set date_update="' + mydatetime + '", status="U", date_close=NULL where obj_number="' + obj_number + '"'
+        query = 'update dbrealtor.' + type + ' set date_update="' + mydatetime + '", status="U", date_close=NULL where obj_number="' + obj_number + '"'
         mycursor.execute(query)
         #connection.commit()
         return True
     #mycursor.close()
+
+def find_cena(celcova_cena):
+    price_list = re.findall(r'\d+', celcova_cena)
+    price_str = ''
+    for i in price_list:
+        price_str = price_str + i
+    # price_int = int(price_str)
+    try:
+        price = int(price_str)
+    except:
+        price_str = '0'
+    return price_str
+
 
 # Big part to find details in HTML
 def find_details_byt_prodej(link, page_no, save_path, type, driver, connection):
@@ -143,7 +157,7 @@ def find_details_byt_prodej(link, page_no, save_path, type, driver, connection):
     elems = driver.find_element_by_class_name('description')
     objectbyt.description = elems.text.replace('\n',' ')
 
-    # Main block with all details (not title and not kontact)
+    # Main block with all details (not title and not kontakt)
     elems = driver.find_element_by_class_name('params')
     # Processing Params with all details
     all_text = elems.text.split('\n')
@@ -159,6 +173,8 @@ def find_details_byt_prodej(link, page_no, save_path, type, driver, connection):
     insert_text = find_value('Poznámka k ceně: ',all_text)
     objectbyt.poznamka_k_cene = insert_text
     # Cena - define from Celcova cana into Object
+    # Check is_cena_digit?
+    objectbyt.cena = find_cena(objectbyt.celkova_cena)
     # ID zakázky:
     insert_text = find_value('ID zakázky: ',all_text)
     objectbyt.id_ext = insert_text
@@ -170,7 +186,7 @@ def find_details_byt_prodej(link, page_no, save_path, type, driver, connection):
     objectbyt.stavba = insert_text
     # Stav objektu:
     insert_text = find_value('Stav objektu: ',all_text)
-    objectbyt.stav_objectu = insert_text
+    objectbyt.stav_objektu = insert_text
     # Vlastnictví:
     insert_text = find_value('Vlastnictví: ',all_text)
     objectbyt.vlastnictvi = insert_text
@@ -251,7 +267,7 @@ def find_details_byt_prodej(link, page_no, save_path, type, driver, connection):
     #            links_list.append(elem.get_attribute("href"))
     #            prev_link = elem.get_attribute("href")
 
-def find_details_byt_najm(link, page_no, save_path, type, driver, connection):
+def find_details_byt_pronajem(link, page_no, save_path, type, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = check_ad_exist(obj_number, type, connection)
     if is_exist:
@@ -275,8 +291,8 @@ def find_details_byt_najm(link, page_no, save_path, type, driver, connection):
             return
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
-    #38
-    objectbyt = ObjectBytNajmClass(elems.text.replace('\n',''),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    #34
+    objectbyt = ObjectBytPronajemClass(elems.text.replace('\n',''),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
 
     # Description
     elems = driver.find_element_by_class_name('description')
@@ -297,7 +313,9 @@ def find_details_byt_najm(link, page_no, save_path, type, driver, connection):
     # Poznámka k ceně
     insert_text = find_value('Poznámka k ceně: ',all_text)
     objectbyt.poznamka_k_cene = insert_text
-    # Cena - define from Celcova cana into Object
+    # Cena - define from Celcova cena into Object
+    # Check is_cena_digit?
+    objectbyt.cena = find_cena(objectbyt.celkova_cena)
     # ID zakázky:
     insert_text = find_value('ID zakázky: ',all_text)
     objectbyt.id_ext = insert_text
@@ -309,7 +327,7 @@ def find_details_byt_najm(link, page_no, save_path, type, driver, connection):
     objectbyt.stavba = insert_text
     # Stav objektu:
     insert_text = find_value('Stav objektu: ',all_text)
-    objectbyt.stav_objectu = insert_text
+    objectbyt.stav_objektu = insert_text
     # Vlastnictví:
     insert_text = find_value('Vlastnictví: ',all_text)
     objectbyt.vlastnictvi = insert_text
@@ -325,9 +343,6 @@ def find_details_byt_najm(link, page_no, save_path, type, driver, connection):
     # Sklep:
     insert_text = find_value('Sklep: ',all_text)
     objectbyt.sklep = insert_text
-    # Parkování:
-    insert_text = find_value('Parkování: ',all_text)
-    objectbyt.parkovani = insert_text
     # Voda:
     insert_text = find_value('Voda: ',all_text)
     objectbyt.voda = insert_text
@@ -343,9 +358,6 @@ def find_details_byt_najm(link, page_no, save_path, type, driver, connection):
     # Doprava:
     insert_text = find_value('Doprava: ',all_text)
     objectbyt.doprava = insert_text
-    # Energetická náročnost budovy:
-    insert_text = find_value('Energetická náročnost budovy: ',all_text)
-    objectbyt.energ_narocnost_budovy = insert_text
     # Kontakt
     elems = driver.find_element_by_class_name('contacts')
     insert_text = elems.text.split('\n')
@@ -367,12 +379,12 @@ def find_details_byt_najm(link, page_no, save_path, type, driver, connection):
     elems = driver.find_element_by_class_name('regions-box')
     insert_text = elems.text.split('\n')
     if len(insert_text) >=2:
-        insert_text[0] = insert_text[0][insert_text[0].find('Prodej bytů')+12:len(insert_text[0])-1]
-        insert_text[1] = insert_text[1][insert_text[1].find('Prodej bytů')+12:len(insert_text[1])-1]
+        insert_text[0] = insert_text[0][insert_text[0].find('Pronájem bytů')+14:len(insert_text[0])-1]
+        insert_text[1] = insert_text[1][insert_text[1].find('Pronájem bytů')+14:len(insert_text[1])-1]
         objectbyt.region = insert_text[0]
         objectbyt.subregion = insert_text[1]
     if len(insert_text)==1:
-        insert_text[0] = insert_text[0][insert_text[0].find('Prodej bytů ')+12:len(insert_text[0])-1]
+        insert_text[0] = insert_text[0][insert_text[0].find('Pronájem bytů ')+14:len(insert_text[0])-1]
         objectbyt.region = insert_text[0]
     #insert_text = elems.text.split('\n')
     #objectbyt.region = insert_text
@@ -390,7 +402,21 @@ def find_details_byt_najm(link, page_no, save_path, type, driver, connection):
     #            links_list.append(elem.get_attribute("href"))
     #            prev_link = elem.get_attribute("href")
 
+
+# Function runs at the end of all load - need for close all other that are not actualized
 def final_update_byt_prodej(type, script_date_start, connection):
+    # Input parameter - time of Script start: that to update all rows that are old (were not found now)
+    mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where date_update < "'\
+            + script_date_start + '" OR (date_open < "' + script_date_start + '" AND date_update IS NULL)'
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
+    row_count = len(cursor.fetchall())
+    print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
+    cursor.close()
+
+def final_update_byt_pronajem(type, script_date_start, connection):
     # Input parameter - time of Script start: that to update all rows that are old (were not found now)
     mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where date_update < "'\

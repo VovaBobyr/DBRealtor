@@ -46,5 +46,7 @@ History statistic than can be calculated by following way:
 - fix sub-region in case it doesn't exist (not Praha, Brno...)
 
 5. Feature:
-- Byty_Najm
+- Byty_Pronajem
+
+6. Check ticks (on some fields are tick, not text)
 

@@ -44,8 +44,10 @@ connection_config_dict = {
     'pool_size': 5
 }
 
+script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+type = 'byty_pronajem'
 # Define count of all pages based on adds_on_page
-adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/pronajem/byty', 'byty_najm', save_path, driver)
+adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/pronajem/byty', 'byty_pronajem', save_path, driver)
 pagescount = int(adcount/adds_on_page) + 1
 print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Pages count: ' + str(pagescount))
 # Main part - go inside to Advertise of each object
@@ -54,14 +56,14 @@ counter = 1
 connection = mysql.connector.connect(**connection_config_dict)
 while counter <= pagescount:
     link = 'https://www.sreality.cz/hledani/pronajem/byty?strana=' + str(counter)
-    advlist = SrealityLibrary.find_all_links(link, driver)
+    advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
     i = 0
     print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Page number: ' + str(counter))
     for advert in advlist:
         i = i + 1
         # Check whether this object already added
         obj_number = advert[advert.rfind('/') + 1:len(advert)]
-        is_skipped = SrealityLibrary.find_details_byt_najm(advert, i, save_path, driver, connection)
+        is_skipped = SrealityLibrary.find_details_byt_pronajem(advert, i, save_path, type, driver, connection)
         if is_skipped == 'SKIPPED':
             delay = 0
         else:
@@ -69,5 +71,6 @@ while counter <= pagescount:
         time.sleep(delay)
     counter = counter + 1
 
+SrealityLibrary.final_update_byt_pronajem(type, script_date_start, connection)
 connection.close()
 driver.close()
