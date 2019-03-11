@@ -26,6 +26,7 @@ SELECT COUNT(*) FROM byty WHERE obj_number IS NULL -- 9874
 
 UPDATE byty
 SET obj_number= SUBSTRING(link, CHAR_LENGTH(link) - LOCATE('/', REVERSE(link)) + 2, CHAR_LENGTH(link))
+FROM byty LIMIT 10
 
-
- FROM byty LIMIT 10
+SELECT date_open, date_update, date_close, status status FROM byty WHERE obj_number='1271963228'
+update dbrealtor.byty set date_update="2019-03-06 16:10:08", status="U" where obj_number="2024227164"

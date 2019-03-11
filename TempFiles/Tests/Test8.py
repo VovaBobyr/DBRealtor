@@ -1,2 +1,21 @@
-str = 'Prodej bytu 1+kk 28 m² \n ulice Vavřenova, Praha 4 - část obce Braník Panorama \n2 660 000 Kč\n C\n ÚSPORNÁ'
-print(str.replace('\n',''))
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from pyvirtualdisplay import Display
+
+display = Display(visible=0, size=(800, 600))
+display.start()
+#path_to_chromedriver='C:/Inst/chromedriver.exe'
+path_to_chromedriver ='/usr/bin/chromedriver'
+options = webdriver.ChromeOptions()
+options.add_argument('--no-sandbox')
+
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+
+driver = webdriver.Chrome(
+    executable_path=path_to_chromedriver,
+    options=chrome_options)
+
+#driver = webdriver.Chrome(chrome_options=options)
+driver.get('http://nytimes.com')
+print(driver.title)
