@@ -20,11 +20,12 @@ import SrealityLibrary
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
-driver = webdriver.Chrome(
-    executable_path='C:/Inst/chromedriver.exe',
-    options=chrome_options)
+#driver = webdriver.Chrome(
+#    executable_path='C:/Inst/chromedriver.exe',
+#    options=chrome_options)
+
 save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
-#print(driver.find_element_by_id('content').text)
+
 # Count of Advertises on page
 adds_on_page = 20
 delay = 3
