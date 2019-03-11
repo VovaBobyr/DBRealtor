@@ -24,14 +24,19 @@ chrome_options.add_argument("--headless")
 #    executable_path='C:/Inst/chromedriver.exe',
 #    options=chrome_options)
 
-save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
+if os.name == 'nt':
+    save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
+    chromedriver_path = 'C:/Inst/chromedriver.exe'
+else:
+    save_path = '/opt/dbrealtor/temp/'
+    chromedriver_path = '/usr/bin/chromedriver'
 
 # Count of Advertises on page
 adds_on_page = 20
 delay = 3
 
 driver = webdriver.Chrome(
-    executable_path='C:/Inst/chromedriver.exe',
+    executable_path=chromedriver_path,
     options=chrome_options)
 
 connection_config_dict = {

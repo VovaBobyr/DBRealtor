@@ -10,6 +10,7 @@ mysqldump -u root -p dbrealtor --default-character-set=utf8mb4 --result-file=C:\
 Restore form backup DB:
 mysql -u root -p < C:\Learning\Python\DBRealtor\SQL\dbrealtor-20190305_add_column.sql
 
+
 Usefull tools:
 HeidiSQL tool for management MySQL
 ConEmu - for cmd and Putty

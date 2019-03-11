@@ -11,7 +11,10 @@ from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
 from SrealityScanner_Byty_Pronajem_Class import ObjectBytPronajemClass
 
 def take_pass():
-    filename = 'c:/inst/info.txt'
+    if os.name == 'nt':
+        filename = 'c:/inst/info.txt'
+    else:
+        filename = '/opt/dbrealtor/Backups/info.txt'
     text = open(filename, mode="r", encoding="utf-8")
     line = text.readline()
     return line
