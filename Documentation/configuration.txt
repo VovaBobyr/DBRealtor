@@ -4,8 +4,13 @@ https://stackoverflow.com/questions/14058453/making-python-loggers-output-all-me
 
 https://web.archive.org/web/20100629172923/http://uswaretech.com/blog/2009/02/automatically-backup-mysql-database-to-amazon-s3-using-django-python-script/
 
+Run:
+screen -S prodej python3 /opt/dbrealtor/WebScraper/SrealityScanner_Byty_Prodej.py
+
 Backup:
 mysqldump -u root -p dbrealtor --default-character-set=utf8mb4 --result-file=C:\Tmp\DBBackup\dbrealtor_20190312.sql
+Linux:
+mysqldump -u root -p dbrealtor --result-file=/opt/dbrealtor/Backups/dbrealtor_20190312_1.sql
 
 Restore form backup DB:
 mysql -u root -p < C:\Learning\Python\DBRealtor\SQL\dbrealtor-20190305_add_column.sql

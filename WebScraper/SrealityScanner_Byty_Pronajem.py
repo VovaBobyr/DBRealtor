@@ -225,7 +225,7 @@ while counter <= pagescount:
         #time.sleep(delay)
     counter = counter + 1
 
-SrealityLibrary.final_update_byt_pronajem(type, script_date_start, connection)
+final_update_byt_pronajem(type, script_date_start, connection)
 connection.close()
 driver.close()
 print('Closed latest Driver.')
