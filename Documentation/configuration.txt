@@ -5,11 +5,12 @@ https://stackoverflow.com/questions/14058453/making-python-loggers-output-all-me
 https://web.archive.org/web/20100629172923/http://uswaretech.com/blog/2009/02/automatically-backup-mysql-database-to-amazon-s3-using-django-python-script/
 
 Backup:
-mysqldump -u root -p dbrealtor --default-character-set=utf8mb4 --result-file=C:\Tmp\DBBackup\dbrealtor-20190306.sql
+mysqldump -u root -p dbrealtor --default-character-set=utf8mb4 --result-file=C:\Tmp\DBBackup\dbrealtor_20190312.sql
 
 Restore form backup DB:
 mysql -u root -p < C:\Learning\Python\DBRealtor\SQL\dbrealtor-20190305_add_column.sql
-
+Linux:
+mysql -u root -p < /opt/dbrealtor/Backups/dbrealtor_20190312.sql
 
 Usefull tools:
 HeidiSQL tool for management MySQL

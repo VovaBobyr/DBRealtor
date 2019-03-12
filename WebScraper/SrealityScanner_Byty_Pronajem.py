@@ -38,6 +38,7 @@ delay = 3
 driver = webdriver.Chrome(
     executable_path=chromedriver_path,
     options=chrome_options)
+print('Opened 1st Driver.')
 
 connection_config_dict = {
     'user': 'root',
@@ -80,3 +81,4 @@ while counter <= pagescount:
 SrealityLibrary.final_update_byt_pronajem(type, script_date_start, connection)
 connection.close()
 driver.close()
+print('Closed latest Driver.')

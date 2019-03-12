@@ -1,8 +1,3 @@
-#from selenium import webdriver
-#from selenium.webdriver.chrome.options import Options
-#import os
-#import codecs
-#import mysql.connector
 from mysql.connector import Error
 import datetime
 import re
@@ -74,7 +69,7 @@ class ObjectBytyProdejClass:
                 objlist.pop()
                 query = "INSERT INTO dbrealtor.byty_prodej(title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
                         "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
-                        "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_open,umisteni_objektu,parkovani,puvodni_cena,region,obj_number,subregion)" \
+                        "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_open,umisteni_objektu,parkovani,puvodni_cena,region,subregion,obj_number)" \
                         " VALUES(" + self.values(objlist) + ")"
                 cursor = self.connection.cursor()
                 cursor.execute(query)
