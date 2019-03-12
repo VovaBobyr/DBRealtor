@@ -66,7 +66,7 @@ def find_details_byt_prodej(link, type, driver, connection):
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
         print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
-        delay=0
+        #delay=0
         return 'SKIPPED'
     #else:
     #    SrealityLibrary.save_page(str(page_no) + '.html',save_path, link, chromedriver_path, chrome_options)
@@ -194,18 +194,6 @@ def find_details_byt_prodej(link, type, driver, connection):
 
     # Insert object to DB
     objectbyt.dbinsertbyty()
-    #connection.close()
-    #print('Driver CLOSED - Find all details.')
-    #driver.close()
-
-    #property_title = driver.find_element_by_xpath("//div[@class='property-title']")
-    #print(property_title)
-    #for elem in elems:
-    #    if 'detail/prodej' in elem.get_attribute("href"):
-    #        if elem.get_attribute("href") != prev_link:
-    #            print(elem.get_attribute("href"))
-    #            links_list.append(elem.get_attribute("href"))
-    #            prev_link = elem.get_attribute("href")
 
 # Function runs at the end of all load - need for close all other that are not actualized
 def final_update_byt_prodej(type, script_date_start, connection_config_dict):
