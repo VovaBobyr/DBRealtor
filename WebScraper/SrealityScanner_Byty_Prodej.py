@@ -72,7 +72,7 @@ def find_details_byt_prodej(link, type, driver, connection):
     #    SrealityLibrary.save_page(str(page_no) + '.html',save_path, link, chromedriver_path, chrome_options)
     # Title
     driver.get(link)
-    print('Driver GET - Find all details.')
+    #print('Driver GET - Find all details.')
     try:
         elems = driver.find_element_by_class_name('property-title')
     except:
@@ -237,7 +237,6 @@ while counter <= pagescount:
         #    delay = 0
         #time.sleep(delay)
     counter = counter + 1
-
 
 connection.close()
 final_update_byt_prodej(type, script_date_start, connection_config_dict)

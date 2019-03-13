@@ -42,7 +42,7 @@ def find_all_links(link, type, driver):
         #driver = webdriver.Chrome(
         #    executable_path=chromedriver_path,
         #    options=chrome_options)
-        print('Driver GET - Find all links')
+        #print('Driver GET - Find all links')
         driver.get(link)
         elems = driver.find_elements_by_xpath("//a[@href]")
         for elem in elems:
@@ -80,7 +80,7 @@ def define_pages_count(link, driver):
     #except:
     #    print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnecting to: ' + link)
     #    driver.get(link)
-    print('Driver GET - Define pages count.')
+    #print('Driver GET - Define pages count.')
     driver.get(link)
     elems = driver.find_element_by_css_selector(".info.ng-binding")
     #file_name = type + '.html'
