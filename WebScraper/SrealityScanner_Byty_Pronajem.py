@@ -1,11 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import os
-import codecs
+#import codecs
 import mysql.connector
 #from mysql.connector import Error
 import datetime
-#import re
+import sys
+import logging
 import time
 import SrealityLibrary
 from SrealityScanner_Byty_Pronajem_Class import ObjectBytPronajemClass
@@ -18,6 +19,11 @@ from SrealityScanner_Byty_Pronajem_Class import ObjectBytPronajemClass
 # Connector:
 # https://stackoverflow.com/questions/50557234/authentication-plugin-caching-sha2-password-is-not-supported
 # auth_plugin='mysql_native_password'
+
+# First imput parameter is Page from what to start load
+
+# Logging
+logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename="../Logs/SrealityScanner_Byty_Pronajem.log", level=logging.INFO)
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
@@ -39,7 +45,6 @@ delay = 3
 driver = webdriver.Chrome(
     executable_path=chromedriver_path,
     options=chrome_options)
-print('Opened 1st Driver.')
 
 connection_config_dict = {
     'user': 'root',
@@ -64,7 +69,8 @@ def find_details_byt_pronajem(link, type, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
-        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
+        #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
+        logging.info('  Object with number ' + obj_number + ' - SKIPPED')
         #delay=0
         return 'SKIPPED'
     #else:
@@ -76,11 +82,13 @@ def find_details_byt_pronajem(link, type, driver, connection):
     except:
         try:
             time.sleep(2)
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to take page: ' + link)
+            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to take page: ' + link)
+            logging.info('  Reconnect to take page: ' + link)
             driver.get(link)
             elems = driver.find_element_by_class_name('property-title')
         except:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ' 2nd reconnect failed for: ' + link + ' - STOPPING')
+            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ' 2nd reconnect failed for: ' + link + ' - STOPPING')
+            logging.error(' 2nd reconnect failed for: ' + link + ' - STOPPING')
             return
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
@@ -195,7 +203,8 @@ def final_update_byt_pronajem(type, script_date_start, connection):
     cursor.execute(query)
     connection.commit()
     row_count = len(cursor.fetchall())
-    print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
+    #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
+    logging.info('  Closed OLD objects count: ', row_count)
     cursor.close()
 
 script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -203,16 +212,23 @@ type = 'byty_pronajem'
 # Define count of all pages based on adds_on_page
 adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/pronajem/byty', driver)
 pagescount = int(adcount/adds_on_page) + 1
-print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Pages count: ' + str(pagescount))
+#print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Pages count: ' + str(pagescount))
+logging.info('  Pages count: ' + str(pagescount))
 # Main part - go inside to Advertise of each object
+
+# To have ability load only from defined page
 counter = 1
+if len(sys.argv) > 1:
+    counter = sys.argv[1]
+
 # Open Connection and cursor
 connection = mysql.connector.connect(**connection_config_dict)
 while counter <= pagescount:
     link = 'https://www.sreality.cz/hledani/pronajem/byty?strana=' + str(counter)
     advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
     i = 0
-    print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Page number: ' + str(counter))
+    #print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Page number: ' + str(counter))
+    logging.info('  Page number: ' + str(counter))
     for link in advlist:
         i = i + 1
         # Check whether this object already added
@@ -228,4 +244,3 @@ while counter <= pagescount:
 final_update_byt_pronajem(type, script_date_start, connection)
 connection.close()
 driver.close()
-print('Closed latest Driver.')

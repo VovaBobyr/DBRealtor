@@ -1,12 +1,12 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+#from selenium.webdriver.chrome.options import Options
 import os
 import codecs
-import mysql.connector
-#from mysql.connector import Error
+#import mysql.connector
+import logging
 import datetime
 import re
-import time
+#import time
 #from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
 
 
@@ -42,7 +42,6 @@ def find_all_links(link, type, driver):
         #driver = webdriver.Chrome(
         #    executable_path=chromedriver_path,
         #    options=chrome_options)
-        #print('Driver GET - Find all links')
         driver.get(link)
         elems = driver.find_elements_by_xpath("//a[@href]")
         for elem in elems:
@@ -54,7 +53,8 @@ def find_all_links(link, type, driver):
         return links_list
     except:
         try:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to for Find_All_Details: ' + link)
+            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to for Find_All_Details: ' + link)
+            logging.info('  Reconnect to for Find_All_Details: ' + link)
             driver.get(link)
             elems = driver.find_elements_by_xpath("//a[@href]")
             for elem in elems:
@@ -65,7 +65,8 @@ def find_all_links(link, type, driver):
                         prev_link = elem.get_attribute("href")
             return links_list
         except:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  BAD connection for Find_All_Details: ' + link)
+            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  BAD connection for Find_All_Details: ' + link)
+            logging.error('  BAD connection for Find_All_Details: ' + link)
     #print('Driver CLOSED - Find all links')
     #driver.close()
 
@@ -92,13 +93,13 @@ def define_pages_count(link, driver):
     pos2 = all_text.rfind('nalezených')
     count_str = all_text[pos1+9:pos2-1]
     count_str = count_str.replace(" ", "")
-    print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Found advertise count: ' + count_str)
+    #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Found advertise count: ' + count_str)
+    logging.info('  Found advertise count: ' + count_str)
     try:
         count = int(count_str)
     except:
         pass
     #driver.close()
-    #print('Driver CLOSED - Define pages count.')
     return count
 
 # Function for analysing string -
@@ -132,11 +133,30 @@ def check_ad_exist(obj_number, type, connection):
     mycursor.close()
 
 def find_cena(celcova_cena):
-    price_list = re.findall(r'\d+', celcova_cena)
-    price_str = ''
-    for i in price_list:
-        price_str = price_str + i
+    #price_list = re.findall(r'\d+', celcova_cena)
+    #price_str = ''
+    #for i in price_list:
+    #    price_str = price_str + i
     # price_int = int(price_str)
+    #try:
+    #    price = int(price_str)
+    #except:
+    #    price_str = '0'
+    #return price_str
+
+    letters = []
+    for i in celcova_cena:
+        letters.append(i)
+    price_str = ''
+    counter = 0
+    flag = True
+    for i in letters:
+        if i == '(':
+            flag = False
+        if i == ')':
+            flag = True
+        if i.isdigit() and flag:
+            price_str = price_str + i
     try:
         price = int(price_str)
     except:

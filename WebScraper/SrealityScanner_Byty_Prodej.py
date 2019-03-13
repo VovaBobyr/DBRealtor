@@ -5,6 +5,8 @@ import codecs
 import mysql.connector
 import datetime
 import time
+import sys
+import logging
 import SrealityLibrary
 from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
 
@@ -21,6 +23,11 @@ from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
 # 2. byty_Pronajem
 # 3.
 
+# First imput parameter is Page from what to start load
+
+# Logging
+logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename="../Logs/SrealityScanner_Byty_Prodej.log", level=logging.INFO)
+
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 
@@ -31,7 +38,6 @@ else:
     save_path = '/opt/dbrealtor/temp/'
     chromedriver_path = '/usr/bin/chromedriver'
 
-#print(driver.find_element_by_id('content').text)
 # Count of Advertises on page
 adds_on_page = 20
 delay = 3
@@ -39,7 +45,6 @@ delay = 3
 driver = webdriver.Chrome(
     executable_path=chromedriver_path,
     options=chrome_options)
-print('OPENED 1st Driver')
 
 connection_config_dict = {
     'user': 'root',
@@ -65,7 +70,8 @@ def find_details_byt_prodej(link, type, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
-        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
+        #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
+        logging.info('  Object with number ' + obj_number + ' - SKIPPED')
         #delay=0
         return 'SKIPPED'
     #else:
@@ -78,11 +84,13 @@ def find_details_byt_prodej(link, type, driver, connection):
     except:
         try:
             time.sleep(2)
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to take page: ' + link)
+            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to take page: ' + link)
+            logging.info('  Reconnect to take page: ' + link)
             driver.get(link)
             elems = driver.find_element_by_class_name('property-title')
         except:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ' 2nd reconnect failed for: ' + link + ' - STOPPING')
+            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ' 2nd reconnect failed for: ' + link + ' - STOPPING')
+            logging.info(' 2nd reconnect failed for: ' + link + ' - STOPPING')
             return
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
@@ -205,8 +213,9 @@ def final_update_byt_prodej(type, script_date_start, connection_config_dict):
     cursor = connection.cursor()
     cursor.execute(query)
     connection.commit()
-    row_count = len(cursor.fetchall())
-    print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
+    #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
+    logg_str = '  Closed OLD objects count: ' + str(cursor.rowcount)
+    logging.info(logg_str)
     cursor.close()
     connection.close()
 
@@ -215,17 +224,27 @@ type = 'byty_prodej'
 # Define count of all pages based on adds_on_page
 adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/prodej/byty', driver)
 pagescount = int(adcount/adds_on_page) + 1
-#pagescount = 1
-print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Pages count: ' + str(pagescount))
+logging.info('======================= NEW RUN =======================')
+logging.info('  Pages count: ' + str(pagescount))
 # Main part - go inside to Advertise of each object
+
+# To have ability load only from defined page
 counter = 1
+if len(sys.argv) > 1:
+    counter = sys.argv[1]
+    try:
+        counter = int(counter)
+    except:
+        logging.error('Wrong parameter, not INT')
+
 # Open Connection
 connection = mysql.connector.connect(**connection_config_dict)
 while counter <= pagescount:
     link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
     advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
     i = 0
-    print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Page number: ' + str(counter))
+    #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Page number: ' + str(counter))
+    logging.info('  Page number: ' + str(counter))
     for link in advlist:
         i = i + 1
         # Check whether this object already added
@@ -238,6 +257,8 @@ while counter <= pagescount:
         #time.sleep(delay)
     counter = counter + 1
 
-connection.close()
+print('FINISH print')
+logging.info('FINISHING')
 final_update_byt_prodej(type, script_date_start, connection_config_dict)
+connection.close()
 driver.close()

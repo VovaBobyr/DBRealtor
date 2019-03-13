@@ -1,12 +1,8 @@
-#from selenium import webdriver
-#from selenium.webdriver.chrome.options import Options
-#import os
-#import codecs
-#import mysql.connector
 from mysql.connector import Error
 import datetime
 import re
-#import time
+import logging
+
 
 class ObjectBytPronajemClass:
     """ Main class for Saving object 34 arguments"""
@@ -83,10 +79,12 @@ class ObjectBytPronajemClass:
                 cursor = self.connection.cursor()
                 cursor.execute(query)
                 self.connection.commit()
-                print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Inserted object_number: ', self.obj_number)
+                #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Inserted object_number: ', self.obj_number)
+                logging.info('  Inserted object_number: ', self.obj_number)
                 cursor.close()
         except Error as e:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "  Error while connecting to MySQL", e)
+            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "  Error while connecting to MySQL", e)
+            logging.error('  Error while connecting to MySQL' + e)
         #finally:
         #    if (self.connection.is_connected()):
         #        self.connection.close()
