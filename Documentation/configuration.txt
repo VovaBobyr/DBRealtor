@@ -45,10 +45,13 @@ History statistic than can be calculated by following way:
 
 4. Fix:
 + fixed all times, covert to one format: %Y-%m-%d %H:%M:%S
-- fix sub-region in case it doesn't exist (not Praha, Brno...)
++ fix sub-region in case it doesn't exist (not Praha, Brno...)
 
 5. Feature:
-- Byty_Pronajem
++ Byty_Pronajem
 
 6. Check ticks (on some fields are tick, not text)
+
+7. Fix:
+- fix reconnect on each new Page for Prodej
 
