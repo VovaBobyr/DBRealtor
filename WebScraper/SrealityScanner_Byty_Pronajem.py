@@ -69,25 +69,20 @@ def find_details_byt_pronajem(link, type, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
-        #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
         logging.info('  Object with number ' + obj_number + ' - SKIPPED')
         #delay=0
         return 'SKIPPED'
-    #else:
-    #    driver.get(link)
-    #    save_page(str(page_no) + '.html',save_path, driver)
     # Title
+    driver.get(link)
     try:
         elems = driver.find_element_by_class_name('property-title')
     except:
         try:
             time.sleep(2)
-            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to take page: ' + link)
             logging.info('  Reconnect to take page: ' + link)
             driver.get(link)
             elems = driver.find_element_by_class_name('property-title')
         except:
-            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ' 2nd reconnect failed for: ' + link + ' - STOPPING')
             logging.error(' 2nd reconnect failed for: ' + link + ' - STOPPING')
             return
     #finally:
@@ -213,6 +208,7 @@ type = 'byty_pronajem'
 adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/pronajem/byty', driver)
 pagescount = int(adcount/adds_on_page) + 1
 #print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Pages count: ' + str(pagescount))
+logging.info('======================= NEW RUN =======================')
 logging.info('  Pages count: ' + str(pagescount))
 # Main part - go inside to Advertise of each object
 
@@ -220,6 +216,10 @@ logging.info('  Pages count: ' + str(pagescount))
 counter = 1
 if len(sys.argv) > 1:
     counter = sys.argv[1]
+    try:
+        counter = int(counter)
+    except:
+        logging.error('Wrong parameter, not INT')
 
 # Open Connection and cursor
 connection = mysql.connector.connect(**connection_config_dict)

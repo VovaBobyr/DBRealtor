@@ -70,12 +70,9 @@ def find_details_byt_prodej(link, type, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
-        #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Object with number ' + obj_number + ' - SKIPPED')
         logging.info('  Object with number ' + obj_number + ' - SKIPPED')
         #delay=0
         return 'SKIPPED'
-    #else:
-    #    SrealityLibrary.save_page(str(page_no) + '.html',save_path, link, chromedriver_path, chrome_options)
     # Title
     driver.get(link)
     #print('Driver GET - Find all details.')
@@ -84,12 +81,10 @@ def find_details_byt_prodej(link, type, driver, connection):
     except:
         try:
             time.sleep(2)
-            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to take page: ' + link)
             logging.info('  Reconnect to take page: ' + link)
             driver.get(link)
             elems = driver.find_element_by_class_name('property-title')
         except:
-            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ' 2nd reconnect failed for: ' + link + ' - STOPPING')
             logging.info(' 2nd reconnect failed for: ' + link + ' - STOPPING')
             return
     #finally:

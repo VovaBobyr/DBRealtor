@@ -80,11 +80,11 @@ class ObjectBytPronajemClass:
                 cursor.execute(query)
                 self.connection.commit()
                 #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Inserted object_number: ', self.obj_number)
-                logging.info('  Inserted object_number: ', self.obj_number)
+                logging.info('  Inserted object_number: ' + self.obj_number)
                 cursor.close()
         except Error as e:
             #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "  Error while connecting to MySQL", e)
-            logging.error('  Error while connecting to MySQL' + e)
+            logging.error('  Error while connecting to MySQL: ' + e.msg)
         #finally:
         #    if (self.connection.is_connected()):
         #        self.connection.close()
