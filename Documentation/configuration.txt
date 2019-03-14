@@ -8,14 +8,15 @@ Run:
 screen -S prodej python3 /opt/dbrealtor/WebScraper/SrealityScanner_Byty_Prodej.py
 
 Backup:
-mysqldump -u root -p dbrealtor --default-character-set=utf8mb4 --result-file=C:\Tmp\DBBackup\dbrealtor_20190312.sql
+mysqldump -u root -p dbrealtor --default-character-set=utf8mb4 --result-file=C:\Tmp\DBBackup\dbrealtor_20190314_extended_columns.sql
 Linux:
-mysqldump -u root -p dbrealtor --result-file=/opt/dbrealtor/Backups/dbrealtor_20190312_1.sql
+mysqldump -u root -p dbrealtor --result-file=/opt/dbrealtor/Backups/dbrealtor_20190314.sql
 
 Restore form backup DB:
-mysql -u root -p < C:\Learning\Python\DBRealtor\SQL\dbrealtor-20190305_add_column.sql
+mysql -u root -p < C:\Learning\Python\DBRealtor\SQL\dbrealtor_20190314.sql
+mysql -u root -p < C:\Tmp\DBBackup\dbrealtor_20190314.sql
 Linux:
-mysql -u root -p < /opt/dbrealtor/Backups/dbrealtor_20190312.sql
+mysql -u root -p < /opt/dbrealtor/Backups/dbrealtor_20190314_extended_columns.sql
 
 Usefull tools:
 HeidiSQL tool for management MySQL
@@ -23,6 +24,11 @@ ConEmu - for cmd and Putty
 
 Logic fo SRealitySceanner:
 TBC
+
+Administration:
+- if script fails some chrome/chromedriver processes are not closed:
+Closing:
+pkill chrome
 
 Plan on 2019-03-05
 1. Related to history:

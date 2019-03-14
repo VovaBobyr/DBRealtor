@@ -77,9 +77,11 @@ class ObjectBytyProdejClass:
                 #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Inserted object_number: ', self.obj_number)
                 logging.info('  Inserted object_number: %s', self.obj_number)
                 cursor.close()
+                return 'Inserted'
         except Error as e:
             #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "  Error while connecting to MySQL", e)
             logging.error("  Error while connecting to MySQL" + e.msg)
+            return 'Failed'
         #finally:
         #    if (self.connection.is_connected()):
         #        self.connection.close()

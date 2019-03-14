@@ -72,7 +72,7 @@ def find_details_byt_prodej(link, type, driver, connection):
     if is_exist:
         logging.info('  Object with number ' + obj_number + ' - SKIPPED')
         #delay=0
-        return 'SKIPPED'
+        return 'Skipped'
     # Title
     driver.get(link)
     #print('Driver GET - Find all details.')
@@ -86,7 +86,7 @@ def find_details_byt_prodej(link, type, driver, connection):
             elems = driver.find_element_by_class_name('property-title')
         except:
             logging.info(' 2nd reconnect failed for: ' + link + ' - STOPPING')
-            return
+            return 'Failed'
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
     #38
@@ -196,23 +196,28 @@ def find_details_byt_prodej(link, type, driver, connection):
     #objectbyt.region = insert_text
 
     # Insert object to DB
-    objectbyt.dbinsertbyty()
+    inserted_status = objectbyt.dbinsertbyty()
+    return inserted_status
 
 # Function runs at the end of all load - need for close all other that are not actualized
 def final_update_byt_prodej(type, script_date_start, connection_config_dict):
     # Input parameter - time of Script start: that to update all rows that are old (were not found now)
-    connection = mysql.connector.connect(**connection_config_dict)
-    mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where date_update < "'\
-            + script_date_start + '" OR (date_open < "' + script_date_start + '" AND date_update IS NULL)'
-    cursor = connection.cursor()
-    cursor.execute(query)
-    connection.commit()
-    #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
-    logg_str = '  Closed OLD objects count: ' + str(cursor.rowcount)
-    logging.info(logg_str)
-    cursor.close()
-    connection.close()
+    try:
+        connection = mysql.connector.connect(**connection_config_dict)
+        mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where date_update < "' \
+                + script_date_start + '" OR (date_open < "' + script_date_start + '" AND date_update IS NULL)'
+        cursor = connection.cursor()
+        cursor.execute(query)
+        connection.commit()
+        # print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
+        logging.info('  Closed OLD objects count: ' + str(cursor.rowcount))
+        closed_counts = cursor.rowcount
+    except:
+        closed_counts = 0
+    finally:
+        cursor.close()
+    return closed_counts
 
 script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 type = 'byty_prodej'
@@ -224,36 +229,52 @@ logging.info('  Pages count: ' + str(pagescount))
 # Main part - go inside to Advertise of each object
 
 # To have ability load only from defined page
+skipped_count = 0
+failed_count = 0
+inserted_count = 0
+id_load = 0
 counter = 1
-if len(sys.argv) > 1:
-    counter = sys.argv[1]
-    try:
-        counter = int(counter)
-    except:
-        logging.error('Wrong parameter, not INT')
+try:
+    if len(sys.argv) > 1:
+        counter = sys.argv[1]
+        try:
+            counter = int(counter)
+        except:
+            logging.error('Wrong parameter, not INT')
 
-# Open Connection
-connection = mysql.connector.connect(**connection_config_dict)
-while counter <= pagescount:
-    link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
-    advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
-    i = 0
-    #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Page number: ' + str(counter))
-    logging.info('  Page number: ' + str(counter))
-    for link in advlist:
-        i = i + 1
-        # Check whether this object already added
-        #is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
-        is_skipped = find_details_byt_prodej(link, type, driver, connection)
-        #if is_skipped == 'SKIPPED':
-        #    delay = 0
-        #else:
-        #    delay = 0
-        #time.sleep(delay)
-    counter = counter + 1
+    # Open Connection
+    connection = mysql.connector.connect(**connection_config_dict)
+    id_load = SrealityLibrary.start_loading(type, connection)
+    while counter <= pagescount:
+        link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
+        advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
+        i = 0
+        # print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Page number: ' + str(counter))
+        logging.info('  Page number: ' + str(counter))
+        for link in advlist:
+            i = i + 1
+            # Check whether this object already added
+            # is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
+            status = find_details_byt_prodej(link, type, driver, connection)
+            if status == 'Skipped':
+                skipped_count = skipped_count + 1
+            if status == 'Failed':
+                failed_count = failed_count + 1
+            if status == 'Inserted':
+                inserted_count = inserted_count + 1
+            #    delay = 0
+            # else:
+            #    delay = 0
+            # time.sleep(delay)
+        counter = counter + 1
 
-print('FINISH print')
-logging.info('FINISHING')
-final_update_byt_prodej(type, script_date_start, connection_config_dict)
-connection.close()
-driver.close()
+    closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
+    summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
+    logging.info(summary_results)
+except Exception as e:
+    print(e.message, e.args)
+finally:
+    SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
+    connection.close()
+    driver.close()
+
