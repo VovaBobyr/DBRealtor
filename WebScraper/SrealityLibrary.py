@@ -135,7 +135,7 @@ def check_ad_exist(obj_number, type, connection):
 def start_loading(type, connection):
     mycursor = connection.cursor()
     mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    sql = "INSERT INTO dbrealtor.dataloadlog (type, date_start, status) VALUES('" + type + "', '" + mydatetime + "', status='Open')"
+    sql = "INSERT INTO dbrealtor.dataloadlog (type, date_start, status) VALUES('" + type + "', '" + mydatetime + "', 'Open')"
     mycursor.execute(sql)
     connection.commit()
     sql = "SELECT MAX(id) FROM dataloadlog"
@@ -149,8 +149,7 @@ def start_loading(type, connection):
 def finish_loading(id_load, items_count, pages_count, inserted_count, skipped_count, failed_count, closed_count, connection):
     mycursor = connection.cursor()
     mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    sql = "UPDATE dbrealtor.dataloadlog SET date_finish = '" + mydatetime + "', status='Closed', items_count=" + str(items_count) + ", pages_count="
-    + str(pages_count) + ", inserted_count=" + str(inserted_count) + ", skipped_count=" + str(skipped_count) + ", failed_count=" + str(failed_count) + ", closed_count=" + str(closed_count) + " where id=" + str(id_load)
+    sql = "UPDATE dbrealtor.dataloadlog SET date_finish = '" + mydatetime + "', status='Closed', items_count=" + str(items_count) + ", pages_count=" + str(pages_count) + ", inserted_count=" + str(inserted_count) + ", skipped_count=" + str(skipped_count) + ", failed_count=" + str(failed_count) + ", closed_count=" + str(closed_count) + " where id=" + str(id_load)
     mycursor.execute(sql)
     connection.commit()
     mycursor.close()
