@@ -23,20 +23,21 @@ from SrealityScanner_Byty_Pronajem_Class import ObjectBytPronajemClass
 # First imput parameter is Page from what to start load
 
 # Logging
-logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename="../Logs/SrealityScanner_Byty_Pronajem.log", level=logging.INFO)
+script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
-#driver = webdriver.Chrome(
-#    executable_path='C:/Inst/chromedriver.exe',
-#    options=chrome_options)
 
 if os.name == 'nt':
     save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
     chromedriver_path = 'C:/Inst/chromedriver.exe'
+    log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Byty_Pronajem' + script_date_start[:10] + '.log'
 else:
     save_path = '/opt/dbrealtor/temp/'
     chromedriver_path = '/usr/bin/chromedriver'
+    log_name = '/opt/dbrealtor/Logs/SrealityScanner_Byty_Pronajem' + script_date_start[:10] + '.log'
+
+logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename=log_name, level=logging.INFO)
 
 # Count of Advertises on page
 adds_on_page = 20
@@ -209,7 +210,6 @@ def final_update_byt_pronajem(type, script_date_start, connection):
         cursor.close()
     return closed_counts
 
-script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 type = 'byty_pronajem'
 # Define count of all pages based on adds_on_page
 adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/pronajem/byty', driver)
@@ -224,6 +224,7 @@ skipped_count = 0
 failed_count = 0
 inserted_count = 0
 id_load = 0
+closed_counts = 0
 counter = 1
 try:
     if len(sys.argv) > 1:
@@ -235,12 +236,13 @@ try:
 
     # Open Connection and cursor
     connection = mysql.connector.connect(**connection_config_dict)
-    id_load = SrealityLibrary.start_loading(type, connection)
+    id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
     while counter <= pagescount:
         link = 'https://www.sreality.cz/hledani/pronajem/byty?strana=' + str(counter)
         advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
+        if len(advlist) == 0:
+            continue
         i = 0
-        # print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Page number: ' + str(counter))
         logging.info('  Page number: ' + str(counter))
         for link in advlist:
             i = i + 1
@@ -264,7 +266,7 @@ try:
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
 except Exception as e:
-    print(e.message, e.args)
+    logging.error(e)
 finally:
     SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()

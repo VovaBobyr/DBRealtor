@@ -1,4 +1,9 @@
 from selenium import webdriver
+
+#from selenium.webdriver.support.ui import WebDriverWait
+#from selenium.webdriver.support import expected_conditions as EC
+#from selenium.webdriver.common.by import By
+
 #from selenium.webdriver.chrome.options import Options
 import os
 import codecs
@@ -6,7 +11,7 @@ import codecs
 import logging
 import datetime
 import re
-#import time
+import time
 #from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
 
 
@@ -55,7 +60,9 @@ def find_all_links(link, type, driver):
         try:
             #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to for Find_All_Details: ' + link)
             logging.info('  Reconnect to for Find_All_Details: ' + link)
+            #delay = 3
             driver.get(link)
+            #myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, 'IdOfMyElement')))
             elems = driver.find_elements_by_xpath("//a[@href]")
             for elem in elems:
                 if 'detail/prodej' in elem.get_attribute("href"):
@@ -66,7 +73,8 @@ def find_all_links(link, type, driver):
             return links_list
         except:
             #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  BAD connection for Find_All_Details: ' + link)
-            logging.error('  BAD connection for Find_All_Details: ' + link)
+            logging.error('  SKIPPING Page: ' + link)
+            return links_list
     #print('Driver CLOSED - Find all links')
     #driver.close()
 
@@ -132,10 +140,11 @@ def check_ad_exist(obj_number, type, connection):
         return True
     mycursor.close()
 
-def start_loading(type, connection):
+def start_loading(type, items_count, pages_count, connection):
     mycursor = connection.cursor()
     mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    sql = "INSERT INTO dbrealtor.dataloadlog (type, date_start, status) VALUES('" + type + "', '" + mydatetime + "', 'Open')"
+    #sql = "INSERT INTO dbrealtor.dataloadlog (type, date_start, status) VALUES('" + type + "', '" + mydatetime + "', 'Open', " +  items_count + ", " + pages_count + ")"
+    sql = "INSERT INTO dbrealtor.dataloadlog (type,date_start,status,items_count,pages_count) VALUES('" + str(type) + "', '" + str(mydatetime) + "', 'Open', " + str(items_count) + ", " + str(pages_count) + ")"
     mycursor.execute(sql)
     connection.commit()
     sql = "SELECT MAX(id) FROM dataloadlog"

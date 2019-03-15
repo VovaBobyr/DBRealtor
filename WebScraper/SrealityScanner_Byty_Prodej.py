@@ -26,7 +26,7 @@ from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
 # First imput parameter is Page from what to start load
 
 # Logging
-logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename="../Logs/SrealityScanner_Byty_Prodej.log", level=logging.INFO)
+script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
@@ -34,9 +34,13 @@ chrome_options.add_argument("--headless")
 if os.name == 'nt':
     save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
     chromedriver_path = 'C:/Inst/chromedriver.exe'
+    log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Byty_Prodej_' + script_date_start[:10] + '.log'
 else:
     save_path = '/opt/dbrealtor/temp/'
     chromedriver_path = '/usr/bin/chromedriver'
+    log_name = '/opt/dbrealtor/Logs/SrealityScanner_Byty_Prodej_'+ script_date_start[:10] +'.log'
+
+logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename=log_name, level=logging.INFO)
 
 # Count of Advertises on page
 adds_on_page = 20
@@ -219,7 +223,6 @@ def final_update_byt_prodej(type, script_date_start, connection_config_dict):
         cursor.close()
     return closed_counts
 
-script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 type = 'byty_prodej'
 # Define count of all pages based on adds_on_page
 adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/prodej/byty', driver)
@@ -233,6 +236,7 @@ skipped_count = 0
 failed_count = 0
 inserted_count = 0
 id_load = 0
+closed_counts = 0
 counter = 1
 try:
     if len(sys.argv) > 1:
@@ -244,35 +248,36 @@ try:
 
     # Open Connection
     connection = mysql.connector.connect(**connection_config_dict)
-    id_load = SrealityLibrary.start_loading(type, connection)
+    id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
     while counter <= pagescount:
         link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
-        advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
-        i = 0
-        # print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Page number: ' + str(counter))
-        logging.info('  Page number: ' + str(counter))
-        for link in advlist:
-            i = i + 1
-            # Check whether this object already added
-            # is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
-            status = find_details_byt_prodej(link, type, driver, connection)
-            if status == 'Skipped':
-                skipped_count = skipped_count + 1
-            if status == 'Failed':
-                failed_count = failed_count + 1
-            if status == 'Inserted':
-                inserted_count = inserted_count + 1
-            #    delay = 0
-            # else:
-            #    delay = 0
-            # time.sleep(delay)
-        counter = counter + 1
-
+        try:
+            advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
+            if len(advlist) == 0:
+                continue
+            i = 0
+            logging.info('  Page number: ' + str(counter))
+            for link in advlist:
+                i = i + 1
+                # Check whether this object already added
+                # is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
+                status = find_details_byt_prodej(link, type, driver, connection)
+                if status == 'Skipped':
+                    skipped_count = skipped_count + 1
+                if status == 'Failed':
+                    failed_count = failed_count + 1
+                if status == 'Inserted':
+                    inserted_count = inserted_count + 1
+        except Exception as e:
+            logging.info(e)
+        finally:
+            counter = counter + 1
     closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
 except Exception as e:
-    print(e.message, e.args)
+    error_msg = str(e.message) + str(e.args)
+    logging.info(error_msg)
 finally:
     SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()
