@@ -3,13 +3,13 @@ import datetime
 import logging
 #import time
 
-class ObjectBytyProdejClass:
+class ObjectDomyProdejClass:
     """ Main class for Saving object 36 arguments"""
     def __init__(self,id_load,title,typ_bytu, description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
-                 stav_objektu, vlastnictvi, podlazi,
-                 uzitna_plocha, terasa, sklep, datum_nastegovani, rok_kolaudace,
+                 stav_objektu, vlastnictvi, podlazi,pocet_bytu,plocha_domu,plocha_zastavena,
+                 uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,terasa, sklep, datum_nastegovani, rok_kolaudace,
                  rok_reconstrukce, voda, topeni, odpad, telekomunikace, elektrina, doprava, komunikace,
-                 energ_narocnost_budovy, bezbarierovy, vybaveni, vytah, kontakt, link, date_open, umisteni_objektu, parkovani, puvodni_cena, region, subregion, obj_number, connection):
+                 energ_narocnost_budovy, bezbarierovy, vybaveni, vytah,bazen,kontakt, link, date_open, umisteni_objektu, parkovani,garaz,puvodni_cena, region, subregion, obj_number, connection):
         """Constructor"""
         self.id_load = id_load
         self.title = title
@@ -25,7 +25,13 @@ class ObjectBytyProdejClass:
         self.stav_objektu = stav_objektu
         self.vlastnictvi = vlastnictvi
         self.podlazi = podlazi
+        self.pocet_bytu = pocet_bytu
+        self.plocha_domu = plocha_domu
+        self.plocha_zastavena = plocha_zastavena
         self.uzitna_plocha = uzitna_plocha
+        self.plocha_podlahova = plocha_podlahova
+        self.plocha_pozemku = plocha_pozemku
+        self.plocha_zahrady = plocha_zahrady
         self.terasa = terasa
         self.sklep = sklep
         self.datum_nastegovani = datum_nastegovani
@@ -42,11 +48,13 @@ class ObjectBytyProdejClass:
         self.bezbarierovy = bezbarierovy
         self.vybaveni = vybaveni
         self.vytah = vytah
+        self.bazen = bazen
         self.kontakt = kontakt
         self.link = link
         self.date_open = date_open
         self.umisteni_objektu = umisteni_objektu
         self.parkovani = parkovani
+        self.garaz = garaz
         self.puvodni_cena = puvodni_cena
         self.region = region
         self.subregion = subregion
@@ -59,7 +67,7 @@ class ObjectBytyProdejClass:
             longstr = longstr + "'" + str + "'" + ","
         return longstr[0:len(longstr) - 1]
 
-    def dbinsertbyty(self):
+    def dbinsertdomy(self):
         try:
             if self.connection.is_connected():
                 # Date - today
@@ -68,7 +76,7 @@ class ObjectBytyProdejClass:
                 # 35
                 objlist = list(self.__dict__.values())
                 objlist.pop()
-                query = "INSERT INTO dbrealtor.byty_prodej(id_load,title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
+                query = "INSERT INTO dbrealtor.domy_prodej(id_load,title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
                         "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
                         "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_open,umisteni_objektu,parkovani,puvodni_cena,region,subregion,obj_number)" \
                         " VALUES(" + self.values(objlist) + ")"

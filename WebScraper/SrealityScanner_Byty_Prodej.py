@@ -32,6 +32,11 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 
 if os.name == 'nt':
+    is_win = True
+else:
+    is_win = False
+
+if is_win:
     save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
     chromedriver_path = 'C:/Inst/chromedriver.exe'
     log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Byty_Prodej_' + script_date_start[:10] + '.log'
@@ -70,7 +75,7 @@ def find_value(search_string, where):
     return  return_text
 
 # Big part to find details in HTML
-def find_details_byt_prodej(link, type, driver, connection):
+def find_details_byt_prodej(link, type, id_load, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
@@ -94,8 +99,11 @@ def find_details_byt_prodej(link, type, driver, connection):
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
     #38
-    objectbyt = ObjectBytyProdejClass(elems.text.replace('\n',''),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
-
+    objectbyt = ObjectBytyProdejClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    #Title
+    objectbyt.title = elems.text.replace('\n', '')
+    # id_load
+    objectbyt.id_load = str(id_load)
     # Description
     elems = driver.find_element_by_class_name('description')
     descr_text = elems.text.replace('\n',' ')
@@ -120,6 +128,9 @@ def find_details_byt_prodej(link, type, driver, connection):
     # Cena - define from Celcova cana into Object
     # Check is_cena_digit?
     objectbyt.cena = SrealityLibrary.find_cena(objectbyt.celkova_cena)
+    # ID zakázky:
+    insert_text = find_value('Náklady na bydlení: ',all_text)
+    objectbyt.naklady = insert_text
     # ID zakázky:
     insert_text = find_value('ID zakázky: ',all_text)
     objectbyt.id_ext = insert_text
@@ -209,8 +220,8 @@ def final_update_byt_prodej(type, script_date_start, connection_config_dict):
     try:
         connection = mysql.connector.connect(**connection_config_dict)
         mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where date_update < "' \
-                + script_date_start + '" OR (date_open < "' + script_date_start + '" AND date_update IS NULL)'
+        query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where (date_update < "' \
+                + script_date_start + '" AND STATUS !="C") OR (date_open < "' + script_date_start + '" AND date_update IS NULL AND STATUS !="C")'
         cursor = connection.cursor()
         cursor.execute(query)
         connection.commit()
@@ -253,7 +264,13 @@ try:
         link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
         try:
             advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
-            if len(advlist) == 0:
+            try:
+                if len(advlist) == 0:
+                    delay(3)
+                    SrealityLibrary.pkill(is_win)
+                    continue
+            except:
+                logging.info('  Skipping: ' + str(link))
                 continue
             i = 0
             logging.info('  Page number: ' + str(counter))
@@ -261,7 +278,7 @@ try:
                 i = i + 1
                 # Check whether this object already added
                 # is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
-                status = find_details_byt_prodej(link, type, driver, connection)
+                status = find_details_byt_prodej(link, type, id_load, driver, connection)
                 if status == 'Skipped':
                     skipped_count = skipped_count + 1
                 if status == 'Failed':
@@ -282,4 +299,3 @@ finally:
     SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()
     driver.close()
-

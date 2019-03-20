@@ -5,13 +5,14 @@ from selenium import webdriver
 #from selenium.webdriver.common.by import By
 
 #from selenium.webdriver.chrome.options import Options
+#import mysql.connector
+#import re
+#import time
 import os
 import codecs
-#import mysql.connector
 import logging
 import datetime
-import re
-import time
+from subprocess import call
 #from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
 
 
@@ -44,9 +45,6 @@ def find_all_links(link, type, driver):
     search_string = 'detail/' + type
     # Searching Links
     try:
-        #driver = webdriver.Chrome(
-        #    executable_path=chromedriver_path,
-        #    options=chrome_options)
         driver.get(link)
         elems = driver.find_elements_by_xpath("//a[@href]")
         for elem in elems:
@@ -58,7 +56,6 @@ def find_all_links(link, type, driver):
         return links_list
     except:
         try:
-            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnect to for Find_All_Details: ' + link)
             logging.info('  Reconnect to for Find_All_Details: ' + link)
             #delay = 3
             driver.get(link)
@@ -72,24 +69,12 @@ def find_all_links(link, type, driver):
                         prev_link = elem.get_attribute("href")
             return links_list
         except:
-            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  BAD connection for Find_All_Details: ' + link)
             logging.error('  SKIPPING Page: ' + link)
-            return links_list
-    #print('Driver CLOSED - Find all links')
-    #driver.close()
+            return
+
 
 # Fuction to find how many pages are in NEXTs
 def define_pages_count(link, driver):
-    #try:
-    #    driver = webdriver.Chrome(
-    #        executable_path=chromedriver_path,
-    #        options=chrome_options)
-    #    driver.get(link)
-    #    print('OPENED driver for Define page count, link: ' + link)
-    #except:
-    #    print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Reconnecting to: ' + link)
-    #    driver.get(link)
-    #print('Driver GET - Define pages count.')
     driver.get(link)
     elems = driver.find_element_by_css_selector(".info.ng-binding")
     #file_name = type + '.html'
@@ -101,16 +86,14 @@ def define_pages_count(link, driver):
     pos2 = all_text.rfind('nalezených')
     count_str = all_text[pos1+9:pos2-1]
     count_str = count_str.replace(" ", "")
-    #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Found advertise count: ' + count_str)
     logging.info('  Found advertise count: ' + count_str)
     try:
         count = int(count_str)
     except:
         pass
-    #driver.close()
     return count
 
-# Function for analysing string -
+# Function for analysing string
 def string_analyzer_byt(str, objectbyt):
     """Analysing string to define to what property to insert"""
     return objectbyt
@@ -194,4 +177,8 @@ def find_cena(celcova_cena):
         price_str = '0'
     return price_str
 
-
+def pkill(is_win):
+    if is_win:
+        call('Taskkill /IM chromedriver.exe /F')
+    else:
+        call('pkill chrome')

@@ -10,11 +10,11 @@ screen -S prodej python3 /opt/dbrealtor/WebScraper/SrealityScanner_Byty_Prodej.p
 Backup:
 mysqldump -u root -p dbrealtor --default-character-set=utf8mb4 --result-file=C:\Tmp\DBBackup\dbrealtor_20190314_extended_columns.sql
 Linux:
-mysqldump -u root -p dbrealtor --result-file=/opt/dbrealtor/Backups/dbrealtor_20190314.sql
+e
 
 Restore form backup DB:
 mysql -u root -p < C:\Learning\Python\DBRealtor\SQL\dbrealtor_20190314.sql
-mysql -u root -p < C:\Tmp\DBBackup\dbrealtor_20190314.sql
+mysql -u root -p < C:\Tmp\DBBackup\dbrealtor_20190320.sql
 Linux:
 mysql -u root -p < /opt/dbrealtor/Backups/dbrealtor_20190314_extended_columns.sql
 
@@ -32,7 +32,7 @@ pkill chrome
 
 Plan on 2019-03-05
 1. Related to history:
-- Adding columns:
++ Adding columns:
 Date_Open - date when object added to DB
 Date_Update - this column will be updated in next days where script is running in case 'SKIPP'
 Date_Close - will be updated on the end of script for these rows where Date_Update is earler than script start.
@@ -65,4 +65,12 @@ History statistic than can be calculated by following way:
 
 7. Fix:
 - fix reconnect on each new Page for Prodej
+
+8.
++ Add dataloadlogid for each loading
++ Fix closing - to close only not-closed items!
+
+9. Domy:
+- Prodej
+- Pronajem
 
