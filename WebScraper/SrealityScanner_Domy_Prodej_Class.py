@@ -5,15 +5,14 @@ import logging
 
 class ObjectDomyProdejClass:
     """ Main class for Saving object 36 arguments"""
-    def __init__(self,id_load,title,typ_bytu, description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
+    def __init__(self,id_load,title,description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
                  stav_objektu, vlastnictvi, podlazi,pocet_bytu,plocha_domu,plocha_zastavena,
-                 uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,terasa, sklep, datum_nastegovani, rok_kolaudace,
+                 uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,typ_domu,terasa, sklep, datum_nastegovani, rok_kolaudace,
                  rok_reconstrukce, voda, topeni, odpad, telekomunikace, elektrina, doprava, komunikace,
-                 energ_narocnost_budovy, bezbarierovy, vybaveni, vytah,bazen,kontakt, link, date_open, umisteni_objektu, parkovani,garaz,puvodni_cena, region, subregion, obj_number, connection):
+                 energ_narocnost_budovy, bezbarierovy, vybaveni,bazen,kontakt, link, date_open, umisteni_objektu, parkovani,garaz,puvodni_cena, region, subregion, obj_number, connection):
         """Constructor"""
         self.id_load = id_load
         self.title = title
-        self.typ_bytu = typ_bytu
         self.description = description
         self.celkova_cena = celkova_cena
         self.poznamka_k_cene = poznamka_k_cene
@@ -32,6 +31,7 @@ class ObjectDomyProdejClass:
         self.plocha_podlahova = plocha_podlahova
         self.plocha_pozemku = plocha_pozemku
         self.plocha_zahrady = plocha_zahrady
+        self.typ_domu = typ_domu
         self.terasa = terasa
         self.sklep = sklep
         self.datum_nastegovani = datum_nastegovani
@@ -47,7 +47,6 @@ class ObjectDomyProdejClass:
         self.energ_narocnost_budovy = energ_narocnost_budovy
         self.bezbarierovy = bezbarierovy
         self.vybaveni = vybaveni
-        self.vytah = vytah
         self.bazen = bazen
         self.kontakt = kontakt
         self.link = link
@@ -60,7 +59,6 @@ class ObjectDomyProdejClass:
         self.subregion = subregion
         self.obj_number = obj_number
         self.connection = connection
-
     def values(self,objlist):
         longstr = ""
         for str in objlist:
@@ -76,9 +74,9 @@ class ObjectDomyProdejClass:
                 # 35
                 objlist = list(self.__dict__.values())
                 objlist.pop()
-                query = "INSERT INTO dbrealtor.domy_prodej(id_load,title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
-                        "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
-                        "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_open,umisteni_objektu,parkovani,puvodni_cena,region,subregion,obj_number)" \
+                query = "INSERT INTO dbrealtor.domy_prodej(id_load,title,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
+                        "podlazi,pocet_bytu,plocha_domu,plocha_zastavena,uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,typ_domu,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
+                        "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,bazen,kontakt,link,date_open,umisteni_objektu,parkovani,garaz,puvodni_cena,region,subregion,obj_number)" \
                         " VALUES(" + self.values(objlist) + ")"
                 cursor = self.connection.cursor()
                 cursor.execute(query)

@@ -62,7 +62,7 @@ def find_value(search_string, where):
     return  return_text
 
 # Big part to find details in HTML
-def find_details_byt_prodej(link, type, id_load, driver, connection):
+def find_details_dom_prodej(link, type, id_load, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
@@ -86,138 +86,176 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
     #38
-    objectbyt = ObjectDomyProdejClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    objectdom = ObjectDomyProdejClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
     #Title
-    objectbyt.title = elems.text.replace('\n', '')
+    objectdom.title = elems.text.replace('\n', '')
     # id_load
-    objectbyt.id_load = str(id_load)
+    objectdom.id_load = str(id_load)
     # Description
     elems = driver.find_element_by_class_name('description')
     descr_text = elems.text.replace('\n',' ')
     descr_text = descr_text.replace("'","")
-    objectbyt.description = descr_text
+    objectdom.description = descr_text
 
     # Main block with all details (not title and not kontakt)
     elems = driver.find_element_by_class_name('params')
     # Processing Params with all details
     all_text = elems.text.split('\n')
-
     # Celcova cena - if it doesn't exist - find "Zlevněno" and have has to be "Původní cena:"
     insert_text = ''
     insert_text = find_value('Celková cena: ',all_text)
     if insert_text == '':
         insert_text = find_value('cena: ', all_text)
         insert_text = find_value('Zlevněno: ', all_text)
-    objectbyt.celkova_cena = insert_text
+    objectdom.celkova_cena = insert_text
     # Poznámka k ceně
     insert_text = find_value('Poznámka k ceně: ',all_text)
-    objectbyt.poznamka_k_cene = insert_text
+    objectdom.poznamka_k_cene = insert_text
     # Cena - define from Celcova cana into Object
     # Check is_cena_digit?
-    objectbyt.cena = SrealityLibrary.find_cena(objectbyt.celkova_cena)
+    objectdom.cena = SrealityLibrary.find_cena(objectdom.celkova_cena)
     # Náklady na bydlení::
     insert_text = find_value('Náklady na bydlení: ',all_text)
-    objectbyt.naklady = insert_text
+    objectdom.naklady = insert_text
     # ID zakázky:
     insert_text = find_value('ID zakázky: ',all_text)
-    objectbyt.id_ext = insert_text
+    objectdom.id_ext = insert_text
     # Aktualizace:
     insert_text = find_value('Aktualizace: ',all_text)
-    objectbyt.aktualizace = insert_text
+    objectdom.aktualizace = insert_text
     # Stavba:
     insert_text = find_value('Stavba: ',all_text)
-    objectbyt.stavba = insert_text
+    objectdom.stavba = insert_text
     # Stav objektu:
     insert_text = find_value('Stav objektu: ',all_text)
-    objectbyt.stav_objektu = insert_text
+    objectdom.stav_objektu = insert_text
     # Vlastnictví:
     insert_text = find_value('Vlastnictví: ',all_text)
-    objectbyt.vlastnictvi = insert_text
+    objectdom.vlastnictvi = insert_text
     # Umístění objektu:
     insert_text = find_value('Umístění objektu: ',all_text)
-    objectbyt.umisteni_objektu = insert_text
+    objectdom.umisteni_objektu = insert_text
     # Typ domu:
     insert_text = find_value('Typ domu: ',all_text)
-    objectbyt.umisteni_objektu = insert_text
+    objectdom.typ_domu = insert_text
     # Podlaží:
     insert_text = find_value('Podlaží: ',all_text)
-    objectbyt.podlazi = insert_text
-    # Podlaží:
+    objectdom.podlazi = insert_text
+    # Počet bytu:
     insert_text = find_value('Počet bytu: ',all_text)
-    objectbyt.pocet_bytu = insert_text
+    objectdom.pocet_bytu = insert_text
     # Užitná plocha:
     insert_text = find_value('Užitná plocha: ',all_text)
-    objectbyt.uzitna_plocha = insert_text
+    objectdom.uzitna_plocha = insert_text
     # Plocha podlahová:
     insert_text = find_value('Plocha podlahová: ',all_text)
-    objectbyt.uzitna_plocha = insert_text
-    # Poloha domu::
-    insert_text = find_value('Poloha domu:: ',all_text)
-    objectbyt.plocha_domu = insert_text
-    # Užitná plocha:
-    insert_text = find_value('Užitná plocha: ',all_text)
-    objectbyt.uzitna_plocha = insert_text
+    objectdom.plocha_podlahova = insert_text
+    # Poloha domu:
+    insert_text = find_value('Poloha domu: ',all_text)
+    objectdom.plocha_domu = insert_text
+    # Plocha zastavěná:
+    insert_text = find_value('Plocha zastavěná: ',all_text)
+    objectdom.plocha_zastavena = insert_text
+    # Plocha pozemku:
+    insert_text = find_value('Plocha pozemku: ',all_text)
+    objectdom.plocha_pozemku = insert_text
+    # Plocha zahrady:
+    insert_text = find_value('Plocha zahrady: ',all_text)
+    objectdom.plocha_zahrady = insert_text
+    # Plocha zahrady:
+    insert_text = find_value('Plocha zahrady: ',all_text)
+    objectdom.plocha_zahrady = insert_text
+    # Terasa:
+    insert_text = find_value('Terasa: ',all_text)
+    objectdom.terasa = insert_text
     # Sklep:
     insert_text = find_value('Sklep: ',all_text)
-    objectbyt.sklep = insert_text
+    objectdom.sklep = insert_text
+    # Datum_nastegovani:
+    insert_text = find_value('Datum nastegovani: ',all_text)
+    objectdom.datum_nastegovani = insert_text
+    # Rok kolaudace:
+    insert_text = find_value('Rok kolaudace: ',all_text)
+    objectdom.rok_kolaudace = insert_text
+    # Rok_reconstrukce:
+    insert_text = find_value('Rok reconstrukce: ',all_text)
+    objectdom.rok_reconstrukce = insert_text
     # Parkování:
     insert_text = find_value('Parkování: ',all_text)
-    objectbyt.parkovani = insert_text
+    objectdom.parkovani = insert_text
+    # Garaz:
+    insert_text = find_value('Garaz: ',all_text)
+    objectdom.garaz = insert_text
     # Voda:
     insert_text = find_value('Voda: ',all_text)
-    objectbyt.voda = insert_text
+    objectdom.voda = insert_text
+    # Topeni:
+    insert_text = find_value('Topeni: ',all_text)
+    objectdom.topeni = insert_text
     # Odpad:
     insert_text = find_value('Odpad: ',all_text)
-    objectbyt.odpad = insert_text
+    objectdom.odpad = insert_text
     # Telekomunikace:
     insert_text = find_value('Telekomunikace: ',all_text)
-    objectbyt.telekomunikace = insert_text
+    objectdom.telekomunikace = insert_text
+    # Komunikace:
+    insert_text = find_value('Komunikace: ',all_text)
+    objectdom.komunikace = insert_text
     # Elektřina:
     insert_text = find_value('Elektřina: ',all_text)
-    objectbyt.elektrina = insert_text
+    objectdom.elektrina = insert_text
     # Doprava:
     insert_text = find_value('Doprava: ',all_text)
-    objectbyt.doprava = insert_text
+    objectdom.doprava = insert_text
+    # Bezbarierovy:
+    insert_text = find_value('Bezbarierovy: ',all_text)
+    objectdom.bezbarierovy = insert_text
+    # Vybaveni:
+    insert_text = find_value('Vybaveni: ',all_text)
+    objectdom.vybaveni = insert_text
+    # Bazen:
+    insert_text = find_value('Bazen: ',all_text)
+    objectdom.bazen = insert_text
     # Energetická náročnost budovy:
     insert_text = find_value('Energetická náročnost budovy: ',all_text)
-    objectbyt.energ_narocnost_budovy = insert_text
+    objectdom.energ_narocnost_budovy = insert_text
     # Kontakt
     elems = driver.find_element_by_class_name('contacts')
     insert_text = elems.text.split('\n')
     try:
-        objectbyt.kontakt = insert_text[0]
-        objectbyt.kontakt = insert_text[4]
-        objectbyt.kontakt = insert_text[5]
+        objectdom.kontakt = insert_text[0]
+        objectdom.kontakt = insert_text[4]
+        objectdom.kontakt = insert_text[5]
     except:
         pass
     # Zlevneno - if it exist
     insert_text = find_value('Původní cena: ',all_text)
-    objectbyt.puvodni_cena = insert_text
+    objectdom.puvodni_cena = insert_text
     # Link
-    objectbyt.link = link
+    objectdom.link = link
     # Object_Number
-    objectbyt.obj_number = link[link.rfind('/') + 1:len(link)]
+    objectdom.obj_number = link[link.rfind('/') + 1:len(link)]
     # Region and sub-region:
     # it could be that sub-region doesn't exist (exist only for Praha and Brno)
     elems = driver.find_element_by_class_name('regions-box')
     insert_text = elems.text.split('\n')
     if len(insert_text) >=2:
-        insert_text[0] = insert_text[0][insert_text[0].find('Prodej bytů')+12:len(insert_text[0])-1]
-        insert_text[1] = insert_text[1][insert_text[1].find('Prodej bytů')+12:len(insert_text[1])-1]
-        objectbyt.region = insert_text[0]
-        objectbyt.subregion = insert_text[1]
+        insert_text[0] = insert_text[0][insert_text[0].find('Prodej domů')+12:len(insert_text[0])-1]
+        insert_text[1] = insert_text[1][insert_text[1].find('Prodej domů')+12:len(insert_text[1])-1]
+        objectdom.region = insert_text[0]
+        objectdom.subregion = insert_text[1]
     if len(insert_text)==1:
-        insert_text[0] = insert_text[0][insert_text[0].find('Prodej bytů ')+12:len(insert_text[0])-1]
-        objectbyt.region = insert_text[0]
+        insert_text[0] = insert_text[0][insert_text[0].find('Prodej domů ')+12:len(insert_text[0])-1]
+        objectdom.region = insert_text[0]
     #insert_text = elems.text.split('\n')
-    #objectbyt.region = insert_text
+    #objectdom.region = insert_text
 
     # Insert object to DB
-    inserted_status = objectbyt.dbinsertDomy()
+    inserted_status = objectdom.dbinsertdomy()
     return inserted_status
 
 # Function runs at the end of all load - need for close all other that are not actualized
-def final_update_byt_prodej(type, script_date_start, connection_config_dict):
+def final_update_dom_prodej(type, script_date_start, connection_config_dict):
     # Input parameter - time of Script start: that to update all rows that are old (were not found now)
     try:
         connection = mysql.connector.connect(**connection_config_dict)
@@ -280,7 +318,7 @@ try:
                 i = i + 1
                 # Check whether this object already added
                 # is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
-                status = find_details_byt_prodej(link, type, id_load, driver, connection)
+                status = find_details_dom_prodej(link, type, id_load, driver, connection)
                 if status == 'Skipped':
                     skipped_count = skipped_count + 1
                 if status == 'Failed':
@@ -291,7 +329,7 @@ try:
             logging.info(e)
         finally:
             counter = counter + 1
-    closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
+    closed_counts = final_update_dom_prodej(type, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
 except Exception as e:

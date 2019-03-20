@@ -155,6 +155,9 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     # Užitná plocha:
     insert_text = find_value('Užitná plocha: ',all_text)
     objectbyt.uzitna_plocha = insert_text
+    # Terasa:
+    insert_text = find_value('Terasa: ',all_text)
+    objectbyt.terasa = insert_text
     # Sklep:
     insert_text = find_value('Sklep: ',all_text)
     objectbyt.sklep = insert_text

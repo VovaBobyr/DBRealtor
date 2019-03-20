@@ -45,7 +45,6 @@ CREATE TABLE `byty` (
 CREATE TABLE `domy_prodej` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`id_load` INT(11) NULL DEFAULT NULL,
-	`typ_bytu` VARCHAR(45) NULL DEFAULT NULL,
 	`link` VARCHAR(500) NULL DEFAULT NULL,
 	`date_open` DATETIME NULL DEFAULT NULL,
 	`date_update` DATETIME NULL DEFAULT NULL,
@@ -66,10 +65,10 @@ CREATE TABLE `domy_prodej` (
 	`stavba` VARCHAR(45) NULL DEFAULT NULL COMMENT 'state of object',
 	`stav_objektu` VARCHAR(45) NULL DEFAULT NULL,
 	`umisteni_objektu:` VARCHAR(100) NULL DEFAULT NULL,
-	`typ_domu:` VARCHAR(45) NULL DEFAULT NULL,
+	`typ_domu` VARCHAR(45) NULL DEFAULT NULL,
 	`vlastnictvi` VARCHAR(45) NULL DEFAULT NULL,
 	`podlazi` VARCHAR(150) NULL DEFAULT NULL,
-	`pocet_bytu:` VARCHAR(10) NULL DEFAULT NULL,
+	`pocet_bytu` VARCHAR(10) NULL DEFAULT NULL,
 	`plocha_domu` VARCHAR(45) NULL DEFAULT NULL,
 	`plocha_zastavena` VARCHAR(45) NULL DEFAULT NULL,
 	`uzitna_plocha` VARCHAR(45) NULL DEFAULT NULL,
@@ -103,6 +102,7 @@ CREATE TABLE `domy_prodej` (
 COMMENT='Table for prodej domu'
 ENGINE=InnoDB
 ;
+
 
 CREATE TABLE `domy_pronajem` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
