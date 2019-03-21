@@ -8,7 +8,7 @@ class ObjectDomyProdejClass:
     def __init__(self,id_load,title,description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
                  stav_objektu, vlastnictvi, podlazi,pocet_bytu,plocha_domu,plocha_zastavena,
                  uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,typ_domu,terasa, sklep, datum_nastegovani, rok_kolaudace,
-                 rok_reconstrukce, voda, topeni, odpad, telekomunikace, elektrina, doprava, komunikace,
+                 rok_reconstrukce, voda, plyn, topeni, odpad, telekomunikace, elektrina, doprava, komunikace,
                  energ_narocnost_budovy, bezbarierovy, vybaveni,bazen,kontakt, link, date_open, umisteni_objektu, parkovani,garaz,puvodni_cena, region, subregion, obj_number, connection):
         """Constructor"""
         self.id_load = id_load
@@ -38,6 +38,7 @@ class ObjectDomyProdejClass:
         self.rok_kolaudace = rok_kolaudace
         self.rok_reconstrukce = rok_reconstrukce
         self.voda = voda
+        self.plyn = plyn
         self.topeni = topeni
         self.odpad = odpad
         self.telekomunikace = telekomunikace
@@ -75,7 +76,7 @@ class ObjectDomyProdejClass:
                 objlist = list(self.__dict__.values())
                 objlist.pop()
                 query = "INSERT INTO dbrealtor.domy_prodej(id_load,title,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
-                        "podlazi,pocet_bytu,plocha_domu,plocha_zastavena,uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,typ_domu,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
+                        "podlazi,pocet_bytu,plocha_domu,plocha_zastavena,uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,typ_domu,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,plyn,topeni,odpad,telekomunikace,elektrina," \
                         "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,bazen,kontakt,link,date_open,umisteni_objektu,parkovani,garaz,puvodni_cena,region,subregion,obj_number)" \
                         " VALUES(" + self.values(objlist) + ")"
                 cursor = self.connection.cursor()

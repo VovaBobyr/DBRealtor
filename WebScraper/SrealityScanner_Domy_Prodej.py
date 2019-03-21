@@ -86,7 +86,7 @@ def find_details_dom_prodej(link, type, id_load, driver, connection):
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
     #38
-    objectdom = ObjectDomyProdejClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    objectdom = ObjectDomyProdejClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
     #Title
     objectdom.title = elems.text.replace('\n', '')
     # id_load
@@ -189,6 +189,9 @@ def find_details_dom_prodej(link, type, id_load, driver, connection):
     # Voda:
     insert_text = find_value('Voda: ',all_text)
     objectdom.voda = insert_text
+    # Plyn:
+    insert_text = find_value('Plyn: ',all_text)
+    objectdom.plyn = insert_text
     # Topeni:
     insert_text = find_value('Topeni: ',all_text)
     objectdom.topeni = insert_text
@@ -296,25 +299,24 @@ try:
             counter = int(counter)
         except:
             logging.error('Wrong parameter, not INT')
+        finally:
+            pass
 
     # Open Connection
     connection = mysql.connector.connect(**connection_config_dict)
     id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
     while counter <= pagescount:
         link = 'https://www.sreality.cz/hledani/prodej/domy?strana=' + str(counter)
-        try:
-            advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
+        advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
+        if len(advlist) == 0:
+            logging.info('  Skipping: ' + str(link))
+            delay(3)
+            #SrealityLibrary.pkill(is_win)
+            continue
+        i = 0
+        logging.info('  Page number: ' + str(counter))
+        for link in advlist:
             try:
-                if len(advlist) == 0:
-                    delay(3)
-                    SrealityLibrary.pkill(is_win)
-                    continue
-            except:
-                logging.info('  Skipping: ' + str(link))
-                continue
-            i = 0
-            logging.info('  Page number: ' + str(counter))
-            for link in advlist:
                 i = i + 1
                 # Check whether this object already added
                 # is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
@@ -325,17 +327,20 @@ try:
                     failed_count = failed_count + 1
                 if status == 'Inserted':
                     inserted_count = inserted_count + 1
-        except Exception as e:
-            logging.info(e)
-        finally:
-            counter = counter + 1
+            except Exception as e:
+                logging.info(e)
+            finally:
+                pass
+        counter = counter + 1
+
     closed_counts = final_update_dom_prodej(type, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
 except Exception as e:
-    error_msg = str(e.message) + str(e.args)
-    logging.info(error_msg)
+        error_msg = str(e.message) + str(e.args)
+        logging.info(error_msg)
 finally:
     SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()
     driver.close()
+

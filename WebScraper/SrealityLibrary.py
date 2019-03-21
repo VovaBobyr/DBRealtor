@@ -55,22 +55,22 @@ def find_all_links(link, type, driver):
                     prev_link = elem.get_attribute("href")
         return links_list
     except:
+        logging.info('  Reconnect to for Find_All_Details: ' + link)
+        # delay = 3
+        driver.get(link)
+        # myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, 'IdOfMyElement')))
+        elems = driver.find_elements_by_xpath("//a[@href]")
         try:
-            logging.info('  Reconnect to for Find_All_Details: ' + link)
-            #delay = 3
-            driver.get(link)
-            #myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, 'IdOfMyElement')))
-            elems = driver.find_elements_by_xpath("//a[@href]")
             for elem in elems:
                 if 'detail/prodej' in elem.get_attribute("href"):
                     if elem.get_attribute("href") != prev_link:
                         # print(elem.get_attribute("href"))
                         links_list.append(elem.get_attribute("href"))
                         prev_link = elem.get_attribute("href")
-            return links_list
         except:
-            logging.error('  SKIPPING Page: ' + link)
-            return
+            pass
+    finally:
+        return links_list
 
 
 # Fuction to find how many pages are in NEXTs
