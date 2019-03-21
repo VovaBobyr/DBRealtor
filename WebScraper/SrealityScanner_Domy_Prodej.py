@@ -308,10 +308,21 @@ try:
     while counter <= pagescount:
         link = 'https://www.sreality.cz/hledani/prodej/domy?strana=' + str(counter)
         advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
-        if len(advlist) == 0:
-            logging.info('  Skipping: ' + str(link))
-            delay(3)
-            #SrealityLibrary.pkill(is_win)
+        try:
+            if len(advlist) == 0:
+                pass
+            #else:
+            #    logging.info('  Skipping: ' + link)
+            #    delay(3)
+                # SrealityLibrary.pkill(is_win)
+            #    counter = counter + 1
+            #    continue
+                # if len(advlist) == 0:
+        except:
+            logging.info('  Skipping: ' + link)
+            time.sleep(3)
+            SrealityLibrary.pkill(is_win)
+            counter = counter + 1
             continue
         i = 0
         logging.info('  Page number: ' + str(counter))
