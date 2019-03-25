@@ -43,9 +43,9 @@ driver = webdriver.Chrome(
     options=chrome_options)
 
 connection_config_dict = {
-    'user': 'root',
+    'user': 'vlad',
     'password': SrealityLibrary.take_pass(),
-    'host': '127.0.0.1',
+    'host': '178.62.19.21',
     'database': 'dbrealtor',
     'raise_on_warnings': True,
     'use_pure': True,
@@ -86,7 +86,7 @@ def find_details_dom_pronajem(link, type, id_load, driver, connection):
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
     #38
-    objectdom = ObjectDomyPronajemClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    objectdom = ObjectDomyPronajemClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
     #Title
     objectdom.title = elems.text.replace('\n', '')
     # id_load
@@ -189,6 +189,9 @@ def find_details_dom_pronajem(link, type, id_load, driver, connection):
     # Voda:
     insert_text = find_value('Voda: ',all_text)
     objectdom.voda = insert_text
+    # Plyn:
+    insert_text = find_value('Plyn: ',all_text)
+    objectdom.plyn = insert_text
     # Topeni:
     insert_text = find_value('Topeni: ',all_text)
     objectdom.topeni = insert_text
@@ -240,12 +243,12 @@ def find_details_dom_pronajem(link, type, id_load, driver, connection):
     elems = driver.find_element_by_class_name('regions-box')
     insert_text = elems.text.split('\n')
     if len(insert_text) >=2:
-        insert_text[0] = insert_text[0][insert_text[0].find('Pronájem domů')+14:len(insert_text[0])-1]
-        insert_text[1] = insert_text[1][insert_text[1].find('Pronájem domů')+14:len(insert_text[1])-1]
+        insert_text[0] = insert_text[0][insert_text[0].find('Pronajem domů')+12:len(insert_text[0])-1]
+        insert_text[1] = insert_text[1][insert_text[1].find('Pronajem domů')+12:len(insert_text[1])-1]
         objectdom.region = insert_text[0]
         objectdom.subregion = insert_text[1]
     if len(insert_text)==1:
-        insert_text[0] = insert_text[0][insert_text[0].find('Pronájem domů ')+14:len(insert_text[0])-1]
+        insert_text[0] = insert_text[0][insert_text[0].find('Pronajem domů ')+12:len(insert_text[0])-1]
         objectdom.region = insert_text[0]
     #insert_text = elems.text.split('\n')
     #objectdom.region = insert_text
@@ -296,6 +299,8 @@ try:
             counter = int(counter)
         except:
             logging.error('Wrong parameter, not INT')
+        finally:
+            pass
 
     # Open Connection
     connection = mysql.connector.connect(**connection_config_dict)
@@ -304,15 +309,47 @@ try:
         link = 'https://www.sreality.cz/hledani/pronajem/domy?strana=' + str(counter)
         advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
         try:
-            if len(advlist) == 0:
-                delay(3)
-                SrealityLibrary.pkill(is_win)
+            advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
+            try:
+                if len(advlist) == 0:
+                    delay(3)
+                    SrealityLibrary.pkill(is_win)
+                    continue
+            except:
+                logging.info('  Skipping: ' + str(link))
                 continue
-        except:
-            logging.info('  Skipping: ' + str(link))
-            continue
+            i = 0
+            logging.info('  Page number: ' + str(counter))
+            for link in advlist:
+                i = i + 1
+                # Check whether this object already added
+                # is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
+                status = find_details_dom_pronajem(link, type, id_load, driver, connection)
+                if status == 'Skipped':
+                    skipped_count = skipped_count + 1
+                if status == 'Failed':
+                    failed_count = failed_count + 1
+                if status == 'Inserted':
+                    inserted_count = inserted_count + 1
+        except Exception as e:
+            logging.info(e)
         finally:
-            pass
+            counter = counter + 1
+        '''    if len(advlist) == 0:
+                pass
+            #else:
+            #    logging.info('  Skipping: ' + link)
+            #    delay(3)
+                # SrealityLibrary.pkill(is_win)
+            #    counter = counter + 1
+            #    continue
+                # if len(advlist) == 0:
+        except:
+            logging.info('  Skipping: ' + link)
+            time.sleep(3)
+            SrealityLibrary.pkill(is_win)
+            counter = counter + 1
+            continue
         i = 0
         logging.info('  Page number: ' + str(counter))
         for link in advlist:
@@ -332,14 +369,15 @@ try:
             finally:
                 pass
         counter = counter + 1
-
+        '''
     closed_counts = final_update_dom_pronajem(type, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
 except Exception as e:
-    error_msg = str(e.message) + str(e.args)
-    logging.info(error_msg)
+        error_msg = str(e.message) + str(e.args)
+        logging.info(error_msg)
 finally:
     SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()
     driver.close()
+

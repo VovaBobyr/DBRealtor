@@ -103,7 +103,6 @@ COMMENT='Table for prodej domu'
 ENGINE=InnoDB
 ;
 
-
 CREATE TABLE `domy_pronajem` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`id_load` INT(11) NOT NULL DEFAULT '0',

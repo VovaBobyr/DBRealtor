@@ -177,8 +177,12 @@ def find_cena(celcova_cena):
         price_str = '0'
     return price_str
 
-def pkill(is_win):
+def pkill(is_win, link):
     if is_win:
+        logging.info('  Killing chrome and chromedriver on: ' + link)
+        call('Taskkill /IM chrome.exe /F')
         call('Taskkill /IM chromedriver.exe /F')
     else:
+        logging.info('  Killing chrome and chromedriver on: ' + link)
         call('pkill chrome')
+        call('pkill chromedriver')

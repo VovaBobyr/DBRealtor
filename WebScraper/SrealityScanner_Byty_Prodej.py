@@ -269,8 +269,9 @@ try:
             advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
             try:
                 if len(advlist) == 0:
-                    delay(3)
-                    SrealityLibrary.pkill(is_win)
+                    #delay(3)
+                    SrealityLibrary.pkill(is_win, link)
+                    counter = counter + 1
                     continue
             except:
                 logging.info('  Skipping: ' + str(link))
