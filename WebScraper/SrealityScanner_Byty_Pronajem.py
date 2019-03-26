@@ -244,23 +244,33 @@ try:
     connection = mysql.connector.connect(**connection_config_dict)
     id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
     while counter <= pagescount:
-        link = 'https://www.sreality.cz/hledani/pronajem/ddddbyty?strana=' + str(counter)
+        link = 'https://www.sreality.cz/hledani/pronajem/byty?strana=' + str(counter)
         advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
         try:
             if len(advlist) == 0:
                 #delay(3)
-                driver.close()
+                try:
+                    driver.close()
+                except:
+                    pass
                 SrealityLibrary.pkill(is_win, link)
-                logging('  Counter: ' + str(counter))
-                counter = counter + 1
-                logging('  Counter: ' + str(counter))
-                logging()
+                #counter = counter + 1
                 driver = webdriver.Chrome(
                     executable_path=chromedriver_path,
                     options=chrome_options)
+                logging.info('  Advlist = 0: recreating ChromeDriver for: ' + str(link))
                 continue
         except:
-            logging.info('  Skipping: ' + str(link))
+            try:
+                driver.close()
+            except:
+                pass
+            SrealityLibrary.pkill(is_win, link)
+            #counter = counter + 1
+            driver = webdriver.Chrome(
+                executable_path=chromedriver_path,
+                options=chrome_options)
+            logging.info('  In Exception: recreating ChromeDriver for: ' + str(link))
             continue
         i = 0
         logging.info('  Page number: ' + str(counter))

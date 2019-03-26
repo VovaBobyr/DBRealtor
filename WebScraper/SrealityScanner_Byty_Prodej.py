@@ -265,34 +265,52 @@ try:
     id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
     while counter <= pagescount:
         link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
+        advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
         try:
-            advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
-            try:
-                if len(advlist) == 0:
-                    #delay(3)
-                    SrealityLibrary.pkill(is_win, link)
-                    counter = counter + 1
-                    continue
-            except:
-                logging.info('  Skipping: ' + str(link))
+            if len(advlist) == 0:
+                #delay(3)
+                try:
+                    driver.close()
+                except:
+                    pass
+                SrealityLibrary.pkill(is_win, link)
+                #counter = counter + 1
+                driver = webdriver.Chrome(
+                    executable_path=chromedriver_path,
+                    options=chrome_options)
+                logging.info('  Advlist = 0: recreating ChromeDriver for: ' + str(link))
                 continue
-            i = 0
-            logging.info('  Page number: ' + str(counter))
-            for link in advlist:
-                i = i + 1
-                # Check whether this object already added
-                # is_skipped = check_ad_exist(advert, i, save_path, driver, connection)
-                status = find_details_byt_prodej(link, type, id_load, driver, connection)
-                if status == 'Skipped':
-                    skipped_count = skipped_count + 1
-                if status == 'Failed':
-                    failed_count = failed_count + 1
-                if status == 'Inserted':
-                    inserted_count = inserted_count + 1
-        except Exception as e:
-            logging.info(e)
-        finally:
-            counter = counter + 1
+        except:
+            try:
+                driver.close()
+            except:
+                pass
+            SrealityLibrary.pkill(is_win, link)
+            #counter = counter + 1
+            driver = webdriver.Chrome(
+                executable_path=chromedriver_path,
+                options=chrome_options)
+            logging.info('  In Exception: recreating ChromeDriver for: ' + str(link))
+            continue
+        i = 0
+        logging.info('  Page number: ' + str(counter))
+        for link in advlist:
+            i = i + 1
+            # Check whether this object already added
+            obj_number = link[link.rfind('/') + 1:len(link)]
+            status = find_details_byt_prodej(link, type, id_load, driver, connection)
+            if status == 'Skipped':
+                skipped_count = skipped_count + 1
+            if status == 'Failed':
+                failed_count = failed_count + 1
+            if status == 'Inserted':
+                inserted_count = inserted_count + 1
+            # if is_skipped == 'SKIPPED':
+            #    delay = 0
+            # else:
+            #    delay = 0
+            # time.sleep(delay)
+        counter = counter + 1
     closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)

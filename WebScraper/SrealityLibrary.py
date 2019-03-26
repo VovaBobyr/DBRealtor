@@ -184,5 +184,7 @@ def pkill(is_win, link):
         call('Taskkill /IM chromedriver.exe /F')
     else:
         logging.info('  Killing chrome and chromedriver on: ' + link)
-        call('pkill chrome')
-        call('pkill chromedriver')
+        cmd = 'pkill chrome'
+        os.system(cmd)
+        cmd = 'pkill chromedriver'
+        os.system(cmd)
