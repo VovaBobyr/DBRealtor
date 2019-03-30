@@ -357,9 +357,9 @@ try:
     closed_counts = final_update_dom_prodej(type, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
-except Exception as e:
-        error_msg = str(e.message) + str(e.args)
-        logging.info(error_msg)
+except Exception:
+        #error_msg = str(e.message) + str(e.args)
+        logging.info(Exception)
 finally:
     SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()

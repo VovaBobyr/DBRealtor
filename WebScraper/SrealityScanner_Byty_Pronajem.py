@@ -216,6 +216,56 @@ def final_update_byt_pronajem(type, script_date_start, connection):
         cursor.close()
     return closed_counts
 
+def all_scrabing_from_page(link, counter, driver):
+    skipped_count = 0
+    failed_count = 0
+    inserted_count = 0
+    advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
+    try:
+        if len(advlist) == 0:
+            # delay(3)
+            try:
+                driver.close()
+            except:
+                pass
+            SrealityLibrary.pkill(is_win, link)
+            # counter = counter + 1
+            driver = webdriver.Chrome(
+                executable_path=chromedriver_path,
+                options=chrome_options)
+            logging.info('  Advlist = 0: recreating ChromeDriver for: ' + str(link))
+            failed_pages.append(counter)
+            status = 'Failed'
+            return status, skipped_count, failed_count, inserted_count
+    except:
+        try:
+            driver.close()
+        except:
+            pass
+        SrealityLibrary.pkill(is_win, link)
+        # counter = counter + 1
+        driver = webdriver.Chrome(
+            executable_path=chromedriver_path,
+            options=chrome_options)
+        logging.info('  In Exception: recreating ChromeDriver for: ' + str(link))
+        status = 'Failed'
+        return status, skipped_count, failed_count, inserted_count
+    i = 0
+    logging.info('  Page number: ' + str(counter))
+    for link in advlist:
+        i = i + 1
+        # Check whether this object already added
+        obj_number = link[link.rfind('/') + 1:len(link)]
+        status = find_details_byt_pronajem(link, type, id_load, driver, connection)
+        if status == 'Skipped':
+            skipped_count = skipped_count + 1
+        if status == 'Failed':
+            failed_count = failed_count + 1
+        if status == 'Inserted':
+            inserted_count = inserted_count + 1
+    status = 'Success'
+    return status, skipped_count, failed_count, inserted_count
+
 type = 'byty_pronajem'
 # Define count of all pages based on adds_on_page
 adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/pronajem/byty', driver)
@@ -232,6 +282,7 @@ inserted_count = 0
 id_load = 0
 closed_counts = 0
 counter = 1
+failed_pages = []
 try:
     if len(sys.argv) > 1:
         counter = sys.argv[1]
@@ -245,57 +296,26 @@ try:
     id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
     while counter <= pagescount:
         link = 'https://www.sreality.cz/hledani/pronajem/byty?strana=' + str(counter)
-        advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
-        try:
-            if len(advlist) == 0:
-                #delay(3)
-                try:
-                    driver.close()
-                except:
-                    pass
-                SrealityLibrary.pkill(is_win, link)
-                #counter = counter + 1
-                driver = webdriver.Chrome(
-                    executable_path=chromedriver_path,
-                    options=chrome_options)
-                logging.info('  Advlist = 0: recreating ChromeDriver for: ' + str(link))
-                continue
-        except:
-            try:
-                driver.close()
-            except:
-                pass
-            SrealityLibrary.pkill(is_win, link)
-            #counter = counter + 1
-            driver = webdriver.Chrome(
-                executable_path=chromedriver_path,
-                options=chrome_options)
-            logging.info('  In Exception: recreating ChromeDriver for: ' + str(link))
-            continue
-        i = 0
-        logging.info('  Page number: ' + str(counter))
-        for link in advlist:
-            i = i + 1
-            # Check whether this object already added
-            obj_number = link[link.rfind('/') + 1:len(link)]
-            status = find_details_byt_pronajem(link, type, id_load, driver, connection)
-            if status == 'Skipped':
-                skipped_count = skipped_count + 1
-            if status == 'Failed':
-                failed_count = failed_count + 1
-            if status == 'Inserted':
-                inserted_count = inserted_count + 1
-            # if is_skipped == 'SKIPPED':
-            #    delay = 0
-            # else:
-            #    delay = 0
-            # time.sleep(delay)
+        status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, counter, driver)
+        skipped_count = skipped_count + skipped_count_1
+        failed_count = failed_count + failed_count_1
+        inserted_count = inserted_count + inserted_count_1
         counter = counter + 1
+
+        # In case some Pages failed - try to reload it one more time
+    if len(failed_pages) > 0:
+        for page in failed_pages:
+            link = 'https://www.sreality.cz/hledani/pronajem/byty?strana=' + str(page)
+            status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, driver)
+            skipped_count = skipped_count + skipped_count_1
+            failed_count = failed_count + failed_count_1
+            inserted_count = inserted_count + inserted_count_1
+
     closed_counts = final_update_byt_pronajem(type, script_date_start, connection)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
-except Exception as e:
-    logging.error(e)
+except Exception:
+    logging.error(Exception)
 finally:
     SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()

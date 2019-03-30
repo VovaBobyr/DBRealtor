@@ -42,10 +42,15 @@ def save_page(page_name, save_path, link, chromedriver_path, chrome_options):
 def find_all_links(link, type, driver):
     prev_link = ''
     links_list = []
+    #search_string = 'projekt-detail'
     search_string = 'detail/' + type
+    if type == 'projekty':
+        search_string = 'projekt-detail'
     # Searching Links
     try:
         driver.get(link)
+        #with open('project_page.html', 'w', encoding="utf-8") as f:
+        #    f.write(driver.page_source)
         elems = driver.find_elements_by_xpath("//a[@href]")
         for elem in elems:
             if search_string in elem.get_attribute("href"):
@@ -54,7 +59,8 @@ def find_all_links(link, type, driver):
                     links_list.append(elem.get_attribute("href"))
                     prev_link = elem.get_attribute("href")
         return links_list
-    except:
+    except Exception as e:
+        logging.info('  Error: ' + e.message)
         logging.info('  Reconnect to for Find_All_Details: ' + link)
         # delay = 3
         driver.get(link)
@@ -109,7 +115,7 @@ def find_value(search_string, where):
 def check_ad_exist(obj_number, type, connection):
     mycursor = connection.cursor()
     # query = """SELECT id_ext FROM byty WHERE link like '%%s%'""" % (obj_number)
-    sql = "SELECT id_ext FROM dbrealtor." + type + " WHERE obj_number='" + obj_number + "'"
+    sql = "SELECT id FROM dbrealtor." + type + " WHERE obj_number='" + obj_number + "'"
     mycursor.execute(sql)
     row_count = len(mycursor.fetchall())
     if row_count == 0:

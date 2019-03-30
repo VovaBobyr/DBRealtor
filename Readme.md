@@ -17,3 +17,5 @@ First phase is to integrate sreality.cz into porta.
 Usefull links:
 https://stackoverflow.com/questions/26393231/using-python-requests-with-javascript-pages
 - how to parse Javascript output
+
+

@@ -3,7 +3,7 @@ import datetime
 import logging
 #import time
 
-class ObjectDomyPronajemClass:
+class ObjectProjektClass:
     """ Main class for Saving object 36 arguments"""
     def __init__(self,id_load,title,description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
                  stav_objektu, vlastnictvi, podlazi,pocet_bytu,plocha_domu,plocha_zastavena,
@@ -66,7 +66,7 @@ class ObjectDomyPronajemClass:
             longstr = longstr + "'" + str + "'" + ","
         return longstr[0:len(longstr) - 1]
 
-    def dbinsertdomy(self):
+    def dbinsertprojekt(self):
         try:
             if self.connection.is_connected():
                 # Date - today
@@ -75,7 +75,7 @@ class ObjectDomyPronajemClass:
                 # 35
                 objlist = list(self.__dict__.values())
                 objlist.pop()
-                query = "INSERT INTO dbrealtor.domy_pronajem(id_load,title,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
+                query = "INSERT INTO dbrealtor.projekt(id_load,title,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
                         "podlazi,pocet_bytu,plocha_domu,plocha_zastavena,uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,typ_domu,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,plyn,topeni,odpad,telekomunikace,elektrina," \
                         "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,bazen,kontakt,link,date_open,umisteni_objektu,parkovani,garaz,puvodni_cena,region,subregion,obj_number)" \
                         " VALUES(" + self.values(objlist) + ")"
@@ -86,7 +86,7 @@ class ObjectDomyPronajemClass:
                 logging.info('  Inserted object_number: %s', self.obj_number)
                 cursor.close()
                 return 'Inserted'
-        except Error as e:
+        except Exception as e:
             #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "  Error while connecting to MySQL", e)
             logging.error("  Error while connecting to MySQL" + e.msg)
             return 'Failed'

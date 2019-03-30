@@ -81,5 +81,7 @@ History statistic than can be calculated by following way:
 + Prodej
 + Pronajem
 
-10. - Fix region, sub-region for Domy pronajem
+10. Improvement fails: 
+- As sometimes Pages with 20 items fails - need to collect all fails and try to re-load it one more time at the end:
+
 
