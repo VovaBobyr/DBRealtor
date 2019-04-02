@@ -7,7 +7,7 @@ from selenium import webdriver
 #from selenium.webdriver.chrome.options import Options
 #import mysql.connector
 #import re
-#import time
+import time
 import os
 import codecs
 import logging
@@ -194,3 +194,18 @@ def pkill(is_win, link):
         os.system(cmd)
         cmd = 'pkill chromedriver'
         os.system(cmd)
+
+def reopen_driver(link, is_win, driver, chromedriver_path, chrome_options):
+    logging.info('  Reopen driver for: ' + link)
+    driver.close()
+    pkill(is_win, link)
+    time.sleep(2)
+    driver = webdriver.Chrome(
+        executable_path=chromedriver_path,
+        options=chrome_options)
+    driver.get(link)
+    return driver
+
+def start_check_whether_no_scrapping_running():
+    pass
+

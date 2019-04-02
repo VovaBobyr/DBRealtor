@@ -340,4 +340,4 @@ except Exception:
 finally:
     SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()
-    driver.close()
+driver.close()

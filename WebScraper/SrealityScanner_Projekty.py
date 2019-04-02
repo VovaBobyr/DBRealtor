@@ -57,12 +57,11 @@ connection_config_dict = {
 }
 
 class ObjectProjektClass:
-    """ Main class for Saving object 36 arguments"""
-    def __init__(self,id,id_load,link,obj_number,title,region,subregion,date_open,date_update,date_close,status,zahajeni_prodeje,dokonceni_vystavby,k_nastehovani,description,vnitrni_omitky,zaklady,vnitrni_obklady
+    """ Main class for Saving object <> arguments"""
+    def __init__(self,id_load,link,obj_number,title,region,subregion,date_open,date_update,date_close,status,zahajeni_prodeje,dokonceni_vystavby,k_nastehovani,description,vnitrni_omitky,zaklady,vnitrni_obklady
                  ,fasadni_omitky,stropy,podlahy,okna,dvere,kuchynska_linka,zastavba,zelezobetonove_schodiste,interierove_schodiste,stav_objektu,krytina,umisteni_objektu,strecha,komunikace
-                 ,vnejsi_obklady,prevod_do_ov,stavba,vlastnictvi,typ_domu,poloha_domu,kontakty,connection):
+                 ,vnejsi_obklady,prevod_do_ov,stavba,vlastnictvi,typ_domu,poloha_domu,kontakt,connection):
         """Constructor"""
-        self.id = id
         self.id_load = id_load
         self.link = link
         self.obj_number = obj_number
@@ -70,9 +69,7 @@ class ObjectProjektClass:
         self.region = region
         self.subregion = subregion
         self.date_open = date_open
-        self.date_update = date_update
-        self.date_close = date_close
-        self.status = status
+        self.status = 'open'
         self.zahajeni_prodeje = zahajeni_prodeje
         self.dokonceni_vystavby = dokonceni_vystavby
         self.k_nastehovani = k_nastehovani
@@ -100,7 +97,7 @@ class ObjectProjektClass:
         self.vlastnictvi = vlastnictvi
         self.typ_domu = typ_domu
         self.poloha_domu = poloha_domu
-        self.kontakty = kontakty
+        self.kontakt = kontakt
         self.connection = connection
 
     def values(self, objlist):
@@ -118,9 +115,9 @@ class ObjectProjektClass:
                 # 35
                 objlist = list(self.__dict__.values())
                 objlist.pop()
-                query = "INSERT INTO dbrealtor.projekt(id,link,title,region,subregion,date_open,date_update,date_close,status,zahajeni_prodeje,dokonceni_vystavby,k_nastehovani,description,vnitrni_omitky,zaklady,vnitrni_obklady" \
+                query = "INSERT INTO dbrealtor.projekty(id_load,link,obj_number,title,region,subregion,date_open,status,zahajeni_prodeje,dokonceni_vystavby,k_nastehovani,description,vnitrni_omitky,zaklady,vnitrni_obklady" \
                         ",fasadni_omitky,stropy,podlahy,okna,dvere,kuchynska_linka,zastavba,zelezobetonove_schodiste,interierove_schodiste,stav_objektu,krytina,umisteni_objektu,strecha,komunikace" \
-                        ",vnejsi_obklady,prevod_do_ov,stavba,vlastnictvi,typ_domu,poloha_domu,kontakty)" \
+                        ",vnejsi_obklady,prevod_do_ov,stavba,vlastnictvi,typ_domu,poloha_domu,kontakt)" \
                         " VALUES(" + self.values(objlist) + ")"
                 cursor = self.connection.cursor()
                 cursor.execute(query)
@@ -129,7 +126,7 @@ class ObjectProjektClass:
                 cursor.close()
                 return 'Inserted'
         except Exception as e:
-            logging.error("  Error while connecting to MySQL" + e.msg)
+            logging.error("  Error while connecting to MySQL" + str(e))
             return 'Failed'
 
 class ObjectProjektClass_Item:
@@ -195,7 +192,7 @@ class ObjectProjektClass_Item:
             longstr = longstr + "'" + str + "'" + ","
         return longstr[0:len(longstr) - 1]
 
-    def dbinsertprojekt(self):
+    def dbinsertprojekty_items(self):
         try:
             if self.connection.is_connected():
                 # Date - today
@@ -204,7 +201,7 @@ class ObjectProjektClass_Item:
                 # 35
                 objlist = list(self.__dict__.values())
                 objlist.pop()
-                query = "INSERT INTO dbrealtor.projekt(id_load,title,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
+                query = "INSERT INTO dbrealtor.projekty_items(id_load,title,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
                         "podlazi,pocet_bytu,plocha_domu,plocha_zastavena,uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,typ_domu,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,plyn,topeni,odpad,telekomunikace,elektrina," \
                         "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,bazen,kontakt,link,date_open,umisteni_objektu,parkovani,garaz,puvodni_cena,region,subregion,obj_number)" \
                         " VALUES(" + self.values(objlist) + ")"
@@ -212,7 +209,7 @@ class ObjectProjektClass_Item:
                 cursor.execute(query)
                 self.connection.commit()
                 #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Inserted object_number: ', self.obj_number)
-                logging.info('  Inserted object_number: %s', self.obj_number)
+                logging.info('    Inserted object_number: %s', self.obj_number)
                 cursor.close()
                 return 'Inserted'
         except Exception as e:
@@ -243,15 +240,14 @@ def filling_details_projekt(link, type, id_load, driver, connection):
         elems = driver.find_element_by_class_name('project-title')
     except:
         try:
-            time.sleep(2)
-            logging.info('  Reconnect to take page: ' + link)
             driver.get(link)
-            elems = driver.find_element_by_class_name('property-title')
+            #driver = SrealityLibrary.reopen_driver(link, is_win, driver, chromedriver_path, chrome_options)
+            elems = driver.find_element_by_class_name('project-title')
         except:
             logging.info(' 2nd reconnect failed for: ' + link + ' - STOPPING')
             return 'Failed'
 
-    objectproj = ObjectProjektClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    objectproj = ObjectProjektClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
 
     #Title
     title = elems.text.replace('\n', '')
@@ -261,6 +257,9 @@ def filling_details_projekt(link, type, id_load, driver, connection):
         objectproj.title = title
     except:
         logging.warn('  WRN: No element <location-title>')
+
+    # Object_Number
+    objectproj.obj_number = project_number #link[link.rfind('/') + 1:len(link)]
 
     # Dates:
     try:
@@ -364,26 +363,27 @@ def filling_details_projekt(link, type, id_load, driver, connection):
         insert_text = find_value('Vlastnictví: ', all_text)
         objectproj.vlastnictvi = insert_text
     except:
-        logging.warning('  WRN: No element <params>')
+        pass
+        #logging.warning('  WRN: No element <params>')
 
     # Kontakt
     try:
         elems = driver.find_element_by_class_name('contacts')
         insert_text = elems.text.split('\n')
     except:
-        logging.warning('  WRN: No element <contacts>')
+        pass
+        #logging.warning('  WRN: No element <contacts>')
     try:
-        objectproj.kontakt = insert_text[0]
-        objectproj.kontakt = insert_text[4]
-        objectproj.kontakt = insert_text[5]
+        full_text = ''
+        for txt in insert_text:
+            full_text = full_text + txt + ' '
     except:
         pass
+    finally:
+        objectproj.kontakt = full_text
 
     # Link
     objectproj.link = link
-
-    # Object_Number
-    objectproj.project_number = project_number #link[link.rfind('/') + 1:len(link)]
 
     # Region and sub-region:
     # it could be that sub-region doesn't exist (exist only for Praha and Brno)
@@ -395,7 +395,7 @@ def filling_details_projekt(link, type, id_load, driver, connection):
             if words[0] == 'ulice':
                 sub_region = location
             else:
-                region = location
+                region = location.strip()
         objectproj.region = region
         objectproj.subregion = sub_region
 
@@ -411,27 +411,21 @@ def filling_details_projekt_item(link, type, id_load, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
-        logging.info('  Object with number ' + obj_number + ' - SKIPPED')
+        logging.info('    Object with number ' + obj_number + ' - SKIPPED')
         #delay=0
         return 'Skipped'
     # Title
     driver.get(link)
-    #print('Driver GET - Find all details.')
+    with open('project_item.html', 'w', encoding="utf-8") as f:
+        f.write(driver.page_source)
     try:
-        elems = driver.find_element_by_class_name('project-title')
+        elems = driver.find_element_by_class_name('property-title')
     except:
-        try:
-            time.sleep(2)
-            logging.info('  Reconnect to take page: ' + link)
-            driver.get(link)
-            elems = driver.find_element_by_class_name('property-title')
-        except:
-            logging.info(' 2nd reconnect failed for: ' + link + ' - STOPPING')
-            return 'Failed'
-    #finally:
-    #    connection = mysql.connector.connect(**connection_config_dict)
+        pass
+        return 'Failed'
+
     #38
-    objectbyt = ObjectProjektClass_Item('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    objectbyt = ObjectProjektClass_Item('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
     #Title
     objectbyt.title = elems.text.replace('\n', '')
     # id_load
@@ -535,18 +529,18 @@ def filling_details_projekt_item(link, type, id_load, driver, connection):
     elems = driver.find_element_by_class_name('regions-box')
     insert_text = elems.text.split('\n')
     if len(insert_text) >=2:
-        insert_text[0] = insert_text[0][insert_text[0].find('Prodej')+17:len(insert_text[0])-1]
-        insert_text[1] = insert_text[1][insert_text[1].find('Prodej')+17:len(insert_text[1])-1]
-        objectbyt.region = insert_text[0]
-        objectbyt.subregion = insert_text[1]
+        insert_text[0] = insert_text[0][insert_text[0].find('Prodej')+12:len(insert_text[0])-1]
+        insert_text[1] = insert_text[1][insert_text[1].find('Prodej')+12:len(insert_text[1])-1]
+        objectbyt.region = insert_text[1]
+        objectbyt.subregion = insert_text[0]
     if len(insert_text)==1:
-        insert_text[0] = insert_text[0][insert_text[0].find('Prodej ')+18:len(insert_text[0])-1]
+        insert_text[0] = insert_text[0][insert_text[0].find('Prodej ')+13:len(insert_text[0])-1]
         objectbyt.region = insert_text[0]
     #insert_text = elems.text.split('\n')
     #objectbyt.region = insert_text
 
     # Insert object to DB
-    inserted_status = objectbyt.dbinsertprojekt()
+    inserted_status = objectbyt.dbinsertprojekty_items()
     return inserted_status
 
 def find_links_in_projekt(link, driver):
@@ -557,8 +551,8 @@ def find_links_in_projekt(link, driver):
     # Searching Links
     try:
         driver.get(link)
-        with open('project_item.html', 'w', encoding="utf-8") as f:
-            f.write(driver.page_source)
+        #with open('project.html', 'w', encoding="utf-8") as f:
+        #    f.write(driver.page_source)
         elems = driver.find_elements_by_xpath("//a[@href]")
         for elem in elems:
             if search_string in elem.get_attribute("href"):
@@ -569,10 +563,7 @@ def find_links_in_projekt(link, driver):
         return links_list
     except Exception as e:
         logging.info('  Error: ' + e.message)
-        logging.info('  Reconnect for Find_Items_In_Projekt: ' + link)
-        # delay = 3
-        driver.get(link)
-        # myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, 'IdOfMyElement')))
+        #SrealityLibrary.reopen_driver(link, is_win, driver, chromedriver_path, chrome_options)
         elems = driver.find_elements_by_xpath("//a[@href]")
         try:
             for elem in elems:
@@ -620,10 +611,11 @@ def all_scrabing_from_page(link, counter, driver):
                 pass
             SrealityLibrary.pkill(is_win, link)
             # counter = counter + 1
-            driver = webdriver.Chrome(
-                executable_path=chromedriver_path,
-                options=chrome_options)
-            logging.info('  Advlist = 0: recreating ChromeDriver for: ' + str(link))
+            #driver = webdriver.Chrome(
+            #    executable_path=chromedriver_path,
+            #    options=chrome_options)
+            #logging.info('  Advlist = 0: recreating ChromeDriver for: ' + str(link))
+            logging.info('  Advlist = 0: added page to the end for reload: ' + link)
             failed_pages.append(counter)
             status = 'Failed'
             return status, skipped_count, failed_count, inserted_count
@@ -633,7 +625,6 @@ def all_scrabing_from_page(link, counter, driver):
         except:
             pass
         SrealityLibrary.pkill(is_win, link)
-        # counter = counter + 1
         driver = webdriver.Chrome(
             executable_path=chromedriver_path,
             options=chrome_options)
@@ -646,13 +637,17 @@ def all_scrabing_from_page(link, counter, driver):
         i = i + 1
         # Project Part
         # Check whether this object already added
-        status = filling_details_projekt(link, type, id_load, driver, connection)
+        status = filling_details_projekt(link, type_projekty, id_load, driver, connection)
+        #if status == 'Skipped':
+        #    continue
         projekt_items = find_links_in_projekt(link, driver)
 
         # Processing items in Project
+        if len(projekt_items) == 0:
+            logging.info('    Empty items in project')
         for item in projekt_items:
             status = ''
-            #status = filling_details_projekt_item(item, type, id_load, driver, connection)
+            status = filling_details_projekt_item(item, type_projekty_items, id_load, driver, connection)
             if status == 'Skipped':
                 skipped_count = skipped_count + 1
             if status == 'Failed':
@@ -662,7 +657,8 @@ def all_scrabing_from_page(link, counter, driver):
     status = 'Success'
     return status, skipped_count, failed_count, inserted_count
 
-type = 'projekty'
+type_projekty = 'projekty'
+type_projekty_items = 'projekty_items'
 # Define count of all pages based on adds_on_page
 adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/projekt', driver)
 pagescount = int(adcount/adds_on_page) + 1
@@ -688,7 +684,7 @@ try:
 
     # Open Connection
     connection = mysql.connector.connect(**connection_config_dict)
-    id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
+    id_load = SrealityLibrary.start_loading(type_projekty, adcount, pagescount,connection)
     while counter <= pagescount:
         link = 'https://www.sreality.cz/projekt?strana=' + str(counter)
         status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, counter, driver)
