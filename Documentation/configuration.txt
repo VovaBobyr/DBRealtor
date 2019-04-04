@@ -83,3 +83,5 @@ History statistic than can be calculated by following way:
 
 10. - Fix region, sub-region for Domy pronajem
 
+11. New big feature: Manager of scranners!
+

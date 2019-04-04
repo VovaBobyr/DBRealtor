@@ -221,35 +221,14 @@ def all_scrabing_from_page(link, counter, driver):
     failed_count = 0
     inserted_count = 0
     advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
-    try:
+    if len(advlist) == 0:
+        logging.info('    Advlist = 0: reget link: ' + str(link))
+        advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
         if len(advlist) == 0:
-            # delay(3)
-            try:
-                driver.close()
-            except:
-                pass
-            SrealityLibrary.pkill(is_win, link)
-            # counter = counter + 1
-            driver = webdriver.Chrome(
-                executable_path=chromedriver_path,
-                options=chrome_options)
-            logging.info('  Advlist = 0: recreating ChromeDriver for: ' + str(link))
+            logging.info('    Advlist = 0: reget failed')
             failed_pages.append(counter)
             status = 'Failed'
             return status, skipped_count, failed_count, inserted_count
-    except:
-        try:
-            driver.close()
-        except:
-            pass
-        SrealityLibrary.pkill(is_win, link)
-        # counter = counter + 1
-        driver = webdriver.Chrome(
-            executable_path=chromedriver_path,
-            options=chrome_options)
-        logging.info('  In Exception: recreating ChromeDriver for: ' + str(link))
-        status = 'Failed'
-        return status, skipped_count, failed_count, inserted_count
     i = 0
     logging.info('  Page number: ' + str(counter))
     for link in advlist:
