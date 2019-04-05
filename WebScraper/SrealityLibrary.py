@@ -153,17 +153,6 @@ def finish_loading(id_load, items_count, pages_count, inserted_count, skipped_co
     mycursor.close()
 
 def find_cena(celcova_cena):
-    #price_list = re.findall(r'\d+', celcova_cena)
-    #price_str = ''
-    #for i in price_list:
-    #    price_str = price_str + i
-    # price_int = int(price_str)
-    #try:
-    #    price = int(price_str)
-    #except:
-    #    price_str = '0'
-    #return price_str
-
     letters = []
     for i in celcova_cena:
         letters.append(i)

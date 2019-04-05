@@ -36,11 +36,11 @@ else:
 if is_win:
     save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
     chromedriver_path = 'C:/Inst/chromedriver.exe'
-    log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Byty_Pronajem' + script_date_start[:10] + '.log'
+    log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Byty_Pronajem_' + script_date_start[:10] + '.log'
 else:
     save_path = '/opt/dbrealtor/temp/'
     chromedriver_path = '/usr/bin/chromedriver'
-    log_name = '/opt/dbrealtor/Logs/SrealityScanner_Byty_Pronajem' + script_date_start[:10] + '.log'
+    log_name = '/opt/dbrealtor/Logs/SrealityScanner_Byty_Pronajem_' + script_date_start[:10] + '.log'
 
 logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename=log_name, level=logging.INFO)
 
@@ -91,6 +91,7 @@ def find_details_byt_pronajem(link, type, id_load, driver, connection):
             elems = driver.find_element_by_class_name('property-title')
         except:
             logging.error(' 2nd reconnect failed for: ' + link + ' - STOPPING')
+            failed_items.append(link)
             return 'Failed'
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
@@ -262,6 +263,8 @@ id_load = 0
 closed_counts = 0
 counter = 1
 failed_pages = []
+failed_items = []
+failed_pages_count = 0
 try:
     if len(sys.argv) > 1:
         counter = sys.argv[1]
@@ -286,11 +289,25 @@ try:
         for page in failed_pages:
             link = 'https://www.sreality.cz/hledani/pronajem/byty?strana=' + str(page)
             status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, driver)
+            if status == 'Failed':
+                failed_pages_count = failed_pages_count + 1
             skipped_count = skipped_count + skipped_count_1
             failed_count = failed_count + failed_count_1
             inserted_count = inserted_count + inserted_count_1
 
+    if len(failed_items) > 0:
+        failed_count = 0
+        for item_link in failed_items:
+            status = find_details_byt_pronajem(link, type, id_load, driver, connection)
+            if status == 'Skipped':
+                skipped_count = skipped_count + 1
+            if status == 'Failed':
+                failed_count = failed_count + 1
+            if status == 'Inserted':
+                inserted_count = inserted_count + 1
+
     closed_counts = final_update_byt_pronajem(type, script_date_start, connection)
+    failed_count = failed_count + failed_pages_count*20
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
 except Exception:

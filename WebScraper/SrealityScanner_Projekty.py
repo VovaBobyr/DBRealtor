@@ -131,13 +131,14 @@ class ObjectProjektClass:
 
 class ObjectProjektClass_Item:
     """ Main class for Saving object 36 arguments"""
-    def __init__(self,id_load,title,description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
+    def __init__(self,id_load,proj_number,title,description, celkova_cena, poznamka_k_cene, cena, naklady, id_ext, aktualizace, stavba,
                  stav_objektu, vlastnictvi, podlazi,pocet_bytu,plocha_domu,plocha_zastavena,
                  uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,typ_domu,terasa, sklep, datum_nastegovani, rok_kolaudace,
                  rok_reconstrukce, voda, plyn, topeni, odpad, telekomunikace, elektrina, doprava, komunikace,
                  energ_narocnost_budovy, bezbarierovy, vybaveni,bazen,kontakt, link, date_open, umisteni_objektu, parkovani,garaz,puvodni_cena, region, subregion, obj_number, connection):
         """Constructor"""
         self.id_load = id_load
+        self.proj_number = proj_number
         self.title = title
         self.description = description
         self.celkova_cena = celkova_cena
@@ -201,7 +202,7 @@ class ObjectProjektClass_Item:
                 # 35
                 objlist = list(self.__dict__.values())
                 objlist.pop()
-                query = "INSERT INTO dbrealtor.projekty_items(id_load,title,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
+                query = "INSERT INTO dbrealtor.projekty_items(id_load,proj_number,title,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
                         "podlazi,pocet_bytu,plocha_domu,plocha_zastavena,uzitna_plocha,plocha_podlahova,plocha_pozemku,plocha_zahrady,typ_domu,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,plyn,topeni,odpad,telekomunikace,elektrina," \
                         "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,bazen,kontakt,link,date_open,umisteni_objektu,parkovani,garaz,puvodni_cena,region,subregion,obj_number)" \
                         " VALUES(" + self.values(objlist) + ")"
@@ -231,11 +232,11 @@ def filling_details_projekt(link, type, id_load, driver, connection):
     if is_exist:
         logging.info('  Project with number ' + project_number + ' - SKIPPED')
         #delay=0
-        return 'Skipped'
+        return 'Skipped', project_number
     # Title
     driver.get(link)
-    with open('project.html', 'w', encoding="utf-8") as f:
-        f.write(driver.page_source)
+    #with open('project.html', 'w', encoding="utf-8") as f:
+    #    f.write(driver.page_source)
     try:
         elems = driver.find_element_by_class_name('project-title')
     except:
@@ -404,10 +405,10 @@ def filling_details_projekt(link, type, id_load, driver, connection):
 
     # Insert object to DB
     inserted_status = objectproj.dbinsertprojekt()
-    return inserted_status
+    return inserted_status, project_number
 
 # Filling deatails for Item into PRODJECT
-def filling_details_projekt_item(link, type, id_load, driver, connection):
+def filling_details_projekt_item(link, type, id_load, proj_number, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
@@ -416,8 +417,8 @@ def filling_details_projekt_item(link, type, id_load, driver, connection):
         return 'Skipped'
     # Title
     driver.get(link)
-    with open('project_item.html', 'w', encoding="utf-8") as f:
-        f.write(driver.page_source)
+    #with open('project_item.html', 'w', encoding="utf-8") as f:
+    #    f.write(driver.page_source)
     try:
         elems = driver.find_element_by_class_name('property-title')
     except:
@@ -425,11 +426,13 @@ def filling_details_projekt_item(link, type, id_load, driver, connection):
         return 'Failed'
 
     #38
-    objectbyt = ObjectProjektClass_Item('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    objectbyt = ObjectProjektClass_Item('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
     #Title
     objectbyt.title = elems.text.replace('\n', '')
     # id_load
     objectbyt.id_load = str(id_load)
+    # id_projekt - take from parent projekt running
+    objectbyt.proj_number = str(proj_number)
     # Description
     elems = driver.find_element_by_class_name('description')
     descr_text = elems.text.replace('\n',' ')
@@ -583,13 +586,19 @@ def final_update_projekt(type, script_date_start, connection_config_dict):
     try:
         connection = mysql.connector.connect(**connection_config_dict)
         mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where (date_update < "' \
+        query = 'update dbrealtor.projekty set date_close="' + mydatetime + '", status="C" where (date_update < "' \
+                + script_date_start + '" AND STATUS !="C") OR (date_open < "' + script_date_start + '" AND date_update IS NULL AND STATUS !="C")'
+        cursor = connection.cursor()
+        cursor.execute(query)
+        connection.commit()
+        logging.info('  Closed old Projekt count: ' + str(cursor.rowcount))
+        query = 'update dbrealtor.projekty set date_close="' + mydatetime + '", status="C" where (date_update < "' \
                 + script_date_start + '" AND STATUS !="C") OR (date_open < "' + script_date_start + '" AND date_update IS NULL AND STATUS !="C")'
         cursor = connection.cursor()
         cursor.execute(query)
         connection.commit()
         # print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
-        logging.info('  Closed OLD objects count: ' + str(cursor.rowcount))
+        logging.info('  Closed old Projekt_items count: ' + str(cursor.rowcount))
         closed_counts = cursor.rowcount
     except:
         closed_counts = 0
@@ -616,7 +625,7 @@ def all_scrabing_from_page(link, counter, driver):
         i = i + 1
         # Project Part
         # Check whether this object already added
-        status = filling_details_projekt(link, type_projekty, id_load, driver, connection)
+        status, proj_number = filling_details_projekt(link, type_projekty, id_load, driver, connection)
         #if status == 'Skipped':
         #    continue
         projekt_items = find_links_in_projekt(link, driver)
@@ -625,8 +634,7 @@ def all_scrabing_from_page(link, counter, driver):
         if len(projekt_items) == 0:
             logging.info('    Empty items in project')
         for item in projekt_items:
-            status = ''
-            status = filling_details_projekt_item(item, type_projekty_items, id_load, driver, connection)
+            status = filling_details_projekt_item(item, type_projekty_items, id_load, proj_number, driver, connection)
             if status == 'Skipped':
                 skipped_count = skipped_count + 1
             if status == 'Failed':
@@ -681,13 +689,13 @@ try:
             failed_count = failed_count + failed_count_1
             inserted_count = inserted_count + inserted_count_1
 
-    closed_counts = final_update_projekt(type, script_date_start, connection_config_dict)
+    closed_counts = final_update_projekt(type_projekty, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
 except Exception as e:
     #error_msg = str(e.full_msg) + str(e.args)
     logging.info(e)
 finally:
-    SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
+    SrealityLibrary.finish_loading(id_load,adcount,pagescount,inserted_count,skipped_count,failed_count,closed_counts,connection)
     connection.close()
     driver.close()
