@@ -48,7 +48,7 @@ driver = webdriver.Chrome(
 connection_config_dict = {
     'user': 'root',
     'password': SrealityLibrary.take_pass(),
-    'host': '127.0.0.1',
+    'host': '178.62.19.21',
     'database': 'dbrealtor',
     'raise_on_warnings': True,
     'use_pure': True,
