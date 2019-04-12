@@ -241,6 +241,7 @@ def all_scrabing_from_page(link, counter, driver):
     skipped_count = 0
     failed_count = 0
     inserted_count = 0
+    driver.get(link)
     advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
     if len(advlist) == 0:
         logging.info('    Advlist = 0: reget link: ' + str(link))
@@ -302,13 +303,13 @@ try:
         counter = counter + 1
 
     # In case some Pages failed - try to reload it one more time
-    if len(failed_pages) > 0:
-        for page in failed_pages:
-            link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(page)
-            status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, driver)
-            skipped_count = skipped_count + skipped_count_1
-            failed_count = failed_count + failed_count_1
-            inserted_count = inserted_count + inserted_count_1
+    #if len(failed_pages) > 0:
+    #    for page in failed_pages:
+    #        link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(page)
+    #        status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, driver)
+    #        skipped_count = skipped_count + skipped_count_1
+    #        failed_count = failed_count + failed_count_1
+    #        inserted_count = inserted_count + inserted_count_1
 
     closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)

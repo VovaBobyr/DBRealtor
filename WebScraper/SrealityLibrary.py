@@ -48,7 +48,7 @@ def find_all_links(link, type, driver):
         search_string = 'projekt-detail'
     # Searching Links
     try:
-        driver.get(link)
+        #driver.get(link)
         #with open('project_page.html', 'w', encoding="utf-8") as f:
         #    f.write(driver.page_source)
         elems = driver.find_elements_by_xpath("//a[@href]")

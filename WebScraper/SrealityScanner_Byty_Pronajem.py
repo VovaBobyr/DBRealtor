@@ -221,6 +221,7 @@ def all_scrabing_from_page(link, counter, driver):
     skipped_count = 0
     failed_count = 0
     inserted_count = 0
+    driver.get(link)
     advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
     if len(advlist) == 0:
         logging.info('    Advlist = 0: reget link: ' + str(link))
