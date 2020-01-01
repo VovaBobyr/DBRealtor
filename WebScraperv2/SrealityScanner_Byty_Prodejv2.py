@@ -7,8 +7,8 @@ import datetime
 import time
 import sys
 import logging
-import SrealityLibrary
-from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
+import SrealityLibraryv2
+from SrealityScanner_Byty_Prodej_Classv2 import ObjectBytyProdejClassv2
 
 # Pre-requisites:
 # Python:
@@ -57,9 +57,9 @@ driver = webdriver.Chrome(
 
 connection_config_dict = {
     'user': 'vova',
-    'password': SrealityLibrary.take_pass(),
-    #'host': '127.0.0.1',
-    'host': '3.125.96.243',
+    'password': SrealityLibraryv2.take_pass(),
+    'host': '127.0.0.1',
+    #'host': '3.125.96.243',
     'database': 'dbrealtor',
     'raise_on_warnings': True,
     #'use_pure': True,
@@ -78,7 +78,7 @@ def find_value(search_string, where):
 # Big part to find details in HTML
 def find_details_byt_prodej(link, type, id_load, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
-    is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
+    is_exist = SrealityLibraryv2.check_ad_exist(obj_number, type, connection)
     if is_exist:
         logging.info('  Object with number ' + obj_number + ' - SKIPPED')
         #delay=0
@@ -89,18 +89,13 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     try:
         elems = driver.find_element_by_class_name('property-title')
     except:
-        try:
-            time.sleep(2)
-            logging.info('  Reconnect to take page: ' + link)
-            driver.get(link)
-            elems = driver.find_element_by_class_name('property-title')
-        except:
-            logging.info(' 2nd reconnect failed for: ' + link + ' - STOPPING')
-            return 'Failed'
+        logging.info(' 2nd reconnect failed for: ' + link + ' - SKIPPED')
+        return 'Failed'
+
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
     #38
-    objectbyt = ObjectBytyProdejClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    objectbyt = ObjectBytyProdejClassv2('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','')
     #Title
     objectbyt.title = elems.text.replace('\n', '')
     # id_load
@@ -128,7 +123,7 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     objectbyt.poznamka_k_cene = insert_text
     # Cena - define from Celcova cana into Object
     # Check is_cena_digit?
-    objectbyt.cena = SrealityLibrary.find_cena(objectbyt.celkova_cena)
+    objectbyt.cena = SrealityLibraryv2.find_cena(objectbyt.celkova_cena)
     # ID zakázky:
     insert_text = find_value('Náklady na bydlení: ',all_text)
     objectbyt.naklady = insert_text
@@ -243,10 +238,10 @@ def all_scrabing_from_page(link, counter, driver):
     failed_count = 0
     inserted_count = 0
     driver.get(link)
-    advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
+    advlist = SrealityLibraryv2.find_all_links(link, 'prodej', driver)
     if len(advlist) == 0:
         logging.info('    Advlist = 0: reget link: ' + str(link))
-        advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
+        advlist = SrealityLibraryv2.find_all_links(link, 'prodej', driver)
         if len(advlist) == 0:
             logging.info('    Advlist = 0: reget failed')
             failed_pages.append(counter)
@@ -268,9 +263,10 @@ def all_scrabing_from_page(link, counter, driver):
     status = 'Success'
     return status, skipped_count, failed_count, inserted_count
 
+# ==================================== MAIN ========================================#
 type = 'byty_prodej'
 # Define count of all pages based on adds_on_page
-adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/prodej/byty', driver)
+adcount = SrealityLibraryv2.define_pages_count('https://www.sreality.cz/hledani/prodej/byty', driver)
 pagescount = int(adcount/adds_on_page) + 1
 logging.info('======================= NEW RUN =======================')
 logging.info('  Pages count: ' + str(pagescount))
@@ -294,7 +290,7 @@ try:
 
     # Open Connection
     connection = mysql.connector.connect(**connection_config_dict)
-    id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
+    id_load = SrealityLibraryv2.start_loading(type, adcount, pagescount,connection)
     while counter <= pagescount:
         link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
         status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, counter, driver)
@@ -303,15 +299,6 @@ try:
         inserted_count = inserted_count + inserted_count_1
         counter = counter + 1
 
-    # In case some Pages failed - try to reload it one more time
-    #if len(failed_pages) > 0:
-    #    for page in failed_pages:
-    #        link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(page)
-    #        status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, driver)
-    #        skipped_count = skipped_count + skipped_count_1
-    #        failed_count = failed_count + failed_count_1
-    #        inserted_count = inserted_count + inserted_count_1
-
     closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
@@ -319,6 +306,6 @@ except Exception:
     #error_msg = str(e.message) + str(e.args)
     logging.info(Exception)
 finally:
-    SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
+    SrealityLibraryv2.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()
 driver.close()
