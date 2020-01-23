@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-sudo yum -y update
+sudo apt -y update
 
-# if we need any dependencies, install them here
-sudo yum -y install python-pip
+# Install Python PIP
+sudo apt -y install python3-pip
 
-#sudo yum -y update
-sudo yum -y install mysql-server
+#sudo apt -y update
+sudo apt -y install mysql-server
 
 # restart mysql
-sudo service mysqld restart
+sudo /etc/init.d/mysql restart
 
 ### secure the mysql installation
 
