@@ -33,10 +33,6 @@ LATEST_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELE
 ```
 curl https://intoli.com/install-google-chrome.sh | bash
 ```
-### Clone project
-```
-git clone https://github.com/VovaBobyr/DBRealtor.git
-```
 ### Creation dbrealtor DB
 default passwort for root "password"
 ```
