@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-#sudo yum -y update
+sudo yum -y update
 
 # if we need any dependencies, install them here
+sudo yum -y install python-pip
 
 #sudo yum -y update
 sudo yum -y install mysql-server
