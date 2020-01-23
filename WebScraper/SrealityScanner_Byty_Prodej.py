@@ -58,8 +58,8 @@ driver = webdriver.Chrome(
 connection_config_dict = {
     'user': 'vova',
     'password': SrealityLibrary.take_pass(),
-    #'host': '127.0.0.1',
-    'host': '3.125.96.243',
+    'host': '127.0.0.1',
+    #'host': '3.125.96.243',
     'database': 'dbrealtor',
     'raise_on_warnings': True,
     #'use_pure': True,

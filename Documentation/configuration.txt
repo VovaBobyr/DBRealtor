@@ -85,3 +85,6 @@ History statistic than can be calculated by following way:
 
 11. New big feature: Manager of scranners!
 
+12. Creation environment preparation guide
++ creation Vagrantfile and test it
+
