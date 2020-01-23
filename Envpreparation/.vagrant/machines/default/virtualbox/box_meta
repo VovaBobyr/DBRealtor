@@ -1,1 +1,1 @@
-{"name":"puphpet/centos65-x64","version":"20161102","provider":"virtualbox","directory":"boxes/puphpet-VAGRANTSLASH-centos65-x64/20161102/virtualbox"}
+{"name":"bento/ubuntu-18.04","version":"201912.14.0","provider":"virtualbox","directory":"boxes/bento-VAGRANTSLASH-ubuntu-18.04/201912.14.0/virtualbox"}

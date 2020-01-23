@@ -1,1 +1,1 @@
-{"virtualbox":{"/vagrant":{"mount_options":["dmode=777","fmode=666","uid=500","gid=500"],"guestpath":"/vagrant","hostpath":"C:/Learning/DBRealtor/Envpreparation","disabled":false,"__vagrantfile":true}}}
+{"virtualbox":{"/vagrant":{"mount_options":["dmode=777","fmode=666","uid=1000","gid=1000"],"guestpath":"/vagrant","hostpath":"C:/Git/DBRealtor/Envpreparation","disabled":false,"__vagrantfile":true}}}
