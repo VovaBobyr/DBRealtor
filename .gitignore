@@ -2,3 +2,4 @@ TempFiles\*
 Logs\*
 Envpreparation\.vagrant\*
 Envpreparation\.vagrant\machines\default\virtualbox\*
+/venv2/
