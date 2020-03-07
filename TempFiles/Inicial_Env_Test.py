@@ -71,14 +71,15 @@ def test_dbconnection():
          'auth_plugin': 'mysql_native_password'
     }
     #connection = mysql.connector.connect(**connection_config_dict)
-    connection = mysql.connector.connect(
+    '''connection = mysql.connector.connect(
                                 #user='vlad',
                                 #password='vlad_#Katrin123',
                                 user='vlad',
                                 password=take_pass(),
                                 host='127.0.0.1',
                                 database='dbrealtor',
-                                auth_plugin='mysql_native_password')
+                                auth_plugin='mysql_native_password')'''
+    connection = mysql.connector.connect(**connection_config_dict)
 
     query = 'SELECT * FROM dbrealtor.dataloadlog LIMIT 1'
     try:

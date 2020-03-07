@@ -56,7 +56,7 @@ driver = webdriver.Chrome(
     options=chrome_options)
 
 connection_config_dict = {
-    'user': 'vova',
+    'user': 'vlad',
     'password': SrealityLibrary.take_pass(),
     'host': '127.0.0.1',
     #'host': '3.125.96.243',
@@ -64,7 +64,8 @@ connection_config_dict = {
     'raise_on_warnings': True,
     #'use_pure': True,
     'autocommit': True,
-    'pool_size': 5
+    'pool_size': 5,
+    'auth_plugin': 'mysql_native_password'
 }
 
 def find_value(search_string, where):
