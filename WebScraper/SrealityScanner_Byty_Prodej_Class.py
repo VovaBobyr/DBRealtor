@@ -1,3 +1,5 @@
+import copy
+
 from mysql.connector import Error
 import datetime
 import logging
@@ -59,42 +61,43 @@ class ObjectBytyProdejClass:
         '''
         keys_string = ''
         values_string = ''
-        obj_attributes = self.__dict__
+        obj_attributes = copy.copy(self.__dict__)
         keys = self.__dict__.keys()
         values = self.__dict__.values()
-        i = 0
+        del(obj_attributes['connection']) # remove attribute connection to DB
         # Cycle for all attributes
         for attr in obj_attributes:
-            keys_string = keys_string + attr
-            values_string = values_string + obj_attributes[attr]
-            longstr = longstr + "'" + str + "'" + ","
-        return longstr[0:len(longstr) - 1]
+            keys_string = keys_string +  attr + ','
+            values_string = values_string + "'" + obj_attributes[attr] + "',"
+            #longstr = longstr + "'" + str + "'" + ","
+        return keys_string[:-1], values_string[:-1]
 
     def dbinsertbyty(self):
-        try:
-            if self.connection.is_connected():
-                # Date - today
-                mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                self.date_open = mydatetime
-                # 40
-                objlist = list(self.__dict__.values())
-                objlist.pop()
-                list1 = self.values(objlist)
-                query = "INSERT INTO dbrealtor.byty_prodej(id_load,title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
-                        "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
-                        "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_open,umisteni_objektu,parkovani,puvodni_cena,region,subregion,obj_number)" \
-                        " VALUES(" + list1 + ")"
-                cursor = self.connection.cursor()
-                cursor.execute(query)
-                self.connection.commit()
-                #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Inserted object_number: ', self.obj_number)
-                logging.info('  Inserted object_number: %s', self.obj_number)
-                cursor.close()
-                return 'Inserted'
-        except Error as e:
+        #try:
+        if self.connection.is_connected():
+            # Date - today
+            mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            self.date_open = mydatetime
+            # 40
+            objlist = list(self.__dict__.values())
+            objlist.pop()
+            fields_list, values_list = self.values(objlist)
+            query = "INSERT INTO dbrealtor.byty_prodej(" + fields_list + ") VALUES(" + values_list + ")"
+            #query = "INSERT INTO dbrealtor.byty_prodej(id_load,title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
+            #        "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
+            #        "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_open,umisteni_objektu,parkovani,puvodni_cena,region,subregion,obj_number)" \
+            #        " VALUES(" + values_list + ")"
+            cursor = self.connection.cursor()
+            cursor.execute(query)
+            self.connection.commit()
+            #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Inserted object_number: ', self.obj_number)
+            logging.info('  Inserted object_number: %s', self.obj_number)
+            cursor.close()
+            return 'Inserted'
+        #except Error as e:
             #print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "  Error while connecting to MySQL", e)
-            logging.error("  Error while connecting to MySQL" + e.msg)
-            return 'Failed'
+            #logging.error("  Error while connecting to MySQL" + e.msg)
+            #return 'Failed'
         #finally:
         #    if (self.connection.is_connected()):
         #        self.connection.close()
