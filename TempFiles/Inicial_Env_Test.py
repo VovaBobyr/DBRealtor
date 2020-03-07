@@ -13,7 +13,7 @@ import os
 import datetime
 
 PROJECT_PATH_LINUX = '/opt/dbrealtor/'
-PROJECT_PATH_WIN = '/c:/inst/'
+PROJECT_PATH_WIN = 'c:/inst/'
 
 def save_page(page_name, save_path, driver, link):
     file_name = page_name
@@ -67,12 +67,22 @@ def test_dbconnection():
         'raise_on_warnings': True,
         #'use_pure': True,
         'autocommit': True,
-        'pool_size': 5
+        'pool_size': 5,
+         'auth_plugin': 'mysql_native_password'
     }
-    connection = mysql.connector.connect(**connection_config_dict)
+    #connection = mysql.connector.connect(**connection_config_dict)
+    connection = mysql.connector.connect(
+                                #user='vlad',
+                                #password='vlad_#Katrin123',
+                                user='vlad',
+                                password=take_pass(),
+                                host='127.0.0.1',
+                                database='dbrealtor',
+                                auth_plugin='mysql_native_password')
+
     query = 'SELECT * FROM dbrealtor.dataloadlog LIMIT 1'
     try:
-        cursor = connection.cursor()
+        cursor = connection.cursor(buffered=True)
         cursor.execute(query)
         print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ':   Result is: ' + str(cursor.rowcount))
         print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ':   DB connection - OK!')
@@ -83,3 +93,4 @@ def test_dbconnection():
 
 #test_webdirver()
 test_dbconnection()
+pass
