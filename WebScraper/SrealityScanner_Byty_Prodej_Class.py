@@ -54,8 +54,19 @@ class ObjectBytyProdejClass:
         self.connection = connection
 
     def values(self,objlist):
-        longstr = ""
-        for str in objlist:
+        ''' Need to form string for query with all list of values from current Object
+            as Object attributes is dynamic it's need to take __dict__ with keys and values
+        '''
+        keys_string = ''
+        values_string = ''
+        obj_attributes = self.__dict__
+        keys = self.__dict__.keys()
+        values = self.__dict__.values()
+        i = 0
+        # Cycle for all attributes
+        for attr in obj_attributes:
+            keys_string = keys_string + attr
+            values_string = values_string + obj_attributes[attr]
             longstr = longstr + "'" + str + "'" + ","
         return longstr[0:len(longstr) - 1]
 
@@ -65,13 +76,14 @@ class ObjectBytyProdejClass:
                 # Date - today
                 mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 self.date_open = mydatetime
-                # 35
+                # 40
                 objlist = list(self.__dict__.values())
                 objlist.pop()
+                list1 = self.values(objlist)
                 query = "INSERT INTO dbrealtor.byty_prodej(id_load,title,typ_bytu,description,celkova_cena,poznamka_k_cene,cena,naklady,id_ext,aktualizace,stavba,stav_objektu,vlastnictvi," \
                         "podlazi,uzitna_plocha,terasa,sklep,datum_nastegovani,rok_kolaudace,rok_reconstrukce,voda,topeni,odpad,telekomunikace,elektrina," \
                         "doprava,komunikace,energ_narocnost_budovy,bezbarierovy,vybaveni,vytah,kontakt,link,date_open,umisteni_objektu,parkovani,puvodni_cena,region,subregion,obj_number)" \
-                        " VALUES(" + self.values(objlist) + ")"
+                        " VALUES(" + list1 + ")"
                 cursor = self.connection.cursor()
                 cursor.execute(query)
                 self.connection.commit()

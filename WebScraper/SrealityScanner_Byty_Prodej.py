@@ -59,10 +59,10 @@ connection_config_dict = {
     'user': 'vlad',
     'password': SrealityLibrary.take_pass(),
     'host': '127.0.0.1',
-    #'host': '3.125.96.243',
+    # 'host': '3.125.96.243',
     'database': 'dbrealtor',
     'raise_on_warnings': True,
-    #'use_pure': True,
+    # 'use_pure': True,
     'autocommit': True,
     'pool_size': 5,
     'auth_plugin': 'mysql_native_password'
@@ -275,9 +275,8 @@ adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/pr
 pagescount = int(adcount/adds_on_page) + 1
 logging.info('======================= NEW RUN =======================')
 logging.info('  Pages count: ' + str(pagescount))
-# Main part - go inside to Advertise of each object
 
-# To have ability load only from defined page
+# Main part - go inside to Advertise of each object
 skipped_count = 0
 failed_count = 0
 inserted_count = 0

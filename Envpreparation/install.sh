@@ -34,3 +34,8 @@ sudo service mysqld restart
 
 # set to autostart
 sudo chkconfig mysqld on
+
+#folders creation and provide permisions
+mkdir -p "/opt/dbrealtor"
+mkdir -p "/opt/dbrealtor/temp/"
+mkdir -p "/opt/dbrealtor/Logs/"
