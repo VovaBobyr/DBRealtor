@@ -90,6 +90,10 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     try:
         elems = driver.find_element_by_class_name('property-title')
     except:
+        logging.info(' issue in <property-title> for: ' + link)
+        return 'Failed'
+
+    '''except:
         try:
             time.sleep(2)
             logging.info('  Reconnect to take page: ' + link)
@@ -98,6 +102,7 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
         except:
             logging.info(' 2nd reconnect failed for: ' + link + ' - STOPPING')
             return 'Failed'
+    '''
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
     #38
@@ -117,7 +122,7 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     # Processing Params with all details
     all_text = elems.text.split('\n')
 
-    # Celcova cena - if it doesn't exist - find "Zlevněno" and have has to be "Původní cena:"
+    # Celcova cena - if it doesn't exist
     insert_text = ''
     insert_text = find_value('Celková cena: ',all_text)
     if insert_text == '':
@@ -187,12 +192,9 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     # Kontakt
     elems = driver.find_element_by_class_name('contacts')
     insert_text = elems.text.split('\n')
-    try:
-        objectbyt.kontakt = insert_text[0]
-        objectbyt.kontakt = insert_text[4]
-        objectbyt.kontakt = insert_text[5]
-    except:
-        pass
+    for txt in insert_text:
+        objectbyt.kontakt = objectbyt.kontakt + ', ' + txt
+
     # Zlevneno - if it exist
     insert_text = find_value('Původní cena: ',all_text)
     objectbyt.puvodni_cena = insert_text
@@ -222,21 +224,21 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
 # Function runs at the end of all load - need for close all other that are not actualized
 def final_update_byt_prodej(type, script_date_start, connection_config_dict):
     # Input parameter - time of Script start: that to update all rows that are old (were not found now)
-    try:
-        connection = mysql.connector.connect(**connection_config_dict)
-        mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where (date_update < "' \
-                + script_date_start + '" AND STATUS !="C") OR (date_open < "' + script_date_start + '" AND date_update IS NULL AND STATUS !="C")'
-        cursor = connection.cursor()
-        cursor.execute(query)
-        connection.commit()
-        # print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
-        logging.info('  Closed OLD objects count: ' + str(cursor.rowcount))
-        closed_counts = cursor.rowcount
-    except:
-        closed_counts = 0
-    finally:
-        cursor.close()
+    #try:
+    connection = mysql.connector.connect(**connection_config_dict)
+    mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where (date_update < "' \
+            + script_date_start + '" AND STATUS !="C") OR (date_open < "' + script_date_start + '" AND date_update IS NULL AND STATUS !="C")'
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
+    # print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
+    logging.info('  Closed OLD objects count: ' + str(cursor.rowcount))
+    closed_counts = cursor.rowcount
+    #except:
+    #    closed_counts = 0
+    #finally:
+    cursor.close()
     return closed_counts
 
 def all_scrabing_from_page(link, counter, driver):
@@ -284,41 +286,41 @@ id_load = 0
 closed_counts = 0
 counter = 1
 failed_pages = []
-try:
-    if len(sys.argv) > 1:
-        counter = sys.argv[1]
-        try:
-            counter = int(counter)
-        except:
-            logging.error('Wrong parameter, not INT')
+#try:
+if len(sys.argv) > 1:
+    counter = sys.argv[1]
+    #try:
+    counter = int(counter)
+    #except:
+    #    logging.error('Wrong parameter, not INT')
 
-    # Open Connection
-    connection = mysql.connector.connect(**connection_config_dict)
-    id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
-    while counter <= pagescount:
-        link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
-        status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, counter, driver)
-        skipped_count = skipped_count + skipped_count_1
-        failed_count = failed_count + failed_count_1
-        inserted_count = inserted_count + inserted_count_1
-        counter = counter + 1
+# Open Connection
+connection = mysql.connector.connect(**connection_config_dict)
+id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
+while counter <= pagescount:
+    link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
+    status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, counter, driver)
+    skipped_count = skipped_count + skipped_count_1
+    failed_count = failed_count + failed_count_1
+    inserted_count = inserted_count + inserted_count_1
+    counter = counter + 1
 
-    # In case some Pages failed - try to reload it one more time
-    #if len(failed_pages) > 0:
-    #    for page in failed_pages:
-    #        link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(page)
-    #        status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, driver)
-    #        skipped_count = skipped_count + skipped_count_1
-    #        failed_count = failed_count + failed_count_1
-    #        inserted_count = inserted_count + inserted_count_1
+# In case some Pages failed - try to reload it one more time
+#if len(failed_pages) > 0:
+#    for page in failed_pages:
+#        link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(page)
+#        status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, driver)
+#        skipped_count = skipped_count + skipped_count_1
+#        failed_count = failed_count + failed_count_1
+#        inserted_count = inserted_count + inserted_count_1
 
-    closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
-    summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
-    logging.info(summary_results)
-except Exception:
+closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
+summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
+logging.info(summary_results)
+#except Exception:
     #error_msg = str(e.message) + str(e.args)
-    logging.info(Exception)
-finally:
-    SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
-    connection.close()
+#    logging.info(Exception)
+#finally:
+SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
+connection.close()
 driver.close()
