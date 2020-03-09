@@ -39,7 +39,7 @@ def save_page(page_name, save_path, link, chromedriver_path, chrome_options):
     file_object.close()
     driver.close()
 
-def find_all_links(link, type, driver):
+def find_all_links(link, type, driver, gecodriver_path, firefox_options):
     prev_link = ''
     links_list = []
     #search_string = 'projekt-detail'
@@ -58,6 +58,25 @@ def find_all_links(link, type, driver):
                     # print(elem.get_attribute("href"))
                     links_list.append(elem.get_attribute("href"))
                     prev_link = elem.get_attribute("href")
+
+        if len(links_list) == 0:
+            # It means that page was not loaded till the end, need to run loading through FireFox - it works - temp fix
+            driver= webdriver.Firefox(executable_path=gecodriver_path, options=firefox_options)
+            driver.get(link)
+            all_a = driver.find_elements_by_xpath('//a[@href]')
+            links = []
+            search_string = 'detail/prodej'
+            cnt = 0
+
+            for i in all_a[0:55]:
+                cnt += 1
+                if search_string in i.get_attribute("href"):
+                    links.append(i.get_attribute("href"))
+            # Remove duplicates
+            links_list = list(set(links))
+            driver.close()
+        ########################## END FireFox driver using ####################################
+
         return links_list
     except Exception as e:
         logging.info('  Error: ' + e.message)

@@ -92,6 +92,6 @@ def test_dbconnection():
     finally:
         cursor.close()
 
-#test_webdirver()
+test_webdirver()
 test_dbconnection()
 pass

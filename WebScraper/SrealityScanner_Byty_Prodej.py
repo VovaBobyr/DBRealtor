@@ -1,5 +1,6 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as Option_Firefox
 import os
 #import codecs
 import mysql.connector
@@ -28,8 +29,11 @@ from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
 # Logging
 script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-chrome_options = Options()
+
+chrome_options = ChromeOptions()
 chrome_options.add_argument("--headless")
+firefox_options = Option_Firefox()
+firefox_options.add_argument("--headless")
 
 if os.name == 'nt':
     is_win = True
@@ -39,10 +43,12 @@ else:
 if is_win:
     save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
     chromedriver_path = 'C:/Inst/chromedriver.exe'
+    geckodriver_path = 'C:/Inst/geckodriver.exe'
     log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Byty_Prodej_' + script_date_start[:10] + '.log'
 else:
     save_path = '/opt/dbrealtor/temp/'
     chromedriver_path = '/usr/bin/chromedriver'
+    geckodriver_path = '/usr/bin/geckodriver'
     log_name = '/opt/dbrealtor/Logs/SrealityScanner_Byty_Prodej_'+ script_date_start[:10] +'.log'
 
 logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename=log_name, level=logging.INFO)
@@ -246,12 +252,15 @@ def all_scrabing_from_page(link, counter, driver):
     failed_count = 0
     inserted_count = 0
     driver.get(link)
-    advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
+    advlist = SrealityLibrary.find_all_links(link, 'prodej', driver, geckodriver_path, firefox_options)
     if len(advlist) == 0:
         logging.info('    Advlist = 0: reget link: ' + str(link))
         advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
         if len(advlist) == 0:
             logging.info('    Advlist = 0: reget failed')
+            with open('page.html', 'w+') as f:
+                f.write(driver.page_source)
+                f.close()
             failed_pages.append(counter)
             status = 'Failed'
             return status, skipped_count, failed_count, inserted_count
