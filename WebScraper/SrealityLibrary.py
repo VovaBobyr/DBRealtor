@@ -39,7 +39,7 @@ def save_page(page_name, save_path, link, chromedriver_path, chrome_options):
     file_object.close()
     driver.close()
 
-def find_all_links(link, type, driver, gecodriver_path, firefox_options):
+def find_all_links_chrome(link, type, chrome_driver, chromedriver_path, chrome_options):
     prev_link = ''
     links_list = []
     #search_string = 'projekt-detail'
@@ -47,55 +47,71 @@ def find_all_links(link, type, driver, gecodriver_path, firefox_options):
     if type == 'projekty':
         search_string = 'projekt-detail'
     # Searching Links
-    try:
-        #driver.get(link)
-        #with open('project_page.html', 'w', encoding="utf-8") as f:
-        #    f.write(driver.page_source)
-        elems = driver.find_elements_by_xpath("//a[@href]")
-        for elem in elems:
-            if search_string in elem.get_attribute("href"):
-                if elem.get_attribute("href") != prev_link:
-                    # print(elem.get_attribute("href"))
-                    links_list.append(elem.get_attribute("href"))
-                    prev_link = elem.get_attribute("href")
+    chrome_driver.get(link)
+    #with open('project_page.html', 'w', encoding="utf-8") as f:
+    #    f.write(driver.page_source)
+    elems = chrome_driver.find_elements_by_xpath("//a[@href]")
+    for elem in elems:
+        if search_string in elem.get_attribute("href"):
+            if elem.get_attribute("href") != prev_link:
+                # print(elem.get_attribute("href"))
+                links_list.append(elem.get_attribute("href"))
+                prev_link = elem.get_attribute("href")
 
-        if len(links_list) == 0:
-            # It means that page was not loaded till the end, need to run loading through FireFox - it works - temp fix
-            driver= webdriver.Firefox(executable_path=gecodriver_path, options=firefox_options)
-            driver.get(link)
-            all_a = driver.find_elements_by_xpath('//a[@href]')
-            links = []
-            search_string = 'detail/prodej'
-            cnt = 0
+    #if len(links_list) == 0:
+    #    # Run FireFox Driver
+    #    # It means that page was not loaded till the end, need to run loading through FireFox - it works - temp fix
+    #    is_firefox = True
+    #    firefox_driver = webdriver.Firefox(executable_path=firefoxdriver_path, options=firefox_options)
+    #    firefox_driver.get(link)
+    #    # chrome_driver = webdriver.Chrome(executable_path=chromedriver_path,options=chrome_options)
+    #    # chrome_driver.get(link)
+    #    all_a = firefox_driver.find_elements_by_xpath('//a[@href]')
+    #    links = []
+    #    search_string = 'detail/prodej'
+    #    cnt = 0
+    #    for i in all_a[0:60]:
+    #        cnt += 1
+    #        if search_string in i.get_attribute("href"):
+    #            links.append(i.get_attribute("href"))
+    #    # Remove duplicates
+    #    links_list = list(set(links))
 
-            for i in all_a[0:55]:
-                cnt += 1
-                if search_string in i.get_attribute("href"):
-                    links.append(i.get_attribute("href"))
-            # Remove duplicates
-            links_list = list(set(links))
-            driver.close()
-        ########################## END FireFox driver using ####################################
+    ########################## END FireFox driver using ####################################
+    return links_list
 
-        return links_list
-    except Exception as e:
-        logging.info('  Error: ' + e.message)
-        logging.info('  Reconnect to for Find_All_Details: ' + link)
-        # delay = 3
-        driver.get(link)
-        # myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, 'IdOfMyElement')))
-        elems = driver.find_elements_by_xpath("//a[@href]")
-        try:
-            for elem in elems:
-                if 'detail/prodej' in elem.get_attribute("href"):
-                    if elem.get_attribute("href") != prev_link:
-                        # print(elem.get_attribute("href"))
-                        links_list.append(elem.get_attribute("href"))
-                        prev_link = elem.get_attribute("href")
-        except:
-            pass
-    finally:
-        return links_list
+    # myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID, 'IdOfMyElement')))
+    #elems = chrome_driver.find_elements_by_xpath("//a[@href]")
+    #try:
+    #    for elem in elems:
+    #        if 'detail/prodej' in elem.get_attribute("href"):
+    #            if elem.get_attribute("href") != prev_link:
+    #                # print(elem.get_attribute("href"))
+    #                links_list.append(elem.get_attribute("href"))
+    #                prev_link = elem.get_attribute("href")
+    #except:
+    #    pass
+    #finally:
+    #    return links_list
+
+
+def find_all_links_firefox(link, type, firefox_driver, firefoxdriver_path, firefox_options):
+    # It means that page was not loaded till the end, need to run loading through FireFox - it works - temp fix
+
+    #driver = webdriver.Firefox(executable_path=gecodriver_path, options=firefox_options)
+    firefox_driver.get(link)
+    all_a = firefox_driver.find_elements_by_xpath('//a[@href]')
+    links = []
+    search_string = 'detail/prodej'
+    cnt = 0
+    for i in all_a[0:55]:
+        cnt += 1
+        if search_string in i.get_attribute("href"):
+            links.append(i.get_attribute("href"))
+    # Remove duplicates
+    links_list = list(set(links))
+    time.sleep(1)
+    return links_list
 
 
 # Fuction to find how many pages are in NEXTs

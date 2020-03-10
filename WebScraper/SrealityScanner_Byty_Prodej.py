@@ -28,7 +28,7 @@ from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
 
 # Logging
 script_date_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
+script_date_start_timestamp = datetime.datetime.now()
 
 chrome_options = ChromeOptions()
 chrome_options.add_argument("--headless")
@@ -43,12 +43,12 @@ else:
 if is_win:
     save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
     chromedriver_path = 'C:/Inst/chromedriver.exe'
-    geckodriver_path = 'C:/Inst/geckodriver.exe'
+    firefoxdriver_path = 'C:/Inst/geckodriver.exe'
     log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Byty_Prodej_' + script_date_start[:10] + '.log'
 else:
     save_path = '/opt/dbrealtor/temp/'
     chromedriver_path = '/usr/bin/chromedriver'
-    geckodriver_path = '/usr/bin/geckodriver'
+    firefoxdriver_path = '/usr/bin/geckodriver'
     log_name = '/opt/dbrealtor/Logs/SrealityScanner_Byty_Prodej_'+ script_date_start[:10] +'.log'
 
 logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename=log_name, level=logging.INFO)
@@ -56,10 +56,15 @@ logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename=log_name, le
 # Count of Advertises on page
 adds_on_page = 20
 delay = 3
+is_firefox = False
 
-driver = webdriver.Chrome(
+chrome_driver = webdriver.Chrome(
     executable_path=chromedriver_path,
     options=chrome_options)
+
+firefox_driver = webdriver.Chrome(
+    executable_path=firefoxdriver_path,
+    options=firefox_options)
 
 connection_config_dict = {
     'user': 'vlad',
@@ -83,7 +88,7 @@ def find_value(search_string, where):
     return  return_text
 
 # Big part to find details in HTML
-def find_details_byt_prodej(link, type, id_load, driver, connection):
+def find_details_byt_prodej(link, type, id_load, chrome_driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
     is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
@@ -91,10 +96,10 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
         #delay=0
         return 'Skipped'
     # Title
-    driver.get(link)
+    chrome_driver.get(link)
     #print('Driver GET - Find all details.')
     try:
-        elems = driver.find_element_by_class_name('property-title')
+        elems = chrome_driver.find_element_by_class_name('property-title')
     except:
         logging.info(' issue in <property-title> for: ' + link)
         return 'Failed'
@@ -118,13 +123,13 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     # id_load
     objectbyt.id_load = str(id_load)
     # Description
-    elems = driver.find_element_by_class_name('description')
+    elems = chrome_driver.find_element_by_class_name('description')
     descr_text = elems.text.replace('\n',' ')
     descr_text = descr_text.replace("'","")
     objectbyt.description = descr_text
 
     # Main block with all details (not title and not kontakt)
-    elems = driver.find_element_by_class_name('params')
+    elems = chrome_driver.find_element_by_class_name('params')
     # Processing Params with all details
     all_text = elems.text.split('\n')
 
@@ -196,7 +201,7 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     insert_text = find_value('Energetická náročnost budovy: ',all_text)
     objectbyt.energ_narocnost_budovy = insert_text
     # Kontakt
-    elems = driver.find_element_by_class_name('contacts')
+    elems = chrome_driver.find_element_by_class_name('contacts')
     insert_text = elems.text.split('\n')
     for txt in insert_text:
         objectbyt.kontakt = objectbyt.kontakt + ', ' + txt
@@ -210,7 +215,7 @@ def find_details_byt_prodej(link, type, id_load, driver, connection):
     objectbyt.obj_number = link[link.rfind('/') + 1:len(link)]
     # Region and sub-region:
     # it could be that sub-region doesn't exist (exist only for Praha and Brno)
-    elems = driver.find_element_by_class_name('regions-box')
+    elems = chrome_driver.find_element_by_class_name('regions-box')
     insert_text = elems.text.split('\n')
     if len(insert_text) >=2:
         insert_text[0] = insert_text[0][insert_text[0].find('Prodej bytů')+12:len(insert_text[0])-1]
@@ -247,30 +252,28 @@ def final_update_byt_prodej(type, script_date_start, connection_config_dict):
     cursor.close()
     return closed_counts
 
-def all_scrabing_from_page(link, counter, driver):
+def all_scrabing_from_page(link, counter, chrome_driver, firefox_driver, is_firefox):
     skipped_count = 0
     failed_count = 0
     inserted_count = 0
-    driver.get(link)
-    advlist = SrealityLibrary.find_all_links(link, 'prodej', driver, geckodriver_path, firefox_options)
-    if len(advlist) == 0:
-        logging.info('    Advlist = 0: reget link: ' + str(link))
-        advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
+    chrome_driver.get(link)
+    if not is_firefox:
+        advlist = SrealityLibrary.find_all_links_chrome(link, 'prodej', chrome_driver, chromedriver_path, chrome_options)
         if len(advlist) == 0:
-            logging.info('    Advlist = 0: reget failed')
-            with open('page.html', 'w+') as f:
-                f.write(driver.page_source)
-                f.close()
-            failed_pages.append(counter)
-            status = 'Failed'
-            return status, skipped_count, failed_count, inserted_count
+            logging.info('    Advlist = 0: switch to FireFox, link: ' + str(link))
+            is_firefox = True
+            advlist = SrealityLibrary.find_all_links_firefox(link, 'prodej', firefox_driver, firefoxdriver_path, firefox_options)
+    else: # Fun Firefor
+        is_firefox = True
+        advlist = SrealityLibrary.find_all_links_firefox(link, 'prodej', firefox_driver, firefoxdriver_path, firefox_options)
+
     i = 0
     logging.info('  Page number: ' + str(counter))
     for link in advlist:
         i = i + 1
         # Check whether this object already added
         obj_number = link[link.rfind('/') + 1:len(link)]
-        status = find_details_byt_prodej(link, type, id_load, driver, connection)
+        status = find_details_byt_prodej(link, type, id_load, chrome_driver, connection)
         if status == 'Skipped':
             skipped_count = skipped_count + 1
         if status == 'Failed':
@@ -278,11 +281,11 @@ def all_scrabing_from_page(link, counter, driver):
         if status == 'Inserted':
             inserted_count = inserted_count + 1
     status = 'Success'
-    return status, skipped_count, failed_count, inserted_count
+    return status, skipped_count, failed_count, inserted_count, is_firefox
 
 type = 'byty_prodej'
 # Define count of all pages based on adds_on_page
-adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/prodej/byty', driver)
+adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/prodej/byty', chrome_driver)
 pagescount = int(adcount/adds_on_page) + 1
 logging.info('======================= NEW RUN =======================')
 logging.info('  Pages count: ' + str(pagescount))
@@ -308,7 +311,7 @@ connection = mysql.connector.connect(**connection_config_dict)
 id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
 while counter <= pagescount:
     link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
-    status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, counter, driver)
+    status, skipped_count_1, failed_count_1, inserted_count_1, is_firefox = all_scrabing_from_page(link, counter, chrome_driver, firefox_driver, is_firefox)
     skipped_count = skipped_count + skipped_count_1
     failed_count = failed_count + failed_count_1
     inserted_count = inserted_count + inserted_count_1
@@ -318,7 +321,7 @@ while counter <= pagescount:
 #if len(failed_pages) > 0:
 #    for page in failed_pages:
 #        link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(page)
-#        status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, driver)
+#        status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, chrome_driver)
 #        skipped_count = skipped_count + skipped_count_1
 #        failed_count = failed_count + failed_count_1
 #        inserted_count = inserted_count + inserted_count_1
@@ -331,5 +334,11 @@ logging.info(summary_results)
 #    logging.info(Exception)
 #finally:
 SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
+
+script_date_finish_timestamp = datetime.datetime.now()
 connection.close()
-driver.close()
+firefox_driver.close()
+chrome_driver.close()
+
+total_time_timestamp = script_date_finish_timestamp - script_date_start_timestamp
+logging.info('SUCCESS: Total script time running: ' + str(total_time_timestamp))
