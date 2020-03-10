@@ -2,14 +2,12 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as Option_Firefox
 import os
-#import codecs
 import mysql.connector
 import datetime
-import time
-import sys
 import logging
-import SrealityLibrary
-from SrealityScanner_Byty_Prodej_Class import ObjectBytyProdejClass
+import WebScraper.srealitylibrary as sl
+import argparse
+from srealityscanner_byty_prodej_class import ObjectBytyProdejClass
 
 # Pre-requisites:
 # Python:
@@ -68,7 +66,7 @@ firefox_driver = webdriver.Chrome(
 
 connection_config_dict = {
     'user': 'vlad',
-    'password': SrealityLibrary.take_pass(),
+    'password': sl.take_pass(),
     'host': '127.0.0.1',
     # 'host': '3.125.96.243',
     'database': 'dbrealtor',
@@ -90,7 +88,7 @@ def find_value(search_string, where):
 # Big part to find details in HTML
 def find_details_byt_prodej(link, type, id_load, chrome_driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
-    is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
+    is_exist = sl.check_ad_exist(obj_number, type, connection)
     if is_exist:
         logging.info('  Object with number ' + obj_number + ' - SKIPPED')
         #delay=0
@@ -145,7 +143,7 @@ def find_details_byt_prodej(link, type, id_load, chrome_driver, connection):
     objectbyt.poznamka_k_cene = insert_text
     # Cena - define from Celcova cana into Object
     # Check is_cena_digit?
-    objectbyt.cena = SrealityLibrary.find_cena(objectbyt.celkova_cena)
+    objectbyt.cena = sl.find_cena(objectbyt.celkova_cena)
     # ID zakázky:
     insert_text = find_value('Náklady na bydlení: ',all_text)
     objectbyt.naklady = insert_text
@@ -258,14 +256,14 @@ def all_scrabing_from_page(link, counter, chrome_driver, firefox_driver, is_fire
     inserted_count = 0
     chrome_driver.get(link)
     if not is_firefox:
-        advlist = SrealityLibrary.find_all_links_chrome(link, 'prodej', chrome_driver, chromedriver_path, chrome_options)
+        advlist = sl.find_all_links_chrome(link, 'prodej', chrome_driver, chromedriver_path, chrome_options)
         if len(advlist) == 0:
             logging.info('    Advlist = 0: switch to FireFox, link: ' + str(link))
             is_firefox = True
-            advlist = SrealityLibrary.find_all_links_firefox(link, 'prodej', firefox_driver, firefoxdriver_path, firefox_options)
+            advlist = sl.find_all_links_firefox(link, 'prodej', firefox_driver, firefoxdriver_path, firefox_options)
     else: # Fun Firefor
         is_firefox = True
-        advlist = SrealityLibrary.find_all_links_firefox(link, 'prodej', firefox_driver, firefoxdriver_path, firefox_options)
+        advlist = sl.find_all_links_firefox(link, 'prodej', firefox_driver, firefoxdriver_path, firefox_options)
 
     i = 0
     logging.info('  Page number: ' + str(counter))
@@ -283,9 +281,21 @@ def all_scrabing_from_page(link, counter, chrome_driver, firefox_driver, is_fire
     status = 'Success'
     return status, skipped_count, failed_count, inserted_count, is_firefox
 
-type = 'byty_prodej'
+parser = argparse.ArgumentParser(description='Loading details from Sreality.cz, input parameters - type of asset, start page')
+parser.add_argument('--type', type=str, required=UnicodeTranslateError, help='Following types are allowed: byty_prodej, byty_pronajem, domy_prodej, domy_pronajem, projecty')
+parser.add_argument('--page', type=str, required=False, help='Page from what loading starts')
+args = vars(parser.parse_args())
+
+type = args['type']
+if type == 'byty_prodej':
+    type_link = 'prodej/byty'
+
+if args['page'] is not None:
+    try: counter = int(args['page'])
+    except: pass
+
 # Define count of all pages based on adds_on_page
-adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/prodej/byty', chrome_driver)
+adcount = sl.define_pages_count('https://www.sreality.cz/hledani/{}'.format(type_link), chrome_driver)
 pagescount = int(adcount/adds_on_page) + 1
 logging.info('======================= NEW RUN =======================')
 logging.info('  Pages count: ' + str(pagescount))
@@ -298,19 +308,12 @@ id_load = 0
 closed_counts = 0
 counter = 1
 failed_pages = []
-#try:
-if len(sys.argv) > 1:
-    counter = sys.argv[1]
-    #try:
-    counter = int(counter)
-    #except:
-    #    logging.error('Wrong parameter, not INT')
 
 # Open Connection
 connection = mysql.connector.connect(**connection_config_dict)
-id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
+id_load = sl.start_loading(type, adcount, pagescount,connection)
 while counter <= pagescount:
-    link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(counter)
+    link = 'https://www.sreality.cz/hledani/{}?strana='.format(type_link) + str(counter)
     status, skipped_count_1, failed_count_1, inserted_count_1, is_firefox = all_scrabing_from_page(link, counter, chrome_driver, firefox_driver, is_firefox)
     skipped_count = skipped_count + skipped_count_1
     failed_count = failed_count + failed_count_1
@@ -329,11 +332,8 @@ while counter <= pagescount:
 closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
 summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
 logging.info(summary_results)
-#except Exception:
-    #error_msg = str(e.message) + str(e.args)
-#    logging.info(Exception)
-#finally:
-SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
+
+sl.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
 
 script_date_finish_timestamp = datetime.datetime.now()
 connection.close()

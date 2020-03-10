@@ -1,9 +1,6 @@
 import copy
-
-from mysql.connector import Error
 import datetime
 import logging
-#import time
 
 class ObjectBytyProdejClass:
     """ Main class for Saving object 36 arguments"""

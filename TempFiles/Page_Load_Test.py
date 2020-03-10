@@ -66,9 +66,11 @@ def test_chrome_webdriver(input,driver):
 def test_chrome_webdriver_new(input, driver):
     link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(input)
     driver.get(link)
-
     WebDriverWait(driver, timeout=10)
     links = []
+    with open('screenshot.png', 'w+') as f:
+        driver.save_screenshot(f)
+        f.close()
 
     all_a = driver.find_elements_by_xpath('//a[@href]')
     element = WebDriverWait(driver, 50).until(EC.presence_of_element_located((By.XPATH, '//*[@id="page-layout"]/div[2]/div[2]/div[4]/div/div/div/div/div[3]/div/div[22]')))
@@ -89,9 +91,9 @@ def test_chrome_webdriver_new(input, driver):
     removed_list = list(set(links))
     print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ': Test #' + str(input) + '; FullList: '+ str(len(links)) + ' Count of unique HREFs: ' + str(len(removed_list)))
 
-def test_firefox_webdriver(input, gecodriver_path, options_firefox):
+def test_firefox_webdriver(input,driver):
 
-    driver= webdriver.Firefox(executable_path=gecodriver_path, options=options_firefox)
+    #driver= webdriver.Firefox(executable_path=gecodriver_path, options=options_firefox)
     link = 'https://www.sreality.cz/hledani/prodej/byty?strana=' + str(input)
     driver.get(link)
     all_a = driver.find_elements_by_xpath('//a[@href]')
@@ -106,7 +108,8 @@ def test_firefox_webdriver(input, gecodriver_path, options_firefox):
     # Remove duplicates
     removed_list = list(set(links))
     print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ': Test #' + str(input) + '; FullList: '+ str(len(links)) + ' Count of unique HREFs: ' + str(len(removed_list)))
-    driver.close()
+    time.sleep(5)
+    #driver.quit()
 
 ##################### Chrome ##############################
 if os.name == 'nt':
@@ -121,16 +124,16 @@ options_chrome = Option_Chrome()
 options_chrome.add_argument("--headless")
 
 options_firefox = Option_Firefox()
-options_firefox.add_argument("--headless")
+-options_firefox.add_argument("--headless")
 
-driver_chrome = webdriver.Chrome(executable_path=chromedriver_path,options=options_chrome)
-#driver_gecko = webdriver.Firefox(executable_path=gecodriver_path, options=options_firefox)
+#driver_chrome = webdriver.Chrome(executable_path=chromedriver_path,options=options_chrome)
+driver_gecko = webdriver.Firefox(executable_path=gecodriver_path, options=options_firefox)
 
-#for i in range(1,200): test_firefox_webdriver(i, gecodriver_path, options_firefox)
-for i in range(61,103): test_chrome_webdriver_new(i, driver_chrome)
+for i in range(1,200): test_firefox_webdriver(i, driver_gecko)
+#for i in range(61,103): test_chrome_webdriver_new(i, driver_chrome)
 
 #driver_chrome.close()
-#driver_gecko.close()
+driver_gecko.close()
 
 ##################### FireFox ##############################
 #driver_firefox = webdriver.Firefox()

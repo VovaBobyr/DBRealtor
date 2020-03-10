@@ -1,24 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import os
-#import codecs
+import codecs
 import mysql.connector
-#from mysql.connector import Error
 import datetime
+import time
 import sys
 import logging
-import time
-import SrealityLibrary
-from SrealityScanner_Byty_Pronajem_Class import ObjectBytPronajemClass
-
-# Pre-requisites:
-# Python:
-# mysql-connector-python 8.0.15
-# MySQL:
-# SET NAMES UTF8MB4
-# Connector:
-# https://stackoverflow.com/questions/50557234/authentication-plugin-caching-sha2-password-is-not-supported
-# auth_plugin='mysql_native_password'
+import srealitylibrary
+from SrealityScanner_Domy_Prodej_Class import ObjectDomyProdejClass
 
 # First imput parameter is Page from what to start load
 
@@ -36,11 +26,11 @@ else:
 if is_win:
     save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
     chromedriver_path = 'C:/Inst/chromedriver.exe'
-    log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Byty_Pronajem_' + script_date_start[:10] + '.log'
+    log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Domy_Prodej_' + script_date_start[:10] + '.log'
 else:
     save_path = '/opt/dbrealtor/temp/'
     chromedriver_path = '/usr/bin/chromedriver'
-    log_name = '/opt/dbrealtor/Logs/SrealityScanner_Byty_Pronajem_' + script_date_start[:10] + '.log'
+    log_name = '/opt/dbrealtor/Logs/SrealityScanner_Domy_Prodej_'+ script_date_start[:10] +'.log'
 
 logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename=log_name, level=logging.INFO)
 
@@ -54,7 +44,7 @@ driver = webdriver.Chrome(
 
 connection_config_dict = {
     'user': 'root',
-    'password': SrealityLibrary.take_pass(),
+    'password': srealitylibrary.take_pass(),
     'host': '127.0.0.1',
     'database': 'dbrealtor',
     'raise_on_warnings': True,
@@ -71,16 +61,17 @@ def find_value(search_string, where):
             break
     return  return_text
 
-def find_details_byt_pronajem(link, type, id_load, driver, connection):
+# Big part to find details in HTML
+def find_details_dom_prodej(link, type, id_load, driver, connection):
     obj_number = link[link.rfind('/') + 1:len(link)]
-    is_exist = SrealityLibrary.check_ad_exist(obj_number, type, connection)
+    is_exist = srealitylibrary.check_ad_exist(obj_number, type, connection)
     if is_exist:
         logging.info('  Object with number ' + obj_number + ' - SKIPPED')
         #delay=0
         return 'Skipped'
     # Title
     driver.get(link)
-    #logging.info('  Go to: ' + str(link))
+    #print('Driver GET - Find all details.')
     try:
         elems = driver.find_element_by_class_name('property-title')
     except:
@@ -90,23 +81,23 @@ def find_details_byt_pronajem(link, type, id_load, driver, connection):
             driver.get(link)
             elems = driver.find_element_by_class_name('property-title')
         except:
-            logging.error(' 2nd reconnect failed for: ' + link + ' - STOPPING')
-            failed_items.append(link)
+            logging.info(' 2nd reconnect failed for: ' + link + ' - STOPPING')
             return 'Failed'
     #finally:
     #    connection = mysql.connector.connect(**connection_config_dict)
-    #34
-    objectbyt = ObjectBytPronajemClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
-    # Title
-    objectbyt.title = elems.text.replace('\n', '')
+    #38
+    objectdom = ObjectDomyProdejClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
+    #Title
+    objectdom.title = elems.text.replace('\n', '')
     # id_load
-    objectbyt.id_load = str(id_load)
+    objectdom.id_load = str(id_load)
     # Description
     elems = driver.find_element_by_class_name('description')
     descr_text = elems.text.replace('\n',' ')
     descr_text = descr_text.replace("'","")
-    objectbyt.description = descr_text
-    # Main block with all details (not title and not kontact)
+    objectdom.description = descr_text
+
+    # Main block with all details (not title and not kontakt)
     elems = driver.find_element_by_class_name('params')
     # Processing Params with all details
     all_text = elems.text.split('\n')
@@ -116,99 +107,168 @@ def find_details_byt_pronajem(link, type, id_load, driver, connection):
     if insert_text == '':
         insert_text = find_value('cena: ', all_text)
         insert_text = find_value('Zlevněno: ', all_text)
-    objectbyt.celkova_cena = insert_text
+    objectdom.celkova_cena = insert_text
     # Poznámka k ceně
     insert_text = find_value('Poznámka k ceně: ',all_text)
-    objectbyt.poznamka_k_cene = insert_text
-    # Cena - define from Celcova cena into Object
+    objectdom.poznamka_k_cene = insert_text
+    # Cena - define from Celcova cana into Object
     # Check is_cena_digit?
-    objectbyt.cena = SrealityLibrary.find_cena(objectbyt.celkova_cena)
+    objectdom.cena = srealitylibrary.find_cena(objectdom.celkova_cena)
+    # Náklady na bydlení::
+    insert_text = find_value('Náklady na bydlení: ',all_text)
+    objectdom.naklady = insert_text
     # ID zakázky:
     insert_text = find_value('ID zakázky: ',all_text)
-    objectbyt.id_ext = insert_text
+    objectdom.id_ext = insert_text
     # Aktualizace:
     insert_text = find_value('Aktualizace: ',all_text)
-    objectbyt.aktualizace = insert_text
+    objectdom.aktualizace = insert_text
     # Stavba:
     insert_text = find_value('Stavba: ',all_text)
-    objectbyt.stavba = insert_text
+    objectdom.stavba = insert_text
     # Stav objektu:
     insert_text = find_value('Stav objektu: ',all_text)
-    objectbyt.stav_objektu = insert_text
+    objectdom.stav_objektu = insert_text
     # Vlastnictví:
     insert_text = find_value('Vlastnictví: ',all_text)
-    objectbyt.vlastnictvi = insert_text
+    objectdom.vlastnictvi = insert_text
     # Umístění objektu:
     insert_text = find_value('Umístění objektu: ',all_text)
-    objectbyt.umisteni_objektu = insert_text
+    objectdom.umisteni_objektu = insert_text
+    # Typ domu:
+    insert_text = find_value('Typ domu: ',all_text)
+    objectdom.typ_domu = insert_text
     # Podlaží:
     insert_text = find_value('Podlaží: ',all_text)
-    objectbyt.podlazi = insert_text
+    objectdom.podlazi = insert_text
+    # Počet bytu:
+    insert_text = find_value('Počet bytu: ',all_text)
+    objectdom.pocet_bytu = insert_text
     # Užitná plocha:
     insert_text = find_value('Užitná plocha: ',all_text)
-    objectbyt.uzitna_plocha = insert_text
+    objectdom.uzitna_plocha = insert_text
+    # Plocha podlahová:
+    insert_text = find_value('Plocha podlahová: ',all_text)
+    objectdom.plocha_podlahova = insert_text
+    # Poloha domu:
+    insert_text = find_value('Poloha domu: ',all_text)
+    objectdom.plocha_domu = insert_text
+    # Plocha zastavěná:
+    insert_text = find_value('Plocha zastavěná: ',all_text)
+    objectdom.plocha_zastavena = insert_text
+    # Plocha pozemku:
+    insert_text = find_value('Plocha pozemku: ',all_text)
+    objectdom.plocha_pozemku = insert_text
+    # Plocha zahrady:
+    insert_text = find_value('Plocha zahrady: ',all_text)
+    objectdom.plocha_zahrady = insert_text
+    # Plocha zahrady:
+    insert_text = find_value('Plocha zahrady: ',all_text)
+    objectdom.plocha_zahrady = insert_text
+    # Terasa:
+    insert_text = find_value('Terasa: ',all_text)
+    objectdom.terasa = insert_text
     # Sklep:
     insert_text = find_value('Sklep: ',all_text)
-    objectbyt.sklep = insert_text
+    objectdom.sklep = insert_text
+    # Datum_nastegovani:
+    insert_text = find_value('Datum nastegovani: ',all_text)
+    objectdom.datum_nastegovani = insert_text
+    # Rok kolaudace:
+    insert_text = find_value('Rok kolaudace: ',all_text)
+    objectdom.rok_kolaudace = insert_text
+    # Rok_reconstrukce:
+    insert_text = find_value('Rok reconstrukce: ',all_text)
+    objectdom.rok_reconstrukce = insert_text
+    # Parkování:
+    insert_text = find_value('Parkování: ',all_text)
+    objectdom.parkovani = insert_text
+    # Garaz:
+    insert_text = find_value('Garaz: ',all_text)
+    objectdom.garaz = insert_text
     # Voda:
     insert_text = find_value('Voda: ',all_text)
-    objectbyt.voda = insert_text
+    objectdom.voda = insert_text
+    # Plyn:
+    insert_text = find_value('Plyn: ',all_text)
+    objectdom.plyn = insert_text
+    # Topeni:
+    insert_text = find_value('Topeni: ',all_text)
+    objectdom.topeni = insert_text
     # Odpad:
     insert_text = find_value('Odpad: ',all_text)
-    objectbyt.odpad = insert_text
+    objectdom.odpad = insert_text
     # Telekomunikace:
     insert_text = find_value('Telekomunikace: ',all_text)
-    objectbyt.telekomunikace = insert_text
+    objectdom.telekomunikace = insert_text
+    # Komunikace:
+    insert_text = find_value('Komunikace: ',all_text)
+    objectdom.komunikace = insert_text
     # Elektřina:
     insert_text = find_value('Elektřina: ',all_text)
-    objectbyt.elektrina = insert_text
+    objectdom.elektrina = insert_text
     # Doprava:
     insert_text = find_value('Doprava: ',all_text)
-    objectbyt.doprava = insert_text
+    objectdom.doprava = insert_text
+    # Bezbarierovy:
+    insert_text = find_value('Bezbarierovy: ',all_text)
+    objectdom.bezbarierovy = insert_text
+    # Vybaveni:
+    insert_text = find_value('Vybaveni: ',all_text)
+    objectdom.vybaveni = insert_text
+    # Bazen:
+    insert_text = find_value('Bazen: ',all_text)
+    objectdom.bazen = insert_text
+    # Energetická náročnost budovy:
+    insert_text = find_value('Energetická náročnost budovy: ',all_text)
+    objectdom.energ_narocnost_budovy = insert_text
     # Kontakt
     elems = driver.find_element_by_class_name('contacts')
     insert_text = elems.text.split('\n')
     try:
-        objectbyt.kontakt = insert_text[0]
-        objectbyt.kontakt = insert_text[4]
-        objectbyt.kontakt = insert_text[5]
+        objectdom.kontakt = insert_text[0]
+        objectdom.kontakt = insert_text[4]
+        objectdom.kontakt = insert_text[5]
     except:
         pass
     # Zlevneno - if it exist
     insert_text = find_value('Původní cena: ',all_text)
-    objectbyt.puvodni_cena = insert_text
+    objectdom.puvodni_cena = insert_text
     # Link
-    objectbyt.link = link
+    objectdom.link = link
     # Object_Number
-    objectbyt.obj_number = link[link.rfind('/') + 1:len(link)]
+    objectdom.obj_number = link[link.rfind('/') + 1:len(link)]
     # Region and sub-region:
     # it could be that sub-region doesn't exist (exist only for Praha and Brno)
     elems = driver.find_element_by_class_name('regions-box')
     insert_text = elems.text.split('\n')
     if len(insert_text) >=2:
-        insert_text[0] = insert_text[0][insert_text[0].find('Pronájem bytů')+14:len(insert_text[0])-1]
-        insert_text[1] = insert_text[1][insert_text[1].find('Pronájem bytů')+14:len(insert_text[1])-1]
-        objectbyt.region = insert_text[0]
-        objectbyt.subregion = insert_text[1]
+        insert_text[0] = insert_text[0][insert_text[0].find('Prodej domů')+12:len(insert_text[0])-1]
+        insert_text[1] = insert_text[1][insert_text[1].find('Prodej domů')+12:len(insert_text[1])-1]
+        objectdom.region = insert_text[0]
+        objectdom.subregion = insert_text[1]
     if len(insert_text)==1:
-        insert_text[0] = insert_text[0][insert_text[0].find('Pronájem bytů ')+14:len(insert_text[0])-1]
-        objectbyt.region = insert_text[0]
+        insert_text[0] = insert_text[0][insert_text[0].find('Prodej domů ')+12:len(insert_text[0])-1]
+        objectdom.region = insert_text[0]
     #insert_text = elems.text.split('\n')
-    #objectbyt.region = insert_text
+    #objectdom.region = insert_text
 
     # Insert object to DB
-    inserted_status = objectbyt.dbinsertbyty()
+    inserted_status = objectdom.dbinsertdomy()
     return inserted_status
 
-def final_update_byt_pronajem(type, script_date_start, connection):
+# Function runs at the end of all load - need for close all other that are not actualized
+def final_update_dom_prodej(type, script_date_start, connection_config_dict):
     # Input parameter - time of Script start: that to update all rows that are old (were not found now)
     try:
+        connection = mysql.connector.connect(**connection_config_dict)
         mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where (date_update < "' \
                 + script_date_start + '" AND STATUS !="C") OR (date_open < "' + script_date_start + '" AND date_update IS NULL AND STATUS !="C")'
         cursor = connection.cursor()
         cursor.execute(query)
         connection.commit()
+        # print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '  Closed OLD objects count: ', row_count)
         logging.info('  Closed OLD objects count: ' + str(cursor.rowcount))
         closed_counts = cursor.rowcount
     except:
@@ -222,10 +282,10 @@ def all_scrabing_from_page(link, counter, driver):
     failed_count = 0
     inserted_count = 0
     driver.get(link)
-    advlist = SrealityLibrary.find_all_links(link, 'pronajem', driver)
+    advlist = srealitylibrary.find_all_links(link, 'prodej', driver)
     if len(advlist) == 0:
         logging.info('    Advlist = 0: reget link: ' + str(link))
-        advlist = SrealityLibrary.find_all_links(link, 'prodej', driver)
+        advlist = srealitylibrary.find_all_links(link, 'prodej', driver)
         if len(advlist) == 0:
             logging.info('    Advlist = 0: reget failed')
             failed_pages.append(counter)
@@ -237,7 +297,7 @@ def all_scrabing_from_page(link, counter, driver):
         i = i + 1
         # Check whether this object already added
         obj_number = link[link.rfind('/') + 1:len(link)]
-        status = find_details_byt_pronajem(link, type, id_load, driver, connection)
+        status = find_details_dom_prodej(link, type, id_load, driver, connection)
         if status == 'Skipped':
             skipped_count = skipped_count + 1
         if status == 'Failed':
@@ -247,11 +307,10 @@ def all_scrabing_from_page(link, counter, driver):
     status = 'Success'
     return status, skipped_count, failed_count, inserted_count
 
-type = 'byty_pronajem'
+type = 'domy_prodej'
 # Define count of all pages based on adds_on_page
-adcount = SrealityLibrary.define_pages_count('https://www.sreality.cz/hledani/pronajem/byty', driver)
+adcount = srealitylibrary.define_pages_count('https://www.sreality.cz/hledani/prodej/domy', driver)
 pagescount = int(adcount/adds_on_page) + 1
-#print(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S") + '  Pages count: ' + str(pagescount))
 logging.info('======================= NEW RUN =======================')
 logging.info('  Pages count: ' + str(pagescount))
 # Main part - go inside to Advertise of each object
@@ -264,8 +323,6 @@ id_load = 0
 closed_counts = 0
 counter = 1
 failed_pages = []
-failed_items = []
-failed_pages_count = 0
 try:
     if len(sys.argv) > 1:
         counter = sys.argv[1]
@@ -274,46 +331,35 @@ try:
         except:
             logging.error('Wrong parameter, not INT')
 
-    # Open Connection and cursor
+    # Open Connection
     connection = mysql.connector.connect(**connection_config_dict)
-    id_load = SrealityLibrary.start_loading(type, adcount, pagescount,connection)
+    id_load = srealitylibrary.start_loading(type, adcount, pagescount,connection)
     while counter <= pagescount:
-        link = 'https://www.sreality.cz/hledani/pronajem/byty?strana=' + str(counter)
+        link = 'https://www.sreality.cz/hledani/prodej/domy?strana=' + str(counter)
         status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, counter, driver)
         skipped_count = skipped_count + skipped_count_1
         failed_count = failed_count + failed_count_1
         inserted_count = inserted_count + inserted_count_1
         counter = counter + 1
 
-        # In case some Pages failed - try to reload it one more time
+    # In case some Pages failed - try to reload it one more time
     if len(failed_pages) > 0:
         for page in failed_pages:
-            link = 'https://www.sreality.cz/hledani/pronajem/byty?strana=' + str(page)
+            link = 'https://www.sreality.cz/hledani/prodej/domy?strana=' + str(page)
             status, skipped_count_1, failed_count_1, inserted_count_1 = all_scrabing_from_page(link, page, driver)
-            if status == 'Failed':
-                failed_pages_count = failed_pages_count + 1
             skipped_count = skipped_count + skipped_count_1
             failed_count = failed_count + failed_count_1
             inserted_count = inserted_count + inserted_count_1
 
-    if len(failed_items) > 0:
-        failed_count = 0
-        for item_link in failed_items:
-            status = find_details_byt_pronajem(link, type, id_load, driver, connection)
-            if status == 'Skipped':
-                skipped_count = skipped_count + 1
-            if status == 'Failed':
-                failed_count = failed_count + 1
-            if status == 'Inserted':
-                inserted_count = inserted_count + 1
-
-    closed_counts = final_update_byt_pronajem(type, script_date_start, connection)
-    failed_count = failed_count + failed_pages_count*20
+    closed_counts = final_update_dom_prodej(type, script_date_start, connection_config_dict)
     summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
     logging.info(summary_results)
+
 except Exception:
-    logging.error(Exception)
+        #error_msg = str(e.message) + str(e.args)
+        logging.info(Exception)
 finally:
-    SrealityLibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
+    srealitylibrary.finish_loading(id_load, adcount, pagescount, inserted_count, skipped_count, failed_count,closed_counts,connection)
     connection.close()
     driver.close()
+
