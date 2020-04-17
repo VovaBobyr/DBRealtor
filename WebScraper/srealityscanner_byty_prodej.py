@@ -2,12 +2,13 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as Option_Firefox
 import os
-import mysql.connector
+import mysql.connector, psycopg2
 import datetime
 import logging
 import WebScraper.srealitylibrary as sl
 import argparse
-from srealityscanner_byty_prodej_class import ObjectBytyProdejClass
+from WebScraper.srealityscanner_byty_prodej_class import ObjectBytyProdejClass
+import WebScraper.srealitylibrary as sl
 
 # Pre-requisites:
 # Python:
@@ -39,15 +40,15 @@ else:
     is_win = False
 
 if is_win:
-    save_path = 'C:/Learning/Python/DBRealtor/TempFiles/'
+    save_path = 'C:/Learning/Python/DBRealtor/tempFiles/'
     chromedriver_path = 'C:/Inst/chromedriver.exe'
     firefoxdriver_path = 'C:/Inst/geckodriver.exe'
-    log_name = 'C:/Learning/Python/DBRealtor/Logs/SrealityScanner_Byty_Prodej_' + script_date_start[:10] + '.log'
+    log_name = 'C:/Learning/Python/DBRealtor/logs/srealityscanner_byty_prodej_' + script_date_start[:10] + '.log'
 else:
     save_path = '/opt/dbrealtor/temp/'
     chromedriver_path = '/usr/bin/chromedriver'
     firefoxdriver_path = '/usr/bin/geckodriver'
-    log_name = '/opt/dbrealtor/Logs/SrealityScanner_Byty_Prodej_'+ script_date_start[:10] +'.log'
+    log_name = '/opt/dbrealtor/logs/srealityscanner_byty_prodej_'+ script_date_start[:10] +'.log'
 
 logging.basicConfig(format = u'[%(asctime)s]  %(message)s',filename=log_name, level=logging.INFO)
 
@@ -64,7 +65,7 @@ firefox_driver = webdriver.Chrome(
     executable_path=firefoxdriver_path,
     options=firefox_options)
 
-connection_config_dict = {
+'''connection_config_dict = {
     'user': 'vlad',
     'password': sl.take_pass(),
     'host': '127.0.0.1',
@@ -75,7 +76,9 @@ connection_config_dict = {
     'autocommit': True,
     'pool_size': 5,
     'auth_plugin': 'mysql_native_password'
-}
+}'''
+
+connection = psycopg2.connect(user="vlad",password=sl.take_pass(), host="127.0.0.1", port="5432", database="dbrealtor")
 
 def find_value(search_string, where):
     return_text = ''
@@ -102,19 +105,6 @@ def find_details_byt_prodej(link, type, id_load, chrome_driver, connection):
         logging.info(' issue in <property-title> for: ' + link)
         return 'Failed'
 
-    '''except:
-        try:
-            time.sleep(2)
-            logging.info('  Reconnect to take page: ' + link)
-            driver.get(link)
-            elems = driver.find_element_by_class_name('property-title')
-        except:
-            logging.info(' 2nd reconnect failed for: ' + link + ' - STOPPING')
-            return 'Failed'
-    '''
-    #finally:
-    #    connection = mysql.connector.connect(**connection_config_dict)
-    #38
     objectbyt = ObjectBytyProdejClass('','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',connection)
     #Title
     objectbyt.title = elems.text.replace('\n', '')
@@ -231,13 +221,13 @@ def find_details_byt_prodej(link, type, id_load, chrome_driver, connection):
     return inserted_status
 
 # Function runs at the end of all load - need for close all other that are not actualized
-def final_update_byt_prodej(type, script_date_start, connection_config_dict):
+def final_update_byt_prodej(type, script_date_start, connection):
     # Input parameter - time of Script start: that to update all rows that are old (were not found now)
     #try:
-    connection = mysql.connector.connect(**connection_config_dict)
+    #connection = mysql.connector.connect(**connection_config_dict)
     mydatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    query = 'update dbrealtor.' + type + ' set date_close="' + mydatetime + '", status="C" where (date_update < "' \
-            + script_date_start + '" AND STATUS !="C") OR (date_open < "' + script_date_start + '" AND date_update IS NULL AND STATUS !="C")'
+    query = "update dbrealtor." + type + " set date_close='" + mydatetime + "', status='C' where (date_update < '" \
+            + script_date_start + "' AND STATUS !='C') OR (date_open < '" + script_date_start + "' AND date_update IS NULL AND STATUS !='C')"
     cursor = connection.cursor()
     cursor.execute(query)
     connection.commit()
@@ -290,6 +280,8 @@ type = args['type']
 if type == 'byty_prodej':
     type_link = 'prodej/byty'
 
+counter = 1
+
 if args['page'] is not None:
     try: counter = int(args['page'])
     except: pass
@@ -306,11 +298,11 @@ failed_count = 0
 inserted_count = 0
 id_load = 0
 closed_counts = 0
-counter = 1
 failed_pages = []
 
 # Open Connection
-connection = mysql.connector.connect(**connection_config_dict)
+#connection = mysql.connector.connect(**connection_config_dict)
+
 id_load = sl.start_loading(type, adcount, pagescount,connection)
 while counter <= pagescount:
     link = 'https://www.sreality.cz/hledani/{}?strana='.format(type_link) + str(counter)
@@ -329,7 +321,7 @@ while counter <= pagescount:
 #        failed_count = failed_count + failed_count_1
 #        inserted_count = inserted_count + inserted_count_1
 
-closed_counts = final_update_byt_prodej(type, script_date_start, connection_config_dict)
+closed_counts = final_update_byt_prodej(type, script_date_start, connection)
 summary_results = 'Count items: ' + str(adcount) + ';  Count pages: ' + str(pagescount) + ';  Inserted: ' + str(inserted_count) + ';  Skipped: ' + str(skipped_count) + ';  Failed: ' + str(failed_count) + ';  Closed: ' + str(closed_counts)
 logging.info(summary_results)
 
