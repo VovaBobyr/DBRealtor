@@ -1,0 +1,51 @@
+name: Tests
+
+on:
+  push:
+    branches: ["master", "main"]
+  pull_request:
+    branches: ["master", "main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: sreality
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: sreality
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U sreality"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql+asyncpg://sreality:testpassword@localhost:5432/sreality
+      DATABASE_URL_SYNC: postgresql+psycopg2://sreality:testpassword@localhost:5432/sreality
+      POSTGRES_USER: sreality
+      POSTGRES_PASSWORD: testpassword
+      POSTGRES_DB: sreality
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Run migrations
+        run: alembic upgrade head
+
+      - name: Run tests
+        run: pytest tests/ -v --tb=short

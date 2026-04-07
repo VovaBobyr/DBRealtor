@@ -1,0 +1,3375 @@
+{
+  "search_data": {
+    "pagination": {
+      "limit": 22,
+      "offset": 0,
+      "total": 4315,
+      "totalWithPromo": 4521
+    },
+    "results": [
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "2+kk",
+          "value": 4
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 3415294796,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDgLT0MQAGM6Z8g/1023.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CDciVRVOGM6Z9B/90f8.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtzYqGM5qGM6Z9v/093e.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5DwDWzRD6GM6aAd/b8dd.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtEDuRmQM8GM6aBP/eec6.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CoHumPZBGM6aB1/0372.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBP7eGM6aCk/942c.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCJexHNyVGM6aDR/3b45.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCJexHNyfGM6aEC/2721.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlPh4GM6aFG/00bd.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtBwNESRTPGM6aFy/cc63.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCDcb5LybGM6aGi/bc6f.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDgLT0MPsGM6aHe/c6a1.jpeg",
+            "restbType": 19,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CDciVRaZGM6aIL/e431.jpeg",
+            "restbType": 27,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtJj1UPGyGM6aI5/23af.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlPiLGM6aJw/6a40.jpeg",
+            "restbType": 19,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWZuTPHJGM6aKj/51a7.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CNPfpRhpGM6aLS/45dc.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlPiTGM6aMD/2c85.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBP7eGM6aMz/4916.jpeg",
+            "restbType": 29,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBP7fGM6aNk/508d.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5Do9kXP9jGM6aOW/12c2.jpeg",
+            "restbType": 27,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CFdAHPL1GM6aPY/0ec0.jpeg",
+            "restbType": 19,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CNPfpRhJGM6aQN/4f81.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtJj1UPOhGM6aRI/82b6.jpeg",
+            "restbType": 27,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Braník",
+          "cityPartSeoName": "branik",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 4",
+          "districtId": 5004,
+          "districtSeoName": "praha-4",
+          "entityType": "address",
+          "geoHash": "u2fhxuy2q4",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.0359123785678,
+          "longitude": 14.4119206227222,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 4",
+          "quarterId": 90,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Ke Krči",
+          "streetId": 120111,
+          "streetNumber": null,
+          "streetSeoName": "ke-krci",
+          "ward": null,
+          "wardId": 13678,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 2+kk 58 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_oV_B/kObgaqJNMnB0llrZvCNlXm0/55a8.png",
+        "premiseId": 1160,
+        "premise": {
+          "seoName": "psn-s-r-o",
+          "wardSeoName": "zizkov",
+          "quarterSeoName": "praha-3",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 9349000,
+        "priceCzkPerSqM": 161190,
+        "priceSummaryCzk": 9349000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "2+kk",
+          "value": 4
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 3874952012,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqxmIDIOhFRpuTd/534b.png",
+            "restbType": 16,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p8_A/nPXMbbUsvqECACpKbyFu1HEm/0421.png",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTDPt7SHyjFRpuTl/9d55.png",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqCs9CyJEHFRpuS1/880f.png",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqCaOxZMFjFRpuTm/e848.png",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqx7ONMhUFRpuS3/580b.png",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTqAqfIPCFRpuSv/c303.png",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTBLrRlIICFRpuS0/550f.png",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqCs9CyJBgFRpuSz/f0f4.png",
+            "restbType": 21,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTqAqfIPCFRpzmX/da2f.png",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqBMnoOMBQFRpzl9/b887.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTDPt7SHvwFRpuV5/08d2.png",
+            "restbType": 28,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Žižkov",
+          "cityPartSeoName": "zizkov",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 3",
+          "districtId": 5003,
+          "districtSeoName": "praha-3",
+          "entityType": "street",
+          "geoHash": "u2fkcmbhps",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.086009,
+          "longitude": 14.469324,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 3",
+          "quarterId": 89,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Ke Kapslovně",
+          "streetId": 152689,
+          "streetNumber": null,
+          "streetSeoName": "ke-kapslovne",
+          "ward": null,
+          "wardId": 14971,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 2+kk 58 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_H_D/BMGBn3Z.png",
+        "premiseId": 16175,
+        "premise": {
+          "seoName": "binio-praha-s-r-o",
+          "wardSeoName": "nove-mesto",
+          "quarterSeoName": "praha-1",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 11690000,
+        "priceCzkPerSqM": 201552,
+        "priceSummaryCzk": 11690000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "1+kk",
+          "value": 2
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 1399477068,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5bIUBSbCGOjncn/68d8.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5bIUBSb2GOjndu/e80b.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5DwDWzT0xGOjnev/a290.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CNPfpUFxGOjnfk/c4c1.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CNPfpUEyGOjngX/82e4.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CNPfpUFgGOjng8/101f.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5Do9kXSHEGOjnhm/7412.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtzYqGO0uGOjniR/79cc.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CFdAHRzvGOjnjK/663f.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBM3KVNs8GOjnj1/06b4.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CNPfpUFxGOjnkp/98b1.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBM3KVNs8GOjnlL/9e40.jpeg",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEDuRmSmtGOjnls/ccb6.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5DwDWzT2KGOjnmg/1554.jpeg",
+            "restbType": 21,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5BWZuTRoWGOjnnU/5c6c.jpeg",
+            "restbType": 21,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CGpNZRKpGOjnoG/a15e.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5BWZuTRoWGOjno0/469e.jpeg",
+            "restbType": 9,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtCJexHPonGOjnpl/8575.jpeg",
+            "restbType": 17,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBM3KVNsNGOjnqa/2337.jpeg",
+            "restbType": 28,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Libeň",
+          "cityPartSeoName": "liben",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 8",
+          "districtId": 5008,
+          "districtSeoName": "praha-8",
+          "entityType": "address",
+          "geoHash": "u2fm177ws6",
+          "houseNumber": "2386",
+          "inaccuracyType": "gps",
+          "latitude": 50.11664,
+          "longitude": 14.473991,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 8",
+          "quarterId": 115,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Budilova",
+          "streetId": 150309,
+          "streetNumber": "6",
+          "streetSeoName": "budilova",
+          "ward": null,
+          "wardId": 14955,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 1+kk 37 m²",
+        "premiseLogo": "",
+        "premiseId": 8152,
+        "premise": {
+          "seoName": "remax-alfa",
+          "wardSeoName": "nove-mesto",
+          "quarterSeoName": "praha-1",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 5990000,
+        "priceCzkPerSqM": 161892,
+        "priceSummaryCzk": 5990000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "1+kk",
+          "value": 2
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 1734349644,
+        "hasMatterport": false,
+        "hasVideo": true,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTEBlmaGzqFPYWsJ/5489.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqb3AyKeOFPYWsc/c586.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqxmIDGlKFPYWsv/7925.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTCNNSBGrQFPYWtM/5653.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTDPt7SGzZFPYWti/7b41.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTQzPhGmFFPYWuD/f458.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqxmIDGfgFPYWuZ/2fa8.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqCs9CyHGZFPYWut/aac2.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTqAqfHSzFPYWvB/898e.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTDqlCCHCSFPYWvX/c592.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqCaOxZKtBFPYWvv/d7fd.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqb3AyKeOFPYWwF/00e0.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqCaOxZKtZFPYWwa/332d.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTCNNSBGowFPYWwv/5b8a.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTBCGZ9G1iFPYWxG/43d7.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTQzPhGroFPYWxa/16d4.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqCs9CyHFcFPYWxv/a739.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTCNNSBGrhFPYWyM/4413.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqBMnoOKjPFPYWye/5071.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTBCGZ9G19FPYWyw/8d34.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTxrzzG1rFPYWzG/1bcd.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqD86wCKzxFPYWzi/0ae2.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqCs9CyHGZFPYWz9/dc78.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqD86wCKzxFPYW0S/9db4.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqBMnoOKc5FPYW0k/2053.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqBMnoOKjPFPYW08/8ef1.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqCs9CyHCFFPYW1a/8d96.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTxrzzG1rFPYW1z/c2e8.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqBMnoOKjPFPYW2V/3fa0.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/nDJ4VEZEqDjvpWMY1FPYW2w/78be.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_og_C/kOzkBkwYBTDPt7SGy1FPYW3c/cd28.jpeg",
+            "restbType": 4,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Libeň",
+          "cityPartSeoName": "liben",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 8",
+          "districtId": 5008,
+          "districtSeoName": "praha-8",
+          "entityType": "address",
+          "geoHash": "u2fm1tdthb",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.1287283571338,
+          "longitude": 14.4836242606875,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 8",
+          "quarterId": 115,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Březenská",
+          "streetId": 5194134,
+          "streetNumber": null,
+          "streetSeoName": "brezenska",
+          "ward": null,
+          "wardId": 14955,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 1+kk 49 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_oe_A/kOzmiQlmfoCswkNFWBEvj0BL/ac65.png",
+        "premiseId": 29707,
+        "premise": {
+          "seoName": "blanka-vankova-s-r-o",
+          "wardSeoName": "vinohrady",
+          "quarterSeoName": "praha-10",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 6947000,
+        "priceCzkPerSqM": 141776,
+        "priceSummaryCzk": 6947000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "2+1",
+          "value": 5
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 3574481740,
+        "hasMatterport": false,
+        "hasVideo": true,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWZuTIulGJFG7n/2370.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlIlrGJFHHY/b92b.jpeg",
+            "restbType": 23,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCJexHH9FGJFG8m/8242.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtJj1UJqnGJFG9c/3479.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CFdAHIbGGJFHAW/11b2.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWZuTIubGJFHBF/dd9f.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5DwDWzJe7GJFHCB/d96e.jpeg",
+            "restbType": 17,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtBwNESK5xGJFHDO/4168.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5DwDWzJgLGJFHEE/cce4.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtBwNESK7GGJFHFD/0d32.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5DwDWzJgLGJFHFt/3f74.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtzYqGHq3GJFHGO/a658.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCJexHIBDGJFHGx/83bc.jpeg",
+            "restbType": 23,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Záběhlice",
+          "cityPartSeoName": "zabehlice",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 10",
+          "districtId": 5010,
+          "districtSeoName": "praha-10",
+          "entityType": "address",
+          "geoHash": "u2fkf00vn3",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.0545762623546,
+          "longitude": 14.5032583724833,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 10",
+          "quarterId": 132,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Sněženková",
+          "streetId": 121871,
+          "streetNumber": null,
+          "streetSeoName": "snezenkova",
+          "ward": null,
+          "wardId": 14970,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 2+1 51 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_od_A/kOes7N5Ni6BO3UsC6lEPY7Tr/6b87.png",
+        "premiseId": 31737,
+        "premise": {
+          "seoName": "edo-reality",
+          "wardSeoName": "chodov",
+          "quarterSeoName": "praha-11",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 7290000,
+        "priceCzkPerSqM": 142941,
+        "priceSummaryCzk": 7290000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "1+kk",
+          "value": 2
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 3963822924,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kOzkBkwYBTC4iHRqmE9nDjI/72ca.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kOzkBkwYBTB7NAfmTE9nDj5/044a.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_B/kcHp2YdDtEDuRmCRqGArnVk/efb6.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_B/nCTUX1iX5CoHumCs2GArnWd/344c.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_B/kcHp2YdDtBM3KVByZGArnXJ/5d5d.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_B/nCTUX1iX5CFdAHCv4GArnX8/86de.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_B/nCTUX1iX5Do9kXCvwGArnY4/466c.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_B/nCTUX1iX5BWZuTCssGArnZr/2407.jpeg",
+            "restbType": 28,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Hlubočepy",
+          "cityPartSeoName": "hlubocepy",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 5",
+          "districtId": 5005,
+          "districtSeoName": "praha-5",
+          "entityType": "address",
+          "geoHash": "u2fhwg2syw",
+          "houseNumber": "1289",
+          "inaccuracyType": "gps",
+          "latitude": 50.0284713,
+          "longitude": 14.3601031,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 5",
+          "quarterId": 97,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Gollové",
+          "streetId": 5197315,
+          "streetNumber": "1",
+          "streetSeoName": "gollove",
+          "ward": null,
+          "wardId": 13685,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 1+kk 26 m²",
+        "premiseLogo": "",
+        "premiseId": 27584,
+        "premise": {
+          "seoName": "home4people-expert",
+          "wardSeoName": "kobylisy",
+          "quarterSeoName": "praha-8",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 5699000,
+        "priceCzkPerSqM": 219192,
+        "priceSummaryCzk": 5699000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "2+kk",
+          "value": 4
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 412173132,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CGpNZO01GM6aXT/bf29.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlPiLGM6aX4/5683.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWZuTPGGGM6aYs/e364.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtEBMvIM6KGM6aZa/a49d.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCDcb5LybGM6aaP/8454.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDrxR2MuOGM6aa7/6a2b.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtzYqGM5qGM6abs/ec47.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CoHumPYIGM6acj/fd8f.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CGpNZO0DGM6adR/6269.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtBwNESRPHGM6ad8/f835.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CDciVRVOGM6aek/1fd8.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtBwNESRTQGM6afN/dfa0.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtEDuRmQNHGM6agF/e7bd.jpeg",
+            "restbType": 19,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBP7fGM6agt/f348.jpeg",
+            "restbType": 27,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBP7fGM6ahU/de83.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CFdAHPJ3GM6aiP/743a.jpeg",
+            "restbType": 19,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBP67GM6ajA/b374.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtEBMvIM53GM6aj1/0a29.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDgLT0MQAGM6aku/73e7.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCDcb5LySGM6alh/4712.jpeg",
+            "restbType": 29,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtJj1UPOhGM6amR/471c.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtBM3KVL6AGM6anA/8601.jpeg",
+            "restbType": 27,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5DwDWzQ4FGM6aoI/52ca.jpeg",
+            "restbType": 19,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CoHumPYIGM6ao7/dbfd.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlPh4GM6apw/818c.jpeg",
+            "restbType": 27,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Braník",
+          "cityPartSeoName": "branik",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 4",
+          "districtId": 5004,
+          "districtSeoName": "praha-4",
+          "entityType": "address",
+          "geoHash": "u2fhxuy2q4",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.0359123785678,
+          "longitude": 14.4119206227222,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 4",
+          "quarterId": 90,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Ke Krči",
+          "streetId": 120111,
+          "streetNumber": null,
+          "streetSeoName": "ke-krci",
+          "ward": null,
+          "wardId": 13678,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 2+kk 54 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_oV_B/kObgaqJNMnB0llrZvCNlXm0/55a8.png",
+        "premiseId": 1160,
+        "premise": {
+          "seoName": "psn-s-r-o",
+          "wardSeoName": "zizkov",
+          "quarterSeoName": "praha-3",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 7549000,
+        "priceCzkPerSqM": 139796,
+        "priceSummaryCzk": 7549000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "2+1",
+          "value": 5
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 55464780,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDgLT0NYXGOOCPb/ed32.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtzYqGOVxGOOCQG/e59e.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5DwDWzTNpGOOCQn/d940.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBM3KVNWqGOOCRd/04bc.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDgLT0NYWGOOCSP/c1ab.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBM3KVNXZGOOCTJ/d39a.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CoHumRNbGOOCT3/4b9c.jpeg",
+            "restbType": 16,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CoHumRLCGOOCUx/294a.jpeg",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5bIUBR58GOOCVs/a1ec.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEBMvIOVoGOOCWf/0f50.jpeg",
+            "restbType": 6,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Vršovice",
+          "cityPartSeoName": "vrsovice",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 10",
+          "districtId": 5010,
+          "districtSeoName": "praha-10",
+          "entityType": "address",
+          "geoHash": "u2fkc47ve0",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.0670181425162,
+          "longitude": 14.463294404685,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 10",
+          "quarterId": 132,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Taškentská",
+          "streetId": 123318,
+          "streetNumber": null,
+          "streetSeoName": "taskentska",
+          "ward": null,
+          "wardId": 14968,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 2+1 52 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_G_I/qtrEoz.png",
+        "premiseId": 11546,
+        "premise": {
+          "seoName": "realdomus-s-r-o",
+          "wardSeoName": "ceske-budejovice-1",
+          "quarterSeoName": "",
+          "citySeoName": "ceske-budejovice"
+        },
+        "priceCzk": 7599999,
+        "priceCzkPerSqM": 146154,
+        "priceSummaryCzk": 7599999,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "2+kk",
+          "value": 4
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 3808375628,
+        "hasMatterport": false,
+        "hasVideo": true,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlMdbGLUhPP/d8d5.jpeg",
+            "restbType": 29,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CDciVOjbGLUhP9/31dc.jpeg",
+            "restbType": 2,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtJj1UMsyGLUhQ7/1c3e.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBNE7GLUhRn/3341.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CNPfpOwrGLUhSF/474e.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtEDuRmNXLGLUhTP/c5e6.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CGpNZMHbGLUhUF/40ad.jpeg",
+            "restbType": 2,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CoHumMoIGLUhUx/31d1.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCJexHLWpGLUhVy/0af7.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5Do9kXNG7GLUhWs/d0e1.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CGpNZMHkGLUhXf/2805.jpeg",
+            "restbType": 6,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Strašnice",
+          "cityPartSeoName": "strasnice",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 3",
+          "districtId": 5003,
+          "districtSeoName": "praha-3",
+          "entityType": "address",
+          "geoHash": "u2fkcts525",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.0844998403337,
+          "longitude": 14.4854803227137,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 3",
+          "quarterId": 89,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Zvěřinova",
+          "streetId": 5194979,
+          "streetNumber": null,
+          "streetSeoName": "zverinova",
+          "ward": null,
+          "wardId": 14963,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 2+kk 60 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_G_I/qtrEoz.png",
+        "premiseId": 11546,
+        "premise": {
+          "seoName": "realdomus-s-r-o",
+          "wardSeoName": "ceske-budejovice-1",
+          "quarterSeoName": "",
+          "citySeoName": "ceske-budejovice"
+        },
+        "priceCzk": 11990000,
+        "priceCzkPerSqM": 199833,
+        "priceSummaryCzk": 11990000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "4+kk",
+          "value": 8
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 911962956,
+        "hasMatterport": false,
+        "hasVideo": true,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDrxR2IPuGJcKJQ/92fb.png",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtzYqGIO2GJcKJO/d57a.png",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtEDuRmKfGGJcKJc/b70d.png",
+            "restbType": 2,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDrxR2IROGJcKJ0/9520.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtzYqGIPcGJcKJ9/b9a3.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBJj4GJcKJP/504c.png",
+            "restbType": 3,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CFdAHJAYGJcKH6/6f68.png",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWZuTJWWGJcKHR/9254.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCDcb5HruGJcKKR/9f8c.png",
+            "restbType": 13,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCJexHIoaGJcKKw/fd67.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CNPfpLjqGJcKLG/82a1.png",
+            "restbType": 17,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCJexHIoaGJcKJl/7c0b.png",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBJj4GJcKIc/028a.png",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBJbyGJcKDK/a28e.png",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCJexHIt6GJcKJ3/a65e.png",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5DwDWzKacGJcKEA/8eca.png",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWZuTJViGJcKJr/1f1e.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDgLT0H5TGJcKIi/053e.png",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtEBMvIH51GJcKKm/971f.png",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CNPfpLjqGJcKIy/40ee.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlJbMGJcKJw/93b3.png",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtJj1UKGsGJcKBV/b10d.png",
+            "restbType": 7,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5Do9kXKQhGJcKEP/317c.png",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtBwNESLxtGJcKFv/376e.png",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlJaJGJcKF3/d410.png",
+            "restbType": 21,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCJexHInoGJcKLE/0a33.png",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CFdAHJCeGJcKLU/198e.png",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDrxR2IUiGJcEcx/0134.png",
+            "restbType": 28,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Troja",
+          "cityPartSeoName": "troja",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 7",
+          "districtId": 5007,
+          "districtSeoName": "praha-7",
+          "entityType": "address",
+          "geoHash": "u2fm056nsv",
+          "houseNumber": "7",
+          "inaccuracyType": "gps",
+          "latitude": 50.116652,
+          "longitude": 14.417019,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha-Troja",
+          "quarterId": 114,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Pod Havránkou",
+          "streetId": 121383,
+          "streetNumber": "10",
+          "streetSeoName": "pod-havrankou",
+          "ward": null,
+          "wardId": 14965,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 4+kk 135 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_p9_A/nCTUX1iX5DwDWzL1fGJ9yLW/41d3.png",
+        "premiseId": 75753,
+        "premise": {
+          "seoName": "karolina-smejkal-mba",
+          "wardSeoName": "stare-mesto",
+          "quarterSeoName": "praha-1",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 32900000,
+        "priceCzkPerSqM": 243704,
+        "priceSummaryCzk": 32900000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "3+kk",
+          "value": 6
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 1212715852,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5bIUBRxUGOHpmI/29ff.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5DwDWzS3YGOHpm8/69d5.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CNPfpTeCGOHpnw/1687.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtCJexHO79GOHpom/5d9e.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CDciVTNTGOHppk/6f36.jpeg",
+            "restbType": 8,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBwNESSvFGOHpqX/9ee4.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEDuRmR35GOHpsF/2de1.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CGpNZQo8GOHptO/d54a.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDgLT0NRWGOHpuE/5307.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDrxR2NyMGOHpu7/b2bf.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CFdAHQ6nGOHpwK/e4da.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CNPfpTeCGOHpxL/d3ff.jpeg",
+            "restbType": 28,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Karlín",
+          "cityPartSeoName": "karlin",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 8",
+          "districtId": 5008,
+          "districtSeoName": "praha-8",
+          "entityType": "address",
+          "geoHash": "u2fkbxjt12",
+          "houseNumber": "285",
+          "inaccuracyType": "address",
+          "latitude": 50.0930219999158,
+          "longitude": 14.4436436007557,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 8",
+          "quarterId": 115,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Pobřežní",
+          "streetId": 121349,
+          "streetNumber": "22",
+          "streetSeoName": "pobrezni",
+          "ward": null,
+          "wardId": 13707,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 3+kk 79 m²",
+        "premiseLogo": "",
+        "premiseId": 18938,
+        "premise": {
+          "seoName": "broker-consulting-a-s",
+          "wardSeoName": "vychodni-predmesti",
+          "quarterSeoName": "plzen-2-slovany",
+          "citySeoName": "plzen"
+        },
+        "priceCzk": 17140000,
+        "priceCzkPerSqM": 216962,
+        "priceSummaryCzk": 17140000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "2+kk",
+          "value": 4
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 1293497164,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CFdAHTwZGPT7Gg/2887.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBwNESVQRGPT7Ha/3c4b.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtzYqGQTgGPT7Ij/2d1c.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5Do9kXTvmGPT7Jc/6331.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5BWZuTTW9GPT7KV/5059.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CFdAHTxlGPT7LO/662d.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDgLT0PN3GPT7MB/3e7a.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CoHumTwDGPT7Mv/ead5.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBRc2UDnTGPT7Nf/9615.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5bIUBULVGPT7Ol/fc18.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtzYqGQTgGPT7Pu/288f.jpeg",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5Do9kXTwSGPT7Qj/6cbe.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CFdAHTxMGPT7RW/a2d2.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDgLT0PN2GPT7SM/1316.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5BWZuTTWjGPT7TF/f530.jpeg",
+            "restbType": 28,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Žižkov",
+          "cityPartSeoName": "zizkov",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 3",
+          "districtId": 5003,
+          "districtSeoName": "praha-3",
+          "entityType": "address",
+          "geoHash": "u2fkbvb2rh",
+          "houseNumber": "632",
+          "inaccuracyType": "gps",
+          "latitude": 50.085363,
+          "longitude": 14.447667,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 3",
+          "quarterId": 89,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Blahníkova",
+          "streetId": 119300,
+          "streetNumber": "9",
+          "streetSeoName": "blahnikova",
+          "ward": null,
+          "wardId": 14971,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 2+kk 40 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_gX_s/cOAW.png",
+        "premiseId": 59649,
+        "premise": {
+          "seoName": "remax-style",
+          "wardSeoName": "zizkov",
+          "quarterSeoName": "praha-3",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 6950000,
+        "priceCzkPerSqM": 173750,
+        "priceSummaryCzk": 6950000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "3+kk",
+          "value": 6
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 1579242316,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtCDcb5NJEGOKrE9/d56e.jpeg",
+            "restbType": 16,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtzYqGOS0GOKrF2/0828.jpeg",
+            "restbType": 16,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5bIUBRx3GOKrGW/4764.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtCDcb5NH2GOKrHI/4611.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDgLT0NT7GOKrHs/39bf.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5BWLrlRfAGOKrIa/e298.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDrxR2N2UGOKrJg/c2a4.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CoHumRCSGOKrJ8/9a04.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBM3KVNV5GOKrKe/7172.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBM3KVNQmGOKrLH/6632.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CDciVTSvGOKrLs/3ec3.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEDuRmSGLGOKrMM/e21a.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBRc2UBYPGOKrMt/2e51.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBRc2UBYYGOKrNN/7255.jpeg",
+            "restbType": 7,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CFdAHQ8VGOKrN8/b3cb.jpeg",
+            "restbType": 21,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5bIUBR1zGOKrOt/cab4.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CNPfpTi1GOKrPr/c51f.jpeg",
+            "restbType": 16,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5BWZuTRChGOKrQn/76fb.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CFdAHQ8VGOKrRt/597d.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEBMvIORXGOKrSf/7c2a.jpeg",
+            "restbType": 9,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEDuRmSGLGOKrTd/d331.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5DwDWzTCXGOKrUi/270a.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CFdAHRCsGOKrVs/c332.jpeg",
+            "restbType": 28,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Smíchov",
+          "cityPartSeoName": "smichov",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 5",
+          "districtId": 5005,
+          "districtSeoName": "praha-5",
+          "entityType": "address",
+          "geoHash": "u2fhyun6zh",
+          "houseNumber": "3386",
+          "inaccuracyType": "gps",
+          "latitude": 50.076179,
+          "longitude": 14.368015,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 5",
+          "quarterId": 97,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Podbělohorská",
+          "streetId": 121501,
+          "streetNumber": "65",
+          "streetSeoName": "podbelohorska",
+          "ward": null,
+          "wardId": 13687,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 3+kk 86 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_gX_s/cOAW.png",
+        "premiseId": 59649,
+        "premise": {
+          "seoName": "remax-style",
+          "wardSeoName": "zizkov",
+          "quarterSeoName": "praha-3",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 18445000,
+        "priceCzkPerSqM": 214477,
+        "priceSummaryCzk": 18445000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "1+kk",
+          "value": 2
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 1759310668,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5CFdAHFTpGHDzEk/69e3.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5CoHumFkaGHDzFU/91a8.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5CGpNZFWoGHDzGE/511b.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5CNPfpGoQGHDzGu/c8ce.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5BWLrlFRGGHDzHb/533f.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/kcHp2YdDtBM3KVFEKGHDzIG/99e7.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5CFdAHFTqGHDzIy/955f.jpeg",
+            "restbType": 28,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Smíchov",
+          "cityPartSeoName": "smichov",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 5",
+          "districtId": 5005,
+          "districtSeoName": "praha-5",
+          "entityType": "address",
+          "geoHash": "u2fhzf3yc0",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.0672328770099,
+          "longitude": 14.4055314158074,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 5",
+          "quarterId": 97,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Šiklové",
+          "streetId": 5199535,
+          "streetNumber": null,
+          "streetSeoName": "siklove",
+          "ward": null,
+          "wardId": 13687,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 1+kk 37 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_QI_g/RYpNU.png",
+        "premiseId": 3360,
+        "premise": {
+          "seoName": "sekyra-group",
+          "wardSeoName": "karlin",
+          "quarterSeoName": "praha-8",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 9190440,
+        "priceCzkPerSqM": 248390,
+        "priceSummaryCzk": 9190440,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "4+kk",
+          "value": 8
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 2664321868,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtBwNESBTmF9LTQ9/01e8.png",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtDrxR28HF9LSAn/82b3.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CDciVBtSF9LTGK/a3e2.png",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtBM3KVBBwF9LTZv/efe7.png",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5BWZuTBd8F9LTkr/0744.png",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CGpNZBiBF9LTvx/d258.png",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtDgLT0BC9F9LT9U/2c5d.png",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CoHumBerF9LUJO/fdea.png",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5Do9kXBgLF9LURO/701f.png",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5BWZuTBgKF9LUhW/57c5.png",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5DwDWzBoWF9LUwf/c05b.png",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtJj1UBNOF9LU8Y/4d26.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtCJexHBGcF9LVHQ/bbb3.png",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CoHumBb9F9LVXr/7bb5.png",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtBwNESBTmF9LWMa/2b93.png",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CGpNZBgCF9LWY8/9f38.png",
+            "restbType": 16,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CoHumBfHF9LXFR/8c8e.png",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CGpNZBmeF9LXP2/37c7.png",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtDgLT0BCRF9LXXu/08e5.png",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5BWLrlBdTF9LXfN/3adb.png",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CNPfpB2vF9LXsG/90f1.png",
+            "restbType": 22,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Chodov",
+          "cityPartSeoName": "chodov",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 4",
+          "districtId": 5004,
+          "districtSeoName": "praha-4",
+          "entityType": "address",
+          "geoHash": "u2fk9uyqx0",
+          "houseNumber": "1723",
+          "inaccuracyType": "address",
+          "latitude": 50.0369768575546,
+          "longitude": 14.499851487346868,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 11",
+          "quarterId": 91,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Kunínova",
+          "streetId": 125184,
+          "streetNumber": "9",
+          "streetSeoName": "kuninova",
+          "ward": null,
+          "wardId": 13679,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 4+kk 74 m²",
+        "premiseLogo": "",
+        "premiseId": null,
+        "premise": {
+          "seoName": "",
+          "wardSeoName": "",
+          "quarterSeoName": "",
+          "citySeoName": ""
+        },
+        "priceCzk": 9990000,
+        "priceCzkPerSqM": 135000,
+        "priceSummaryCzk": 9990000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "5+kk",
+          "value": 10
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 2581394252,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5CGpNZFX0GHDz1L/1fd7.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5CGpNZFXjGHDz17/cba3.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5BWLrlFRFGHDz2r/8efb.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/kcHp2YdDtBM3KVFEUGHDz3X/f60c.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/kcHp2YdDtEBMvIFDEGHDz4F/2590.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5CDciVGdeGHDz4x/8985.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_C/nCTUX1iX5CFdAHFTgGHDz5l/4334.jpeg",
+            "restbType": 0,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Smíchov",
+          "cityPartSeoName": "smichov",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 5",
+          "districtId": 5005,
+          "districtSeoName": "praha-5",
+          "entityType": "address",
+          "geoHash": "u2fhzf3yc0",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.0672328770099,
+          "longitude": 14.4055314158074,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 5",
+          "quarterId": 97,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Šiklové",
+          "streetId": 5199535,
+          "streetNumber": null,
+          "streetSeoName": "siklove",
+          "ward": null,
+          "wardId": 13687,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 5+kk 210 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_QI_g/RYpNU.png",
+        "premiseId": 3360,
+        "premise": {
+          "seoName": "sekyra-group",
+          "wardSeoName": "karlin",
+          "quarterSeoName": "praha-8",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 57992960,
+        "priceCzkPerSqM": 276157,
+        "priceSummaryCzk": 57992960,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "3+kk",
+          "value": 6
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 832578892,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5DwDWzMrbGKmlFy/0fc9.jpeg",
+            "restbType": 29,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtzYqGJvUGKmlGc/46e1.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtCDcb5I2VGKmlHA/92cd.jpeg",
+            "restbType": 28,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Čakovice",
+          "cityPartSeoName": "cakovice",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 9",
+          "districtId": 5009,
+          "districtSeoName": "praha-9",
+          "entityType": "address",
+          "geoHash": "u2fm67xu18",
+          "houseNumber": null,
+          "inaccuracyType": "street",
+          "latitude": 50.1615166100822,
+          "longitude": 14.5236506210714,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha-Čakovice",
+          "quarterId": 122,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Schoellerova",
+          "streetId": 119615,
+          "streetNumber": null,
+          "streetSeoName": "schoellerova",
+          "ward": null,
+          "wardId": 13712,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 3+kk 77 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_QI_g/RYpNU.png",
+        "premiseId": 3360,
+        "premise": {
+          "seoName": "sekyra-group",
+          "wardSeoName": "karlin",
+          "quarterSeoName": "praha-8",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 12509412,
+        "priceCzkPerSqM": 162460,
+        "priceSummaryCzk": 12509412,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "1+kk",
+          "value": 2
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 2558743372,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWLrlLisGKquuj/ceec.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5Do9kXL5yGKquvl/3fd7.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5BWZuTLT3GKquwK/835e.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtEDuRmMZtGKquw3/85fe.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5bIUBL2RGKquxv/a4b8.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDrxR2J0EGKquzZ/8958.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CGpNZK71GKqu0T/0dac.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtDgLT0JVJGKqu1I/721e.jpeg",
+            "restbType": 14,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CNPfpOBvGKqu14/e17c.jpeg",
+            "restbType": 0,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Holešovice",
+          "cityPartSeoName": "holesovice",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 7",
+          "districtId": 5007,
+          "districtSeoName": "praha-7",
+          "entityType": "address",
+          "geoHash": "u2fm099kcr",
+          "houseNumber": "100",
+          "inaccuracyType": "gps",
+          "latitude": 50.1067492,
+          "longitude": 14.4378161,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 7",
+          "quarterId": 113,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "U papírny",
+          "streetId": 122323,
+          "streetNumber": "2",
+          "streetSeoName": "u-papirny",
+          "ward": null,
+          "wardId": 14951,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 1+kk 78 m²",
+        "premiseLogo": "",
+        "premiseId": 73502,
+        "premise": {
+          "seoName": "muse-7",
+          "wardSeoName": "liberec-iv-perstyn",
+          "quarterSeoName": "liberec-neclenene-mesto",
+          "citySeoName": "liberec"
+        },
+        "priceCzk": 17000000,
+        "priceCzkPerSqM": 217949,
+        "priceSummaryCzk": 17000000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "3+kk",
+          "value": 6
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 354136140,
+        "hasMatterport": false,
+        "hasVideo": true,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEBMvIUR5GRCENW/0554.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEBMvIUb8GRCEOH/c169.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5bIUBZOWGRCEO3/0f74.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5BWLrlZNBGRCEPy/18f3.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CFdAHYkSGRCEQp/3765.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEBMvIUb8GRCERp/6d81.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5DwDWzau4GRCESO/ba8a.jpeg",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDrxR2T96GRCES7/5a52.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CoHumYRiGRCETr/0ab0.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBRc2UHAeGRCEUd/8c5b.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CoHumYRgGRCEVN/64d9.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5DwDWzauuGRCEV6/17d8.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CDciVaz5GRCEWh/16a4.jpeg",
+            "restbType": 15,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5CDciVarWGRCEXY/1451.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5DwDWzauuGRCEYR/4012.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5BWZuTXpXGRCEZM/4614.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtBM3KVTdFGRCEaO/66b0.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtEDuRmYm1GRCEa5/d4cb.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5BWLrlZQZGRCEbs/9938.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/nCTUX1iX5DwDWza2KGRCEco/9a09.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_qA_A/kcHp2YdDtDrxR2T96GRCEdZ/9be1.jpeg",
+            "restbType": 10,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Vysočany",
+          "cityPartSeoName": "vysocany",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 9",
+          "districtId": 5009,
+          "districtSeoName": "praha-9",
+          "entityType": "address",
+          "geoHash": "u2fm431f9w",
+          "houseNumber": "605",
+          "inaccuracyType": "gps",
+          "latitude": 50.103615,
+          "longitude": 14.515414,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 9",
+          "quarterId": 119,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "V Předním Hloubětíně",
+          "streetId": 120624,
+          "streetNumber": "8",
+          "streetSeoName": "v-prednim-hloubetine",
+          "ward": null,
+          "wardId": 14969,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 3+kk 71 m²",
+        "premiseLogo": "",
+        "premiseId": 17991,
+        "premise": {
+          "seoName": "remax-4-you-ii",
+          "wardSeoName": "krc",
+          "quarterSeoName": "praha-4",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 13480000,
+        "priceCzkPerSqM": 189859,
+        "priceSummaryCzk": 13480000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "4+1",
+          "value": 9
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 668246860,
+        "hasMatterport": false,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/nCTUX1iX5CoHumPS1GM2kjP/2e73.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_B/kcHp2YdDtzYqGCHAGBR0nb/c9a8.jpeg",
+            "restbType": 3,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_B/kcHp2YdDtBM3KVCEIGBR0qP/930f.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtDrxR2ZwF749TO/ebe8.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_D/kcHp2YdDtJj1UPEiGM2knl/dfe8.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtCJexHaTF749VE/83a4.jpeg",
+            "restbType": 3,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CFdAHeXF749XZ/1ba6.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5BWLrlbhF749Zj/4f41.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5BWLrlbPF749cF/1059.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5DwDWzdQF749eB/b90d.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CNPfphDF749fw/48b1.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtEBMvIaAF749ha/2680.jpeg",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5Do9kXcWF749iO/d2bb.jpeg",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtDgLT0aGF749kJ/188a.jpeg",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5CGpNZeBF749mC/46a7.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/nCTUX1iX5bIUBcZF749ok/4400.jpeg",
+            "restbType": 16,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtEDuRmbsF749qc/f145.jpeg",
+            "restbType": 16,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtCDcb5adF749sU/85d5.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtBwNESebF749tK/fcf8.jpeg",
+            "restbType": 8,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtCDcb5aUF749u7/6436.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_p9_A/kcHp2YdDtCDcb5aLF749wc/8fe1.jpeg",
+            "restbType": 21,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Žižkov",
+          "cityPartSeoName": "zizkov",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 3",
+          "districtId": 5003,
+          "districtSeoName": "praha-3",
+          "entityType": "address",
+          "geoHash": "u2fkch2ssv",
+          "houseNumber": "1888",
+          "inaccuracyType": "gps",
+          "latitude": 50.07786,
+          "longitude": 14.458901,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 3",
+          "quarterId": 89,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Vinohradská",
+          "streetId": 122692,
+          "streetNumber": "139",
+          "streetSeoName": "vinohradska",
+          "ward": null,
+          "wardId": 14971,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 4+1 124 m²",
+        "premiseLogo": "https://d48-a.sdn.cz/d_48/c_img_oY_A/nPw2pRkMOeBJ1AuqbCwnFWQ/cf6e.png",
+        "premiseId": 11584,
+        "premise": {
+          "seoName": "century-21-premium",
+          "wardSeoName": "nove-mesto",
+          "quarterSeoName": "praha-1",
+          "citySeoName": "praha"
+        },
+        "priceCzk": 20990000,
+        "priceCzkPerSqM": 169274,
+        "priceSummaryCzk": 20990000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      },
+      {
+        "categoryMainCb": {
+          "name": "Byty",
+          "value": 1
+        },
+        "categorySubCb": {
+          "name": "3+kk",
+          "value": 6
+        },
+        "categoryTypeCb": {
+          "name": "Prodej",
+          "value": 1
+        },
+        "discountShow": false,
+        "id": 1894261580,
+        "hasMatterport": true,
+        "hasVideo": false,
+        "images": [
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlC6aNADhRE6FcnI/7ffb.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlDrUk0DkCE6Fcn0/af97.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlDgPvvDjmE6Fcod/95ee.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlBWHnvDqOE6Fco8/3bb9.jpeg",
+            "restbType": 4,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlC2Y2EDnyE6Fcp0/3824.jpeg",
+            "restbType": 22,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlDgPvvDjmE6FcqT/c996.jpeg",
+            "restbType": 1,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoIBXOaFBAlE6FcrJ/89f0.jpeg",
+            "restbType": 2,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlCAK9gDrmE6Fcrn/844a.jpeg",
+            "restbType": 2,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoICpfjhBADE6FcsD/8be0.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlDgbxFDmXE6FcuE/ebc7.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoIBP90CBAuE6Fcuq/dc60.jpeg",
+            "restbType": 5,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoIBXOaFBASE6FcvN/d938.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlC2Y2EDnyE6Fcvi/4fe3.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoIBXSQVBALE6Fcv4/2642.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlDrUk0DkTE6FcwT/116f.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlEAMYFDo1E6Fcwo/a5d3.jpeg",
+            "restbType": 6,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlDgPvvDjME6FcxJ/c7ef.jpeg",
+            "restbType": 12,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoICqZTTBAME6Fcx1/c772.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoICdnR09LE6Fcya/5b4b.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlB2dleDhaE6Fcyz/033c.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlC2Y2EDnEE6FczW/c05a.jpeg",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoICpfjh9wE6Fczz/f263.jpeg",
+            "restbType": 13,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlB2dleDiWE6Fc0Q/2cc6.jpeg",
+            "restbType": 10,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlBY4BlDh7E6Fc0t/49dd.jpeg",
+            "restbType": 0,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoIBYCU19jE6Fc1e/a852.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlDgbxFDl9E6Fc17/1535.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/nOztZkD4ZlB2dleDinE6Fc2b/9817.jpeg",
+            "restbType": 28,
+            "order": null
+          },
+          {
+            "url": "//d18-a.sdn.cz/d_18/c_img_of_C/kPxr1WDRoICpfjhBAEE6Fc21/6f05.jpeg",
+            "restbType": 23,
+            "order": null
+          }
+        ],
+        "locality": {
+          "city": "Praha",
+          "citySeoName": "praha",
+          "cityPart": "Letňany",
+          "cityPartSeoName": "letnany",
+          "country": "Česká republika",
+          "countryId": 112,
+          "district": "Praha 9",
+          "districtId": 5009,
+          "districtSeoName": "praha-9",
+          "entityType": "address",
+          "geoHash": "u2fm4rbyc7",
+          "houseNumber": "554",
+          "inaccuracyType": "address",
+          "latitude": 50.1414032796317,
+          "longitude": 14.5140330558493,
+          "municipality": null,
+          "municipalityId": 3468,
+          "municipalitySeoName": null,
+          "quarter": "Praha 18",
+          "quarterId": 128,
+          "region": "Hlavní město Praha",
+          "regionId": 10,
+          "regionSeoName": "hlavni-mesto-praha",
+          "street": "Letovská",
+          "streetId": 125399,
+          "streetNumber": "",
+          "streetSeoName": "letovska",
+          "ward": null,
+          "wardId": 13717,
+          "wardSeoName": null,
+          "zip": null
+        },
+        "name": "Prodej bytu 3+kk 71 m²",
+        "premiseLogo": "",
+        "premiseId": 14790,
+        "premise": {
+          "seoName": "michal-vyhnalek-realitni-makler",
+          "wardSeoName": "",
+          "quarterSeoName": "",
+          "citySeoName": "chrzin"
+        },
+        "priceCzk": 8950000,
+        "priceCzkPerSqM": 126056,
+        "priceSummaryCzk": 8950000,
+        "priceSummaryUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "priceUnitCb": {
+          "name": "za nemovitost",
+          "value": 1
+        },
+        "watchdogBadge": "none"
+      }
+    ],
+    "searchTitle": "Byty na prodej Praha",
+    "metaTitle": "Prodej bytu Praha • Sreality.cz",
+    "metaDescription": "4 315 bytů v aktuální nabídce Byty k prodeji Praha ✓ Parametry hledání: Byty, Praha ✓ Největší nabídka nemovitostí v Česku (98 672 inzerátů) s hledáním na mapě a filtrováním s desítkami parametrů ✓",
+    "brokerTip": {
+      "brokerTipId": 160633,
+      "description": "Pomohu vám s výběrem či prodejem bytu v lokalitě Hlavní město Praha",
+      "imageUrl": "//d18-a.sdn.cz/d_18/c_img_m3_C/nb4N2OmYQBbkNYkSBlpG4B/6b1d.jpeg",
+      "premise": {
+        "id": 597,
+        "logo": "https://d48-a.sdn.cz/d_48/c_img_H_B/UIPHV2.png",
+        "name": "REAL DEVELOPMENT 2001",
+        "citySeoName": "praha",
+        "seoName": "real-development-2001",
+        "reviewCount": 0,
+        "reviewScore": null,
+        "quarterSeoName": "praha-5",
+        "wardSeoName": "kosire"
+      },
+      "userName": "Mgr. Stanislav Židek",
+      "userId": 8687,
+      "userRusId": 30490167,
+      "categoryId": 1,
+      "typeId": 1,
+      "localityRegionId": 10,
+      "localityDistrictId": 0
+    },
+    "regionTip": null,
+    "projectTip": {
+      "id": 34622,
+      "image": "//d18-a.sdn.cz/d_18/c_img_oX_C/nPw2pRkMOeCmZ4qdWCoBmht/a2fb.png",
+      "inserted": "2025-03-17",
+      "localityCity": "Praha",
+      "localityQuarter": "Praha 9",
+      "localityStreet": "Ke Klíčovu",
+      "localityWard": "Vysočany",
+      "name": "Viladomy U Mlýna",
+      "seoName": "viladomy-u-mlyna",
+      "projectTipId": 4618,
+      "logo": ""
+    },
+    "warnings": null
+  },
+  "listing_ids": [
+    3415294796,
+    3874952012,
+    1399477068,
+    1734349644,
+    3574481740,
+    3963822924,
+    412173132,
+    55464780,
+    3808375628,
+    911962956,
+    1212715852,
+    1293497164,
+    1579242316,
+    1759310668,
+    2664321868,
+    2581394252,
+    832578892,
+    2558743372,
+    354136140,
+    668246860,
+    1894261580
+  ]
+}
