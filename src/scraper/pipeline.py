@@ -10,6 +10,7 @@ Pass --dry-run to parse and print without writing anything.
 import argparse
 import asyncio
 import os
+import time
 from datetime import datetime, timezone
 
 import structlog
@@ -84,6 +85,7 @@ async def _run_with_db(client, all_ids: list[str]) -> None:
     run: ScrapeRunData | None = None
     errors: list[str] = []
     skipped = 0
+    total = len(all_ids)
 
     try:
         async with get_session() as session:
@@ -91,27 +93,44 @@ async def _run_with_db(client, all_ids: list[str]) -> None:
 
         # Bind scrape_run_id to context so every subsequent log line carries it.
         structlog.contextvars.bind_contextvars(scrape_run_id=str(run.id))
-        log.info("scrape_run_started", run_id=str(run.id))
+        log.info("scrape_run_started", run_id=str(run.id), total=total)
 
+        loop_start = time.monotonic()
         for i, listing_id in enumerate(all_ids, start=1):
-            log.debug("fetching_detail", index=i, total=len(all_ids), listing_id=listing_id)
+            log.debug("fetching_detail", index=i, total=total, listing_id=listing_id)
             listing = await fetch_listing_detail(client, listing_id)
             run.listings_found += 1
 
             if listing is None:
                 skipped += 1
                 errors.append(f"Failed to parse listing {listing_id}")
-                continue
+            else:
+                async with get_session() as session:
+                    status, _ = await upsert_listing(session, listing)
 
-            async with get_session() as session:
-                status, _ = await upsert_listing(session, listing)
+                if status == "new":
+                    run.listings_new += 1
+                elif status == "updated":
+                    run.listings_updated += 1
 
-            if status == "new":
-                run.listings_new += 1
-            elif status == "updated":
-                run.listings_updated += 1
+                log.debug("listing_upserted", listing_id=listing_id, status=status)
 
-            log.debug("listing_upserted", listing_id=listing_id, status=status)
+            if i % 50 == 0 or i == total:
+                elapsed = time.monotonic() - loop_start
+                rate = i / elapsed if elapsed > 0 else 0
+                eta_s = int((total - i) / rate) if rate > 0 else 0
+                log.info(
+                    "scrape_progress",
+                    done=i,
+                    total=total,
+                    pct=round(i / total * 100, 1),
+                    new=run.listings_new,
+                    updated=run.listings_updated,
+                    skipped=skipped,
+                    errors=len(errors),
+                    elapsed_s=int(elapsed),
+                    eta_s=eta_s,
+                )
 
         # Mark listings not seen in this run as inactive
         async with get_session() as session:
