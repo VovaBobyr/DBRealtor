@@ -32,7 +32,6 @@ done
 
 echo "[deploy] Running database migrations..."
 $COMPOSE run --rm --no-deps \
-    -e DATABASE_URL_SYNC \
     scraper \
     alembic upgrade head
 
