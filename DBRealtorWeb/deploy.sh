@@ -3,7 +3,7 @@
 set -euo pipefail
 
 echo "==> Pulling latest code"
-git pull origin main
+git pull origin master
 
 echo "==> Finding scraper Docker network"
 # The scraper's compose project is in ../DBRealtor — get its network name
