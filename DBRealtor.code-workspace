@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"name": "monorepo root",
+			"path": "."
+		},
+		{
+			"name": "scraper (DBRealtor)",
+			"path": "DBRealtor"
+		},
+		{
+			"name": "web portal (DBRealtorWeb)",
+			"path": "DBRealtorWeb"
+		},
+		{
+			"name": "wiki",
+			"path": "wiki"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/node_modules": true,
+			"**/__pycache__": true,
+			"**/.pytest_cache": true,
+			"**/.mypy_cache": true,
+			"**/.venv": true
+		},
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/frontend/dist": true,
+			"**/__pycache__": true
+		}
+	}
+}
