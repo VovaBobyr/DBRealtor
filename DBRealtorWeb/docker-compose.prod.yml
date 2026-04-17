@@ -32,4 +32,4 @@ networks:
     driver: bridge
   scraper_network:
     external: true
-    name: sreality_default
+    name: ${SCRAPER_NETWORK}
