@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(touch c:/Git/DBRealtor/src/__init__.py c:/Git/DBRealtor/src/scraper/__init__.py c:/Git/DBRealtor/src/storage/__init__.py c:/Git/DBRealtor/src/analysis/__init__.py c:/Git/DBRealtor/src/scheduler/__init__.py)",
+      "Bash(touch c:/Git/DBRealtor/tests/__init__.py c:/Git/DBRealtor/tests/scraper/__init__.py c:/Git/DBRealtor/tests/storage/__init__.py c:/Git/DBRealtor/tests/analysis/__init__.py)"
+    ]
+  }
+}

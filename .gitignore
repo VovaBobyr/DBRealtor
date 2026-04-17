@@ -1,0 +1,44 @@
+# === DBRealtor (scraper) ===
+TempFiles/
+Logs/
+DBRealtor/Envpreparation/.vagrant/
+/DBRealtor/.idea/
+/DBRealtor/venv/
+/DBRealtor/venv2/
+/DBRealtor/db/migrations/__pycache__/
+
+# === DBRealtorWeb ===
+/DBRealtorWeb/frontend/node_modules/
+/DBRealtorWeb/frontend/dist/
+/DBRealtorWeb/frontend/.vite/
+/DBRealtorWeb/postgres_data/
+/DBRealtorWeb/.vscode/
+
+# === Python (both) ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# === Secrets ===
+.env
+*.env
+!.env.example
+
+# === Docker ===
+*.log
+
+# === OS ===
+.DS_Store
+Thumbs.db

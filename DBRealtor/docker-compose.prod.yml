@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-sreality}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-sreality}
+    # No ports exposed — only reachable by other containers on this network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backups:/backups   # pg_dump target for backup_db.sh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sreality}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  scraper:
+    build: .
+    # No restart policy — this service runs once and exits.
+    # Invoked via: docker compose -f docker-compose.prod.yml run --rm scraper
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-sreality}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-sreality}
+      DATABASE_URL_SYNC: postgresql+psycopg2://${POSTGRES_USER:-sreality}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-sreality}
+      LOG_FORMAT: json
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      SCRAPE_DELAY_SECONDS: ${SCRAPE_DELAY_SECONDS:-1.5}
+      SCRAPE_MAX_RETRIES: ${SCRAPE_MAX_RETRIES:-3}
+      ALERT_EMAIL: ${ALERT_EMAIL:-}
+      SMTP_HOST: ${SMTP_HOST:-localhost}
+      SMTP_PORT: ${SMTP_PORT:-25}
+      SMTP_FROM: ${SMTP_FROM:-scraper@localhost}
+    volumes:
+      - ./logs:/app/logs
+    profiles:
+      - manual   # prevents accidental start via 'docker compose up'
+
+volumes:
+  postgres_data:

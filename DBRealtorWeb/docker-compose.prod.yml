@@ -1,0 +1,35 @@
+services:
+  portal-backend:
+    build:
+      context: ./backend
+    image: dbrealtor-portal-backend:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    networks:
+      - portal
+      - scraper_network
+
+  portal-nginx:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: dbrealtor-portal-nginx:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - portal-backend
+    networks:
+      - portal
+
+networks:
+  portal:
+    driver: bridge
+  scraper_network:
+    external: true
+    name: sreality_default
