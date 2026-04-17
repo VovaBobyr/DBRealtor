@@ -11,9 +11,13 @@ Goal: collect, store, and analyse real estate listing data over time for persona
 4. Low operational overhead — runs unattended, recovers from failures on its own
  
 ## Repository layout
-See @docs/architecture.md for the full module breakdown.
-See @docs/decisions.md for all architectural decisions and their rationale.
-See @docs/progress.md for current build status and what's next.
+See `docs/architecture.md` for the full module breakdown.
+See `docs/decisions.md` for all architectural decisions and their rationale.
+See `docs/progress.md` for current build status and what's next.
+
+## Monorepo context
+This project is part of the DBRealtor monorepo. See the root `CLAUDE.md` for system-level context.
+Wiki: `../wiki/architecture/scraper.md`, runbooks: `../wiki/runbooks/deploy-scraper.md`
  
 ## Stack (decided)
 - Python 3.12+

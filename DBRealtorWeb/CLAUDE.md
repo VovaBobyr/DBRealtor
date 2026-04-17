@@ -6,6 +6,10 @@ Read-only analytics portal over the PostgreSQL database populated by the
 [DBRealtor scraper](../DBRealtor). The portal exposes a FastAPI REST API and
 a React/TypeScript frontend. It does **not** scrape anything.
 
+## Monorepo context
+This project is part of the DBRealtor monorepo. See the root `CLAUDE.md` for system-level context.
+Wiki: `../wiki/architecture/web.md`, runbooks: `../wiki/runbooks/deploy-web.md`
+
 ## Stack
 
 | Layer       | Technology                                      |
