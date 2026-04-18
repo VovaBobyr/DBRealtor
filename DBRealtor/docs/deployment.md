@@ -45,11 +45,9 @@ docker --version       # verify
 ## 3. Clone the repository
 
 ```bash
-sudo mkdir -p /opt/sreality
-sudo chown $USER:$USER /opt/sreality
 cd /opt
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git sreality
-cd sreality
+git clone https://github.com/VovaBobyr/DBRealtor.git
+cd /opt/DBRealtor/DBRealtor
 ```
 
 ---
@@ -84,7 +82,7 @@ Optionally set `ALERT_EMAIL`, `SMTP_HOST`, etc. for failure alerts.
 ## 5. First deploy
 
 ```bash
-cd /opt/sreality
+cd /opt/DBRealtor/DBRealtor
 bash scripts/deploy.sh
 ```
 
@@ -117,8 +115,8 @@ crontab -e
 Add these two lines:
 
 ```cron
-0 2 * * * /opt/sreality/scripts/run_nightly.sh >> /opt/sreality/logs/cron.log 2>&1
-0 6 * * * /opt/sreality/scripts/backup_db.sh  >> /opt/sreality/logs/cron.log 2>&1
+0 2 * * * /opt/DBRealtor/DBRealtor/scripts/run_nightly.sh >> /opt/DBRealtor/DBRealtor/logs/cron.log 2>&1
+0 6 * * * /opt/DBRealtor/DBRealtor/scripts/backup_db.sh  >> /opt/DBRealtor/DBRealtor/logs/cron.log 2>&1
 ```
 
 - Scrape runs at **02:00 UTC** nightly (~3 hours for ~4000 listings)
@@ -130,17 +128,25 @@ Verify cron is registered:
 crontab -l
 ```
 
-Then trigger the **first scrape immediately**, detached from your terminal:
+### Running a scrape manually (survives console close)
+
+Use `nohup` + `&` to run in the background — the process keeps running even after you close the SSH session:
 
 ```bash
-nohup bash /opt/sreality/scripts/run_nightly.sh >> /opt/sreality/logs/cron.log 2>&1 &
+nohup /opt/DBRealtor/DBRealtor/scripts/run_nightly.sh >> /opt/DBRealtor/DBRealtor/logs/cron.log 2>&1 &
 echo "Scraper PID: $!"
 ```
 
-You can safely close the SSH session. Reconnect any time and check progress:
+Monitor progress from any SSH session:
 
 ```bash
-tail -f /opt/sreality/logs/cron.log | jq .
+tail -f /opt/DBRealtor/DBRealtor/logs/cron.log
+```
+
+Check if still running:
+
+```bash
+ps aux | grep run_nightly
 ```
 
 When complete, verify the result:
@@ -197,7 +203,7 @@ ls -lh backups/
 ## 8. Updating the application
 
 ```bash
-cd /opt/sreality
+cd /opt/DBRealtor/DBRealtor
 bash scripts/deploy.sh
 ```
 
