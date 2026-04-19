@@ -10,7 +10,7 @@ from typing import Any
 
 import httpx
 import structlog
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 from src.scraper.browser import get_with_retry
 
@@ -106,15 +106,18 @@ def _map_estate_to_listing(
 
         images = estate.get("images") or []
 
+        def _to_int(v: Any) -> int | None:
+            return round(v) if v is not None else None
+
         return ListingData(
             sreality_id=listing_id,
             listing_type=listing_type,
             property_type=property_type,
             title=title,
             description=estate.get("description") or None,
-            price_czk=estate.get("priceCzk"),
-            area_m2=params.get("usableArea"),
-            floor=params.get("floorNumber"),
+            price_czk=_to_int(estate.get("priceCzk")),
+            area_m2=_to_int(params.get("usableArea")),
+            floor=_to_int(params.get("floorNumber")),
             locality=locality_str,
             gps_lat=locality_obj.get("latitude"),
             gps_lon=locality_obj.get("longitude"),
@@ -123,7 +126,7 @@ def _map_estate_to_listing(
             raw_data=estate,
         )
 
-    except (KeyError, TypeError) as exc:
+    except (KeyError, TypeError, ValidationError) as exc:
         log.warning("mapping_failed", listing_id=listing_id, error=str(exc))
         return None
 
