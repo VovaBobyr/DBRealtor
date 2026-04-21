@@ -81,6 +81,27 @@ async def get_price_trend(
     ]
 
 
+def _drop_initial_load_spike(points: list[NewPerDayPoint]) -> list[NewPerDayPoint]:
+    # The first scraper run backfills every currently-active listing on the
+    # same calendar day, producing a one-off spike that dwarfs real daily
+    # counts and distorts the chart's Y-axis. If the earliest date's count is
+    # more than 3x the median of the remaining days, treat it as a seed
+    # artifact and drop it. Dynamic so it self-corrects after re-seeds.
+    if len(points) < 3:
+        return points
+    rest = points[1:]
+    rest_sorted = sorted(p.count for p in rest)
+    n = len(rest_sorted)
+    median = (
+        rest_sorted[n // 2]
+        if n % 2
+        else (rest_sorted[n // 2 - 1] + rest_sorted[n // 2]) / 2
+    )
+    if median > 0 and points[0].count > 3 * median:
+        return rest
+    return points
+
+
 @router.get("/new-per-day", response_model=list[NewPerDayPoint])
 async def get_new_per_day(
     locality: str = Query(default="Praha", description="Locality substring filter"),
@@ -114,7 +135,8 @@ async def get_new_per_day(
             "cutoff": cutoff,
         },
     )
-    return [NewPerDayPoint(date=str(r.date), count=r.count) for r in rows]
+    points = [NewPerDayPoint(date=str(r.date), count=r.count) for r in rows]
+    return _drop_initial_load_spike(points)
 
 
 @router.get("/new-listings", response_model=list[NewListingsDayPoint])
