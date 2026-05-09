@@ -113,7 +113,7 @@ export default function Trends() {
             <ResponsiveContainer width="100%" height={320}>
               <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#94a3b8' }} />
+                <XAxis dataKey="period" tick={{ fontSize: 12, fill: '#94a3b8' }} />
                 <YAxis
                   yAxisId="price"
                   tickFormatter={(v: number) => `${(v / 1_000_000).toFixed(1)}M`}

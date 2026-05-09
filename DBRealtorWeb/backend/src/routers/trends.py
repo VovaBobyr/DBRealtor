@@ -16,7 +16,7 @@ router = APIRouter(prefix="/api/trends", tags=["trends"])
 
 
 class PriceTrendPoint(BaseModel):
-    month: str
+    period: str
     avg_price_czk: int
     avg_price_per_m2: int | None
     count: int
@@ -40,27 +40,33 @@ async def get_price_trend(
     session: AsyncSession = Depends(get_session),
 ) -> list[PriceTrendPoint]:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    daily = days <= 30
+    period_expr = (
+        "DATE(ph.recorded_at AT TIME ZONE 'Europe/Prague')::text"
+        if daily
+        else "to_char(ph.recorded_at, 'YYYY-MM')"
+    )
 
     rows = await session.execute(
         text(
-            """
+            f"""
             SELECT
-                to_char(ph.recorded_at, 'YYYY-MM')      AS month,
-                ROUND(AVG(ph.price_czk))::bigint         AS avg_price_czk,
+                {period_expr}                                AS period,
+                ROUND(AVG(ph.price_czk))::bigint             AS avg_price_czk,
                 CASE
                     WHEN AVG(l.area_m2) > 0
                     THEN ROUND(AVG(ph.price_czk) / NULLIF(AVG(l.area_m2), 0))::bigint
                     ELSE NULL
-                END                                      AS avg_price_per_m2,
-                COUNT(*)::int                            AS cnt
+                END                                          AS avg_price_per_m2,
+                COUNT(*)::int                                AS cnt
             FROM price_history ph
             JOIN listings l ON l.id = ph.listing_id
             WHERE l.locality ILIKE :locality_pat
               AND l.property_type = :property_type
               AND ph.recorded_at >= :cutoff
               AND ph.price_czk IS NOT NULL
-            GROUP BY month
-            ORDER BY month
+            GROUP BY period
+            ORDER BY period
             """
         ),
         {
@@ -72,7 +78,7 @@ async def get_price_trend(
 
     return [
         PriceTrendPoint(
-            month=r.month,
+            period=r.period,
             avg_price_czk=r.avg_price_czk,
             avg_price_per_m2=r.avg_price_per_m2,
             count=r.cnt,

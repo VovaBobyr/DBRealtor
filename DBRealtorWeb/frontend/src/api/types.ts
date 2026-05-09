@@ -15,7 +15,7 @@ export interface DashboardSummary {
 }
 
 export interface PriceTrendPoint {
-  month: string
+  period: string
   avg_price_czk: number
   avg_price_per_m2: number | null
   count: number
