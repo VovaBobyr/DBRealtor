@@ -18,6 +18,7 @@ const LOCALITIES = ['Praha', 'Brno', 'Ostrava', 'Plzeň', 'Liberec']
 const PROPERTY_TYPES = ['flat', 'house', 'land', 'commercial']
 const PERIOD_OPTIONS = [
   { label: '1w', days: 7 },
+  { label: '1m', days: 30 },
   { label: '3m', days: 90 },
   { label: '6m', days: 180 },
   { label: '12m', days: 365 },
