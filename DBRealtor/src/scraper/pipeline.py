@@ -39,10 +39,15 @@ log = structlog.get_logger()
 
 SEARCH_TARGETS: list[dict[str, str]] = [
     {"city": "Praha",   "url": "https://www.sreality.cz/hledani/prodej/byty/praha"},
+    {"city": "Praha",   "url": "https://www.sreality.cz/hledani/prodej/domy/praha"},
     {"city": "Brno",    "url": "https://www.sreality.cz/hledani/prodej/byty/brno"},
+    {"city": "Brno",    "url": "https://www.sreality.cz/hledani/prodej/domy/brno"},
     {"city": "Ostrava", "url": "https://www.sreality.cz/hledani/prodej/byty/ostrava"},
+    {"city": "Ostrava", "url": "https://www.sreality.cz/hledani/prodej/domy/ostrava"},
     {"city": "Plzeň",   "url": "https://www.sreality.cz/hledani/prodej/byty/plzen"},
+    {"city": "Plzeň",   "url": "https://www.sreality.cz/hledani/prodej/domy/plzen"},
     {"city": "Liberec", "url": "https://www.sreality.cz/hledani/prodej/byty/liberec"},
+    {"city": "Liberec", "url": "https://www.sreality.cz/hledani/prodej/domy/liberec"},
 ]
 
 # Polite pause (seconds) between scraping different cities.
