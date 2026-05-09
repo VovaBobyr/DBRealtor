@@ -36,10 +36,10 @@ class NewPerDayPoint(BaseModel):
 async def get_price_trend(
     locality: str = Query(default="Praha", description="Locality substring filter"),
     property_type: str = Query(default="flat", description="flat|house|land|commercial"),
-    months: int = Query(default=12, ge=1, le=60, description="Number of months to look back"),
+    days: int = Query(default=365, ge=7, le=730, description="Number of days to look back"),
     session: AsyncSession = Depends(get_session),
 ) -> list[PriceTrendPoint]:
-    cutoff = datetime.now(timezone.utc) - timedelta(days=months * 31)
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
 
     rows = await session.execute(
         text(
@@ -106,15 +106,15 @@ def _drop_initial_load_spike(points: list[NewPerDayPoint]) -> list[NewPerDayPoin
 async def get_new_per_day(
     locality: str = Query(default="Praha", description="Locality substring filter"),
     property_type: str = Query(default="flat", description="flat|house|land|commercial"),
-    months: int = Query(default=12, ge=1, le=60, description="Number of months to look back"),
+    days: int = Query(default=365, ge=7, le=730, description="Number of days to look back"),
     session: AsyncSession = Depends(get_session),
 ) -> list[NewPerDayPoint]:
     """Count of new listings per calendar day, filtered by locality and property type.
 
-    Uses the same locality/property_type/months parameters as /price so both
+    Uses the same locality/property_type/days parameters as /price so both
     charts on the Trends page share a single set of controls.
     """
-    cutoff = datetime.now(timezone.utc) - timedelta(days=months * 31)
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     rows = await session.execute(
         text(
             """
