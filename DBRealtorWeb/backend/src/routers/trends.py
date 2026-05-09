@@ -37,6 +37,7 @@ async def get_price_trend(
     locality: str = Query(default="Praha", description="Locality substring filter"),
     property_type: str = Query(default="flat", description="flat|house|land|commercial"),
     days: int = Query(default=365, ge=7, le=730, description="Number of days to look back"),
+    flat_type: str | None = Query(default=None, description="Flat subtype filter (e.g. 2+kk), only applies when property_type=flat"),
     session: AsyncSession = Depends(get_session),
 ) -> list[PriceTrendPoint]:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
@@ -46,6 +47,18 @@ async def get_price_trend(
         if daily
         else "to_char(ph.recorded_at, 'YYYY-MM')"
     )
+    flat_type_clause = (
+        "AND l.raw_data->'categorySubCb'->>'name' = :flat_type"
+        if flat_type and property_type == "flat"
+        else ""
+    )
+    params: dict = {
+        "locality_pat": f"%{locality}%",
+        "property_type": property_type,
+        "cutoff": cutoff,
+    }
+    if flat_type and property_type == "flat":
+        params["flat_type"] = flat_type
 
     rows = await session.execute(
         text(
@@ -65,15 +78,12 @@ async def get_price_trend(
               AND l.property_type = :property_type
               AND ph.recorded_at >= :cutoff
               AND ph.price_czk IS NOT NULL
+              {flat_type_clause}
             GROUP BY period
             ORDER BY period
             """
         ),
-        {
-            "locality_pat": f"%{locality}%",
-            "property_type": property_type,
-            "cutoff": cutoff,
-        },
+        params,
     )
 
     return [
@@ -113,6 +123,7 @@ async def get_new_per_day(
     locality: str = Query(default="Praha", description="Locality substring filter"),
     property_type: str = Query(default="flat", description="flat|house|land|commercial"),
     days: int = Query(default=365, ge=7, le=730, description="Number of days to look back"),
+    flat_type: str | None = Query(default=None, description="Flat subtype filter (e.g. 2+kk), only applies when property_type=flat"),
     session: AsyncSession = Depends(get_session),
 ) -> list[NewPerDayPoint]:
     """Count of new listings per calendar day, filtered by locality and property type.
@@ -121,9 +132,22 @@ async def get_new_per_day(
     charts on the Trends page share a single set of controls.
     """
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    flat_type_clause = (
+        "AND raw_data->'categorySubCb'->>'name' = :flat_type"
+        if flat_type and property_type == "flat"
+        else ""
+    )
+    params: dict = {
+        "locality_pat": f"%{locality}%",
+        "property_type": property_type,
+        "cutoff": cutoff,
+    }
+    if flat_type and property_type == "flat":
+        params["flat_type"] = flat_type
+
     rows = await session.execute(
         text(
-            """
+            f"""
             SELECT
                 DATE(first_seen_at AT TIME ZONE 'Europe/Prague') AS date,
                 COUNT(*)::int                                     AS count
@@ -131,15 +155,12 @@ async def get_new_per_day(
             WHERE locality      ILIKE :locality_pat
               AND property_type = :property_type
               AND first_seen_at >= :cutoff
+              {flat_type_clause}
             GROUP BY date
             ORDER BY date
             """
         ),
-        {
-            "locality_pat": f"%{locality}%",
-            "property_type": property_type,
-            "cutoff": cutoff,
-        },
+        params,
     )
     points = [NewPerDayPoint(date=str(r.date), count=r.count) for r in rows]
     return _drop_initial_load_spike(points)

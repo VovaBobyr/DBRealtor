@@ -16,6 +16,7 @@ import { useNewPerDay } from '../api/useNewPerDay'
 
 const LOCALITIES = ['Praha', 'Brno', 'Ostrava', 'Plzeň', 'Liberec']
 const PROPERTY_TYPES = ['flat', 'house', 'land', 'commercial']
+const FLAT_TYPES = ['1+kk', '1+1', '2+kk', '2+1', '3+kk', '3+1', '4+kk', '4+1', '5+kk', '5+1', '6 a více', 'atypický']
 const PERIOD_OPTIONS = [
   { label: '1w', days: 7 },
   { label: '1m', days: 30 },
@@ -46,11 +47,19 @@ function NewPerDayTooltip({ active, payload, label }: NewPerDayTooltipProps) {
 export default function Trends() {
   const [locality, setLocality] = useState('Praha')
   const [propertyType, setPropertyType] = useState('flat')
+  const [flatType, setFlatType] = useState('')
   const [days, setDays] = useState(7)
 
-  const { data, isLoading, error } = useTrends({ locality, property_type: propertyType, days })
+  function handlePropertyTypeChange(t: string) {
+    setPropertyType(t)
+    if (t !== 'flat') setFlatType('')
+  }
+
+  const flatTypeParam = propertyType === 'flat' && flatType ? flatType : undefined
+
+  const { data, isLoading, error } = useTrends({ locality, property_type: propertyType, days, flat_type: flatTypeParam })
   const { data: newPerDay, isLoading: newPerDayLoading, error: newPerDayError } =
-    useNewPerDay({ locality, property_type: propertyType, days })
+    useNewPerDay({ locality, property_type: propertyType, days, flat_type: flatTypeParam })
 
   return (
     <div className="space-y-6">
@@ -73,12 +82,26 @@ export default function Trends() {
           <label className="block text-xs text-slate-500 font-medium mb-1">Property type</label>
           <select
             value={propertyType}
-            onChange={(e) => setPropertyType(e.target.value)}
+            onChange={(e) => handlePropertyTypeChange(e.target.value)}
             className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
           >
             {PROPERTY_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
           </select>
         </div>
+
+        {propertyType === 'flat' && (
+          <div>
+            <label className="block text-xs text-slate-500 font-medium mb-1">Flat type</label>
+            <select
+              value={flatType}
+              onChange={(e) => setFlatType(e.target.value)}
+              className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            >
+              <option value="">All</option>
+              {FLAT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+            </select>
+          </div>
+        )}
 
         <div>
           <label className="block text-xs text-slate-500 font-medium mb-1">Period</label>

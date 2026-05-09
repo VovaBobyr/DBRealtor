@@ -5,6 +5,7 @@ interface TrendsParams {
   locality: string
   property_type: string
   days: number
+  flat_type?: string
 }
 
 async function fetchTrends(params: TrendsParams): Promise<PriceTrendPoint[]> {
@@ -13,6 +14,7 @@ async function fetchTrends(params: TrendsParams): Promise<PriceTrendPoint[]> {
     property_type: params.property_type,
     days: String(params.days),
   })
+  if (params.flat_type) qs.set('flat_type', params.flat_type)
   const res = await fetch(`/api/trends/price?${qs}`)
   if (!res.ok) throw new Error(`Trends fetch failed: ${res.status}`)
   return res.json() as Promise<PriceTrendPoint[]>
