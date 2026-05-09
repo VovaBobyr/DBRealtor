@@ -4,14 +4,14 @@ import type { NewPerDayPoint } from './types'
 interface NewPerDayParams {
   locality: string
   property_type: string
-  months: number
+  days: number
 }
 
 async function fetchNewPerDay(params: NewPerDayParams): Promise<NewPerDayPoint[]> {
   const qs = new URLSearchParams({
     locality: params.locality,
     property_type: params.property_type,
-    months: String(params.months),
+    days: String(params.days),
   })
   const res = await fetch(`/api/trends/new-per-day?${qs}`)
   if (!res.ok) throw new Error(`New-per-day fetch failed: ${res.status}`)

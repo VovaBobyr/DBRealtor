@@ -109,5 +109,20 @@ Use checkboxes so the agent can track what's done.
 - [ ] Known fragile selectors documented
 - [ ] Runbook for when sreality.cz changes its structure
 
+
+## Phase 9 - Manual run
+
+nohup /opt/DBRealtor/DBRealtor/scripts/run_nightly.sh >> /opt/DBRealtor/DBRealtor/logs/cron.log 2>&1 &
+echo "Scraper PID: $!"
+
+# Then watch it from any session:
+tail -f /opt/DBRealtor/DBRealtor/logs/cron.log
+
+## Phase 10 — Portal fixes
+- [x] 2026-04-21: fix "New listings per day" chart spike on initial-load date.
+  `DBRealtorWeb/backend/src/routers/trends.py` now drops the earliest date
+  when its count is >3× the median of the rest (dynamic, no hard-coded date).
+  Helper `_drop_initial_load_spike` + 5 unit tests in
+  `DBRealtorWeb/backend/tests/test_trends_helpers.py`. Frontend unchanged.
 ---
-_Last updated: 2026-04-06 — Phases 5 + 7 complete. Deploying to DigitalOcean. See docs/deployment.md._
+_Last updated: 2026-04-21 — Trends "new-per-day" chart no longer dominated by seed-day spike._

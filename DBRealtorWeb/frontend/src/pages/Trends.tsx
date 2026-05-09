@@ -16,7 +16,13 @@ import { useNewPerDay } from '../api/useNewPerDay'
 
 const LOCALITIES = ['Praha', 'Brno', 'Ostrava', 'Plzeň', 'Liberec']
 const PROPERTY_TYPES = ['flat', 'house', 'land', 'commercial']
-const MONTHS_OPTIONS = [3, 6, 12, 24]
+const PERIOD_OPTIONS = [
+  { label: '1w', days: 7 },
+  { label: '3m', days: 90 },
+  { label: '6m', days: 180 },
+  { label: '12m', days: 365 },
+  { label: '24m', days: 730 },
+]
 
 function formatCZK(val: number): string {
   return new Intl.NumberFormat('cs-CZ', { style: 'currency', currency: 'CZK', maximumFractionDigits: 0 }).format(val)
@@ -39,11 +45,11 @@ function NewPerDayTooltip({ active, payload, label }: NewPerDayTooltipProps) {
 export default function Trends() {
   const [locality, setLocality] = useState('Praha')
   const [propertyType, setPropertyType] = useState('flat')
-  const [months, setMonths] = useState(12)
+  const [days, setDays] = useState(7)
 
-  const { data, isLoading, error } = useTrends({ locality, property_type: propertyType, months })
+  const { data, isLoading, error } = useTrends({ locality, property_type: propertyType, days })
   const { data: newPerDay, isLoading: newPerDayLoading, error: newPerDayError } =
-    useNewPerDay({ locality, property_type: propertyType, months })
+    useNewPerDay({ locality, property_type: propertyType, days })
 
   return (
     <div className="space-y-6">
@@ -74,20 +80,21 @@ export default function Trends() {
         </div>
 
         <div>
-          <label className="block text-xs text-slate-500 font-medium mb-1">
-            Period: <span className="text-slate-800 font-semibold">{months} months</span>
-          </label>
-          <input
-            type="range"
-            min={3}
-            max={24}
-            step={3}
-            value={months}
-            onChange={(e) => setMonths(Number(e.target.value))}
-            className="w-36 accent-blue-500"
-          />
-          <div className="flex justify-between text-xs text-slate-400 w-36">
-            {MONTHS_OPTIONS.map((m) => <span key={m}>{m}</span>)}
+          <label className="block text-xs text-slate-500 font-medium mb-1">Period</label>
+          <div className="flex gap-1">
+            {PERIOD_OPTIONS.map((p) => (
+              <button
+                key={p.label}
+                onClick={() => setDays(p.days)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  days === p.days
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>

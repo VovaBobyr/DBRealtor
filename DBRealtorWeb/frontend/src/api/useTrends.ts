@@ -4,14 +4,14 @@ import type { PriceTrendPoint } from './types'
 interface TrendsParams {
   locality: string
   property_type: string
-  months: number
+  days: number
 }
 
 async function fetchTrends(params: TrendsParams): Promise<PriceTrendPoint[]> {
   const qs = new URLSearchParams({
     locality: params.locality,
     property_type: params.property_type,
-    months: String(params.months),
+    days: String(params.days),
   })
   const res = await fetch(`/api/trends/price?${qs}`)
   if (!res.ok) throw new Error(`Trends fetch failed: ${res.status}`)
