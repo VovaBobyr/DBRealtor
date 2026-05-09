@@ -41,12 +41,12 @@ async def get_price_trend(
     session: AsyncSession = Depends(get_session),
 ) -> list[PriceTrendPoint]:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-    daily = days <= 30
-    period_expr = (
-        "DATE(ph.recorded_at AT TIME ZONE 'Europe/Prague')::text"
-        if daily
-        else "to_char(ph.recorded_at, 'YYYY-MM')"
-    )
+    if days <= 30:
+        period_expr = "DATE(ph.recorded_at AT TIME ZONE 'Europe/Prague')::text"
+    elif days <= 180:
+        period_expr = "to_char(DATE_TRUNC('week', ph.recorded_at AT TIME ZONE 'Europe/Prague'), 'YYYY-MM-DD')"
+    else:
+        period_expr = "to_char(ph.recorded_at AT TIME ZONE 'Europe/Prague', 'YYYY-MM')"
     flat_type_clause = (
         "AND l.raw_data->'categorySubCb'->>'name' = :flat_type"
         if flat_type and property_type == "flat"
@@ -132,6 +132,12 @@ async def get_new_per_day(
     charts on the Trends page share a single set of controls.
     """
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    if days <= 30:
+        date_expr = "DATE(first_seen_at AT TIME ZONE 'Europe/Prague')::text"
+    elif days <= 180:
+        date_expr = "to_char(DATE_TRUNC('week', first_seen_at AT TIME ZONE 'Europe/Prague'), 'YYYY-MM-DD')"
+    else:
+        date_expr = "to_char(first_seen_at AT TIME ZONE 'Europe/Prague', 'YYYY-MM')"
     flat_type_clause = (
         "AND raw_data->'categorySubCb'->>'name' = :flat_type"
         if flat_type and property_type == "flat"
@@ -149,8 +155,8 @@ async def get_new_per_day(
         text(
             f"""
             SELECT
-                DATE(first_seen_at AT TIME ZONE 'Europe/Prague') AS date,
-                COUNT(*)::int                                     AS count
+                {date_expr}      AS date,
+                COUNT(*)::int    AS count
             FROM listings
             WHERE locality      ILIKE :locality_pat
               AND property_type = :property_type
