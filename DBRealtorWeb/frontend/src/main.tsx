@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
+import { LangProvider } from './i18n/index.tsx'
 import './index.css'
 
 const queryClient = new QueryClient({
@@ -20,9 +21,11 @@ if (!rootEl) throw new Error('Root element not found')
 createRoot(rootEl).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <LangProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </LangProvider>
     </QueryClientProvider>
   </StrictMode>
 )
