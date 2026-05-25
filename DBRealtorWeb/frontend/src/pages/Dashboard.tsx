@@ -184,7 +184,7 @@ export default function Dashboard() {
                   width={52}
                 />
                 <Tooltip
-                  formatter={(v: number) => [formatCZK(v), t.dashboard.chartTooltip]}
+                  formatter={(v) => [typeof v === 'number' ? formatCZK(v) : v, t.dashboard.chartTooltip]}
                   contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', fontSize: '13px' }}
                 />
                 <Line
