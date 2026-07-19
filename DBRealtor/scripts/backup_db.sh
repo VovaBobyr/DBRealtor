@@ -31,6 +31,7 @@ $COMPOSE exec -T db \
 
 echo "[backup] dump complete ($(du -sh "$OUTFILE" | cut -f1))"
 
-# Rotate: delete backups older than KEEP_DAYS
+# Rotate: delete backups (and their .ok verification sidecars) older than KEEP_DAYS
 find "$BACKUP_DIR" -name "sreality_*.sql.gz" -mtime "+$KEEP_DAYS" -delete
+find "$BACKUP_DIR" -name "sreality_*.sql.gz.ok" -mtime "+$KEEP_DAYS" -delete
 echo "[backup] rotated files older than ${KEEP_DAYS} days"
