@@ -46,10 +46,17 @@ fi
 echo "[upload] verifying backup before upload..."
 bash "$REPO_DIR/scripts/backup_verify.sh" "$FILE"
 
+# --b2-hard-delete is REQUIRED on B2: without it, rclone's delete/overwrite only
+# *hides* the old version and keeps it forever, still counting against storage.
+# On the free 10 GB tier those hidden versions silently fill the bucket even
+# though the live file count stays at KEEP_REMOTE. Hard delete removes the actual
+# version so rotation truly frees space.
+HARD=(--b2-hard-delete)
+
 # --- upload the backup and its proof-of-good sidecar ----------------------
 echo "[upload] uploading to $REMOTE ..."
-rclone copy "$FILE" "$REMOTE/" --progress
-rclone copy "$FILE.ok" "$REMOTE/" 2>/dev/null || true
+rclone copy "${HARD[@]}" "$FILE" "$REMOTE/" --progress
+rclone copy "${HARD[@]}" "$FILE.ok" "$REMOTE/" 2>/dev/null || true
 echo "[upload] done: $(basename "$FILE")"
 
 # --- safe rotation: keep the newest KEEP_REMOTE verified backups by COUNT --
@@ -64,10 +71,14 @@ if (( COUNT > KEEP_REMOTE )); then
     for (( i = 0; i < DELETE_N; i++ )); do
         OLD="${REMOTE_FILES[$i]}"
         echo "[upload] rotating out old backup: $OLD"
-        rclone deletefile "$REMOTE/$OLD" || true
-        rclone deletefile "$REMOTE/$OLD.ok" 2>/dev/null || true
+        rclone deletefile "${HARD[@]}" "$REMOTE/$OLD" || true
+        rclone deletefile "${HARD[@]}" "$REMOTE/$OLD.ok" 2>/dev/null || true
     done
     echo "[upload] rotated out $DELETE_N old backup(s)"
 else
     echo "[upload] nothing to rotate"
 fi
+
+# Belt-and-suspenders: purge any stray hidden versions (e.g. from an interrupted
+# run or a manual overwrite) so storage can never creep back toward the limit.
+rclone cleanup "$REMOTE" 2>&1 | tail -1 || true
